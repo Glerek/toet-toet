@@ -10,4 +10,24 @@ public abstract class Pickable : MonoBehaviour
 	{
 		get { return _icon; }
 	}
+
+    public void DecreaseDurability(float diff)
+    {
+        if (_durability > 0.0f)
+        {
+            _durability -= diff;
+            if (_durability <= 0.0f)
+            {
+                _durability = 0.0f;
+                OnBroken();
+            }
+        }
+    }
+
+    public bool CanWork()
+    {
+        return _durability > 0.0f;
+    }
+
+    public abstract void OnBroken();
 }

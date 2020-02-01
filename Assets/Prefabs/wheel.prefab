@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 2327954574709265268}
   - component: {fileID: -7712510257738484042}
   - component: {fileID: -6529976561436035677}
+  - component: {fileID: -4905886567672672404}
   m_Layer: 0
-  m_Name: tire
-  m_TagString: Tire
+  m_Name: wheel
+  m_TagString: Wheel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -120,3 +121,15 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &-4905886567672672404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2327954574709265270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 255fbcba18e791f43834586da504ba7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
