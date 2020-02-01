@@ -331,7 +331,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5b05f8d245908041a34ed99610c5e01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  torque: 5
+  _torque: 10
+  _durabilityDecreasePerSecond: 2
+  _wheels:
+  - {fileID: 6745041448852412484}
+  - {fileID: 9067361421990777434}
+  _lights:
+  - {fileID: 2022981978922216912}
 --- !u!1001 &5061895368981470518
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -355,6 +361,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 15dec92366bc8416a9ed38a44426d6e5,
         type: 3}
+    - target: {fileID: 2327954574709265268, guid: 0c410aef5b5a89d4faf79a87875cf559,
+        type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2327954574709265269, guid: 0c410aef5b5a89d4faf79a87875cf559,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -439,6 +450,18 @@ Rigidbody2D:
     type: 3}
   m_PrefabInstance: {fileID: 5061895368981470518}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &9067361421990777434 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -4905886567672672404, guid: 0c410aef5b5a89d4faf79a87875cf559,
+    type: 3}
+  m_PrefabInstance: {fileID: 5061895368981470518}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 255fbcba18e791f43834586da504ba7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7381955449641293608
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -477,6 +500,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 15dec92366bc8416a9ed38a44426d6e5,
         type: 3}
+    - target: {fileID: 2327954574709265268, guid: 0c410aef5b5a89d4faf79a87875cf559,
+        type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2327954574709265269, guid: 0c410aef5b5a89d4faf79a87875cf559,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -556,3 +584,15 @@ Rigidbody2D:
     type: 3}
   m_PrefabInstance: {fileID: 7381955449641293608}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6745041448852412484 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -4905886567672672404, guid: 0c410aef5b5a89d4faf79a87875cf559,
+    type: 3}
+  m_PrefabInstance: {fileID: 7381955449641293608}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 255fbcba18e791f43834586da504ba7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -48,9 +48,8 @@ MonoBehaviour:
   - {fileID: 7701704464894055422}
   - {fileID: 422543364300744945}
   - {fileID: 8544867861079151884}
-  _subsystems:
-  - {fileID: 819948884207415809}
-  - {fileID: 7837601682119636815}
+  _wheelsSubsystem: {fileID: 819948884207415809}
+  _lightsSubsystem: {fileID: 7837601682119636815}
   _hitchhiker: {fileID: 245671016248051947}
 --- !u!1 &882826162240200012
 GameObject:
