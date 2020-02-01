@@ -31,11 +31,6 @@ public class GameManager : Singleton<GameManager>, PlayerAction.IPlayerActions
 
     void OnDisable() => input.Disable();
 
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -43,11 +38,6 @@ public class GameManager : Singleton<GameManager>, PlayerAction.IPlayerActions
         {
             car.accel();
         }
-
-        float carX = car.transform.position.x;
-        updateXPos(cam.transform, carX);
-        updateXPos(background.transform, carX);
-        updateXPos(foreground.transform, carX);
     }
 
     public void OnAccel(InputAction.CallbackContext context)
