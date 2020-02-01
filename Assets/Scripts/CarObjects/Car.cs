@@ -6,14 +6,19 @@ using UnityEngine.InputSystem;
 public class Car : MonoBehaviour
 {
     public float torque = 10.0f;
+    public int gus = 100;
 
     GameObject[] tires;
 
     public void accel()
     {
-        foreach (var tire in tires)
+        if (gus > 0)
         {
-            tire.GetComponent<Rigidbody2D>().AddTorque(-torque, ForceMode2D.Force);
+            foreach (var tire in tires)
+            {
+                tire.GetComponent<Rigidbody2D>().AddTorque(-torque, ForceMode2D.Force);
+            }
+            gus--;
         }
     }
 
@@ -26,7 +31,6 @@ public class Car : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        
     }
 
     
