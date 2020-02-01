@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DrivingUI : MonoBehaviour
+public class DrivingUI : Singleton<DrivingUI>
 {
+	[SerializeField]
+	private Canvas _canvas = null;
+
 	public List<TrunkItem> _inventory = new List<TrunkItem>();
 	[SerializeField]
 	private SubsystemUI _wheelsSubsystem = null;
@@ -12,6 +15,11 @@ public class DrivingUI : MonoBehaviour
 	private SubsystemUI _lightsSubsystem = null;
 
 	public HitchhikerUI _hitchhiker = null;
+
+	public void Display(bool show)
+	{
+		_canvas.gameObject.SetActive(show);
+	}
 
 	private void Update()
 	{

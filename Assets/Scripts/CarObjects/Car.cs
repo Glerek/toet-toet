@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -43,11 +44,59 @@ public class Car : MonoBehaviour
 	}
 
 	private bool _duringAcceleration = false;
+	private bool _canMove = true;
+	public bool CanMove
+	{
+		get { return _canMove; }
+		private set
+		{
+			if (_canMove != value)
+			{
+				_canMove = value;
+
+				DrivingUI.Instance.Display(_canMove);
+				RepairingUI.Instance.Display(!_canMove);
+			}
+		}
+	}
+
+	private Action _onVehicleStuck = null;
+	public event Action OnVehicleStuck
+	{
+		add 
+		{
+			_onVehicleStuck -= value;
+			_onVehicleStuck += value;
+		}
+
+		remove
+		{
+			_onVehicleStuck -= value;
+		}
+	}
 
     void Start()
     {
+		for (int i = 0; i < _wheels.Count; i++)
+		{
+			_wheels[i].OnBreakAction += OnWheelBroken;
+		}
+
         StartCoroutine(DecreaseDurability());
     }
+
+	private void OnWheelBroken(Pickable wheel)
+	{
+		wheel.OnBreakAction -= OnWheelBroken;
+
+		bool allWheelsBroken = true;
+		for (int i = 0; i < _wheels.Count; i++)
+		{
+			allWheelsBroken &= !_wheels[i].CanWork();
+		}
+
+		_canMove = !allWheelsBroken;
+	}
 
     private IEnumerator DecreaseDurability()
     {
@@ -83,7 +132,7 @@ public class Car : MonoBehaviour
     {
 		_duringAcceleration = accelerate;
 
-		if (_duringAcceleration)
+		if (_duringAcceleration && _canMove)
 		{
 			foreach (var wheel in _wheels)
 			{
@@ -96,6 +145,10 @@ public class Car : MonoBehaviour
 					_duringAcceleration = false;
 				}
 			}
+		}
+		else
+		{
+			_duringAcceleration = false;
 		}
     }
 }
