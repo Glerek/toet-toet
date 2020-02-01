@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NewBehaviourScript : MonoBehaviour
+public class CarLight : MonoBehaviour
 {
     private int hp;
     private enum status { normal, broken, lost };
