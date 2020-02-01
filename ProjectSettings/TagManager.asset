@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Tire
+  - Wheel
+  - Light
   layers:
   - Default
   - TransparentFX
@@ -45,6 +47,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Player
+  - name: Car
     uniqueID: 4011910847
+    locked: 0
+  - name: Wheel
+    uniqueID: 3247304019
+    locked: 0
+  - name: Foreground
+    uniqueID: 2740353931
     locked: 0

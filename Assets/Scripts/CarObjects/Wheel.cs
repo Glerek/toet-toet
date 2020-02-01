@@ -4,4 +4,8 @@ using UnityEngine;
 
 public class Wheel : Pickable
 {
+    public override void OnBroken()
+    {
+        // do nothing
+    }
 }

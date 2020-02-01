@@ -7,6 +7,9 @@ public class GameManager : Singleton<GameManager>, PlayerAction.IPlayerActions
 {
 	public GameObject _spawnTarget = null; 
     public Car carPrefab;
+    public GameObject cam;
+    public GameObject background;
+    public GameObject foreground;
 
     PlayerAction.PlayerActions input;
 
@@ -40,5 +43,10 @@ public class GameManager : Singleton<GameManager>, PlayerAction.IPlayerActions
     public void OnAccel(InputAction.CallbackContext context)
     {
         pushedAccel = context.ReadValue<float>() == 1.0f;
+    }
+
+    private void updateXPos(Transform t, float x)
+    {
+        t.position = new Vector3(x, t.position.y, t.position.z);
     }
 }
