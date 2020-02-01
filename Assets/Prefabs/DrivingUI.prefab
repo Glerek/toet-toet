@@ -9,6 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6453451514153248788}
+  - component: {fileID: 1848362324384575676}
+  - component: {fileID: 1234506490285268304}
   m_Layer: 0
   m_Name: DrivingUI
   m_TagString: Untagged
@@ -32,6 +34,44 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1848362324384575676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 101676918641294563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 199b2b117248d4389bd66cb44425cf66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _inventory:
+  - {fileID: 7701704464894055422}
+  - {fileID: 422543364300744945}
+  - {fileID: 8544867861079151884}
+  _subsystems:
+  - {fileID: 819948884207415809}
+  - {fileID: 7837601682119636815}
+  _hitchhiker: {fileID: 245671016248051947}
+--- !u!114 &1234506490285268304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 101676918641294563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 199b2b117248d4389bd66cb44425cf66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _inventory:
+  - {fileID: 1234506490285268298}
+  - {fileID: 1234506490285268300}
+  - {fileID: 1234506490285268302}
+  _subsystems: []
+  _hitchhiker: {fileID: 0}
 --- !u!1 &882826162240200012
 GameObject:
   m_ObjectHideFlags: 0
@@ -43,6 +83,8 @@ GameObject:
   - component: {fileID: 3952350745829022246}
   - component: {fileID: 5213684700788948707}
   - component: {fileID: 6467366268856831903}
+  - component: {fileID: 422543364300744945}
+  - component: {fileID: 1234506490285268300}
   m_Layer: 0
   m_Name: TrunkItem2
   m_TagString: Untagged
@@ -105,6 +147,32 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &422543364300744945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 882826162240200012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09246fd689ffe4d6497ceabfd819f6d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _icon: {fileID: 0}
+--- !u!114 &1234506490285268300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 882826162240200012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09246fd689ffe4d6497ceabfd819f6d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _icon: {fileID: 6467366268856831903}
 --- !u!1 &1243013131156084179
 GameObject:
   m_ObjectHideFlags: 0
@@ -288,6 +356,8 @@ GameObject:
   - component: {fileID: 7392900477195104871}
   - component: {fileID: 2212600563365126131}
   - component: {fileID: 7481009012024457171}
+  - component: {fileID: 7701704464894055422}
+  - component: {fileID: 1234506490285268298}
   m_Layer: 0
   m_Name: TrunkItem1
   m_TagString: Untagged
@@ -350,6 +420,32 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7701704464894055422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1347065730960899191}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09246fd689ffe4d6497ceabfd819f6d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _icon: {fileID: 0}
+--- !u!114 &1234506490285268298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1347065730960899191}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09246fd689ffe4d6497ceabfd819f6d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _icon: {fileID: 7481009012024457171}
 --- !u!1 &1443778405932373283
 GameObject:
   m_ObjectHideFlags: 0
@@ -361,6 +457,7 @@ GameObject:
   - component: {fileID: 2631779826295877325}
   - component: {fileID: 4005441707643172958}
   - component: {fileID: 7150109850632949866}
+  - component: {fileID: 5609891521844887846}
   m_Layer: 0
   m_Name: Gauge
   m_TagString: Untagged
@@ -413,16 +510,29 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Sprite: {fileID: 6876196804455891898, guid: 0a64b3faad20d7f49aa605edff512c1e,
+    type: 3}
+  m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 4
+  m_FillMethod: 0
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &5609891521844887846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1443778405932373283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 447e70412f0ec4f078e4385b614bfcac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1675727571196500737
 GameObject:
   m_ObjectHideFlags: 0
@@ -434,6 +544,8 @@ GameObject:
   - component: {fileID: 526252294761289673}
   - component: {fileID: 188544977582534910}
   - component: {fileID: 2340620913380597558}
+  - component: {fileID: 8544867861079151884}
+  - component: {fileID: 1234506490285268302}
   m_Layer: 0
   m_Name: TrunkItem3
   m_TagString: Untagged
@@ -496,6 +608,32 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8544867861079151884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1675727571196500737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09246fd689ffe4d6497ceabfd819f6d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _icon: {fileID: 0}
+--- !u!114 &1234506490285268302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1675727571196500737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09246fd689ffe4d6497ceabfd819f6d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _icon: {fileID: 2340620913380597558}
 --- !u!1 &2714818883597089553
 GameObject:
   m_ObjectHideFlags: 0
@@ -505,6 +643,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4267981498514200905}
+  - component: {fileID: 245671016248051947}
   m_Layer: 0
   m_Name: HitchhikerContainer
   m_TagString: Untagged
@@ -533,6 +672,18 @@ RectTransform:
   m_AnchoredPosition: {x: 980, y: -120}
   m_SizeDelta: {x: 600, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &245671016248051947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2714818883597089553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf6a0192e6460467cb64722d4a9ec751, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3133381179064932365
 GameObject:
   m_ObjectHideFlags: 0
@@ -901,6 +1052,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8489083181100295151}
+  - component: {fileID: 7837601682119636815}
   m_Layer: 0
   m_Name: LightSubsystem
   m_TagString: Untagged
@@ -929,6 +1081,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &7837601682119636815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6732030535074267038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d33d89904cf8d4fc99a7265dd91afe66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _subsystemHpGauge: {fileID: 5609891521844887846}
 --- !u!1 &6738481498392400360
 GameObject:
   m_ObjectHideFlags: 0
@@ -1004,6 +1169,7 @@ GameObject:
   - component: {fileID: 1371609276255040829}
   - component: {fileID: 4659817182813971917}
   - component: {fileID: 3442183811658250536}
+  - component: {fileID: 7370769608418543403}
   m_Layer: 0
   m_Name: HappinessGauge
   m_TagString: Untagged
@@ -1056,16 +1222,29 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Sprite: {fileID: 6876196804455891898, guid: 0a64b3faad20d7f49aa605edff512c1e,
+    type: 3}
+  m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 4
+  m_FillMethod: 0
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7370769608418543403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6958099456301983921}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 447e70412f0ec4f078e4385b614bfcac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7019922400589358510
 GameObject:
   m_ObjectHideFlags: 0
@@ -1075,8 +1254,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8423839248067262418}
-  - component: {fileID: 541071302953080211}
-  - component: {fileID: 7258204923742508831}
+  - component: {fileID: 3343886976195887860}
+  - component: {fileID: 8742479047488361187}
+  - component: {fileID: 8760986134465444085}
   m_Layer: 0
   m_Name: Gauge
   m_TagString: Untagged
@@ -1103,7 +1283,7 @@ RectTransform:
   m_AnchoredPosition: {x: 55, y: 0}
   m_SizeDelta: {x: -110, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &541071302953080211
+--- !u!222 &3343886976195887860
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1111,7 +1291,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7019922400589358510}
   m_CullTransparentMesh: 0
---- !u!114 &7258204923742508831
+--- !u!114 &8742479047488361187
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1129,16 +1309,29 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Sprite: {fileID: 6876196804455891898, guid: 0a64b3faad20d7f49aa605edff512c1e,
+    type: 3}
+  m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 4
+  m_FillMethod: 0
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8760986134465444085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7019922400589358510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 447e70412f0ec4f078e4385b614bfcac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7045876207160911478
 GameObject:
   m_ObjectHideFlags: 0
@@ -1148,6 +1341,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6358847877908880484}
+  - component: {fileID: 819948884207415809}
   m_Layer: 0
   m_Name: WheelSubsystem
   m_TagString: Untagged
@@ -1176,3 +1370,16 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &819948884207415809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7045876207160911478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d33d89904cf8d4fc99a7265dd91afe66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _subsystemHpGauge: {fileID: 8760986134465444085}
