@@ -5,6 +5,13 @@ using UnityEngine;
 public class DrivingUI : MonoBehaviour
 {
 	public List<TrunkItem> _inventory = new List<TrunkItem>();
+	public List<SubsystemUI> _subsystems = new List<SubsystemUI>();
+	public HitchhikerUI _hitchhiker = null;
 
-	
+	public void Initialize()
+	{
+		
+	}
+
+
 }
