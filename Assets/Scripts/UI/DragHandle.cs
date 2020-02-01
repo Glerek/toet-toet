@@ -2,33 +2,56 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
-public class DragHandle : MonoBehaviour, IDragHandler, IEndDragHandler
+[RequireComponent(typeof(Image))]
+public class DragHandle : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHandler
 {
-	public void OnBeginDrag(PointerEventData eventData)
-	{
-		Debug.Log("aa");
-	}
+    public static GameObject item;
+    Vector3 startPosition;
+    Transform startParent;
+    //bool start = true;
 
-	public void OnDrag(PointerEventData eventData)
-	{
-		Debug.Log("aasd");
-		this.transform.localPosition = Input.mousePosition;
-	}
 
-	public void OnEndDrag(PointerEventData eventData)
-	{
-		transform.localPosition = Vector2.zero;
-	}
-    // Start is called before the first frame update
-    void Start()
+
+    #region IBeginDragHandler implementation
+    public void OnBeginDrag(PointerEventData eventData)
     {
+        item = gameObject;
+        startPosition = transform.position;
+        startParent = transform.parent;
+
+        GetComponent<CanvasGroup>().blocksRaycasts = false;
 
     }
 
-    // Update is called once per frame
-    void Update()
+    #endregion
+
+
+
+    #region IDragHandler implementation
+    public void OnDrag(PointerEventData eventData)
     {
+        transform.position = Camera.main.ScreenToWorldPoint(
+                 new Vector3(Input.mousePosition.x,
+                 Input.mousePosition.y,
+                 Camera.main.nearClipPlane));
+    }
+    #endregion
+
+
+
+    #region IEndDraghandler implementation
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        item = null;
+
+        if (transform.parent == startParent)
+        {
+            transform.position = startPosition;
+        }
+        GetComponent<CanvasGroup>().blocksRaycasts = true;
 
     }
+    #endregion
 }
