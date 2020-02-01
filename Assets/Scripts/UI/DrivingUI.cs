@@ -13,5 +13,8 @@ public class DrivingUI : MonoBehaviour
 		
 	}
 
-
+	private void Update()
+	{
+		// for(int i = 0; i < GameManager.Instance.Car.wheelsk; i < 
+	}
 }
