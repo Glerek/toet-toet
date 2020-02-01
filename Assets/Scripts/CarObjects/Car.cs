@@ -8,7 +8,9 @@ public class Car : MonoBehaviour
     public float torque = 10.0f;
 
     GameObject[] wheelObjects;
+	public GameObject[] WheelObjects { get { return wheelObjects; } }
     GameObject lightObject;
+	public GameObject LightObject { get { return lightObject; } }
 
     public void accel()
     {
@@ -41,9 +43,9 @@ public class Car : MonoBehaviour
         {
             foreach (var wheel in wheelObjects)
             {
-                wheel.GetComponent<Wheel>().DecreaseDurability(1.0f);
+                wheel.GetComponent<Wheel>().DecreaseDurability(5.0f);
             }
-            lightObject.GetComponent<CarLight>().DecreaseDurability(1.0f);
+            lightObject.GetComponent<CarLight>().DecreaseDurability(5.0f);
 
             yield return new WaitForSeconds(1.0f);
         }
