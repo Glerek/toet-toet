@@ -5,25 +5,17 @@ using UnityEngine;
 public class DrivingUI : MonoBehaviour
 {
 	public List<TrunkItem> _inventory = new List<TrunkItem>();
-	public List<SubsystemUI> _subsystems = new List<SubsystemUI>();
-	public HitchhikerUI _hitchhiker = null;
+	[SerializeField]
+	private SubsystemUI _wheelsSubsystem = null;
 
-	public void Initialize()
-	{
-		
-	}
+	[SerializeField]
+	private SubsystemUI _lightsSubsystem = null;
+
+	public HitchhikerUI _hitchhiker = null;
 
 	private void Update()
 	{
-		float averageDurability = 0f;
-		for (int i = 0; i < GameManager.Instance.Car.WheelObjects.Length; i++)
-		{
-			averageDurability += GameManager.Instance.Car.WheelObjects[i].GetComponent<Wheel>().Durability;
-			averageDurability /= (i + 1);
-		}
-
-		_subsystems[0]._subsystemHpGauge.Display(averageDurability / Pickable.MAX_DURABILITY);
-
-		_subsystems[1]._subsystemHpGauge.Display(GameManager.Instance.Car.LightObject.GetComponent<CarLight>().Durability / Pickable.MAX_DURABILITY);
+		_wheelsSubsystem._subsystemHpGauge.Display(GameManager.Instance.Car.WheelsDurability / Pickable.MAX_DURABILITY);
+		_lightsSubsystem._subsystemHpGauge.Display(GameManager.Instance.Car.LightsDurability / Pickable.MAX_DURABILITY);
 	}
 }
