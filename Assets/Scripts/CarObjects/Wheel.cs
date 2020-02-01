@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Wheel : MonoBehaviour
+public class Wheel : Pickable
 {
-    private int hp;
-    private enum status { normal, broken, lost}
 }

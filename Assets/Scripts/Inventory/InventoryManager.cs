@@ -5,8 +5,8 @@ using System.Collections.Generic;
 public class InventoryManager : Singleton<InventoryManager>
 {
 	public const int MAX_INVENTORY_SIZE = 3;
-	private List<IPickable> _inventory = new List<IPickable>();
-	public List<IPickable> Inventory
+	private List<Pickable> _inventory = new List<Pickable>();
+	public List<Pickable> Inventory
 	{
 		get { return _inventory; }
 	}
@@ -23,7 +23,7 @@ public class InventoryManager : Singleton<InventoryManager>
 		remove { _onInventoryChanged -= value; }
 	}
 
-	public void AddToInventory(IPickable pickup)
+	public void AddToInventory(Pickable pickup)
 	{
 		if (_inventory.Count < MAX_INVENTORY_SIZE)
 		{
@@ -34,7 +34,7 @@ public class InventoryManager : Singleton<InventoryManager>
 		}
 	}
 
-	public void RemoveFromInventory(IPickable pickup)
+	public void RemoveFromInventory(Pickable pickup)
 	{
 		if (_inventory.Contains(pickup))
 		{
