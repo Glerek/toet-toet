@@ -4,20 +4,20 @@ using UnityEngine;
 
 public class Car : MonoBehaviour
 {
-    private Vector2 speed = new Vector2(50, 10);
-    private Wheel frontWheel = new Wheel();
-    private Wheel backWheel = new Wheel();
-    private CarLight carLight = new CarLight();
+    GameObject[] tires;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        tires = GameObject.FindGameObjectsWithTag("Tire");
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        
+        foreach (var tire in tires)
+        {
+            tire.GetComponent<Rigidbody2D>().AddTorque(-10, ForceMode2D.Force);
+        }
     }
 }
