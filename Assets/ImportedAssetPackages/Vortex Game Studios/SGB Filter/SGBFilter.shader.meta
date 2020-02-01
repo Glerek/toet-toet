@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 0c5205f83e2828c46a2f7adbfc6192db
+timeCreated: 1455134797
+licenseType: Store
+ShaderImporter:
+  defaultTextures:
+  - _MainTex: {instanceID: 0}
+  - _ReferenceTex: {fileID: 2800000, guid: 6f28a0c8c0632e540abb399ea90b53a5, type: 3}
+  - _PaletteTex: {fileID: 2800000, guid: 01853a4294ab59244a5ba9eaebdf4664, type: 3}
+  - _DitheringTex: {fileID: 2800000, guid: 2d112f4ec2f26924cb03c0d42a49aec2, type: 3}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
