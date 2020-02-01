@@ -4,4 +4,8 @@ using UnityEngine;
 
 public class CarLight : Pickable
 {
+    public override void OnBroken()
+    {
+        gameObject.SetActive(false);
+    }
 }
