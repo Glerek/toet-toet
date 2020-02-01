@@ -10,9 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 5061895367528011204}
   - component: {fileID: 5061895367528011205}
+  - component: {fileID: 2022981978922216912}
   m_Layer: 0
   m_Name: light
-  m_TagString: Untagged
+  m_TagString: Light
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -92,6 +93,18 @@ Light:
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &2022981978922216912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5061895367528011206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a178e43a47ea70d4990d656f624e2279, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5061895367854924928
 GameObject:
   m_ObjectHideFlags: 0
@@ -167,8 +180,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -283056449
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: d8eae4b97d1c9e646a197b6ddb8c2028, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -298,6 +311,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5061895367854924926}
     m_Modifications:
+    - target: {fileID: 2327954574709265268, guid: 0c410aef5b5a89d4faf79a87875cf559,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1047663277
+      objectReference: {fileID: 0}
+    - target: {fileID: 2327954574709265268, guid: 0c410aef5b5a89d4faf79a87875cf559,
+        type: 3}
+      propertyPath: m_SortingLayer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2327954574709265269, guid: 0c410aef5b5a89d4faf79a87875cf559,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -356,7 +379,12 @@ PrefabInstance:
     - target: {fileID: 2327954574709265270, guid: 0c410aef5b5a89d4faf79a87875cf559,
         type: 3}
       propertyPath: m_Name
-      value: tire
+      value: wheel
+      objectReference: {fileID: 0}
+    - target: {fileID: 2327954574709265270, guid: 0c410aef5b5a89d4faf79a87875cf559,
+        type: 3}
+      propertyPath: m_TagString
+      value: Wheel
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c410aef5b5a89d4faf79a87875cf559, type: 3}
@@ -379,6 +407,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5061895367854924926}
     m_Modifications:
+    - target: {fileID: 2327954574709265268, guid: 0c410aef5b5a89d4faf79a87875cf559,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1047663277
+      objectReference: {fileID: 0}
+    - target: {fileID: 2327954574709265268, guid: 0c410aef5b5a89d4faf79a87875cf559,
+        type: 3}
+      propertyPath: m_SortingLayer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2327954574709265269, guid: 0c410aef5b5a89d4faf79a87875cf559,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -437,7 +475,7 @@ PrefabInstance:
     - target: {fileID: 2327954574709265270, guid: 0c410aef5b5a89d4faf79a87875cf559,
         type: 3}
       propertyPath: m_Name
-      value: tire
+      value: wheel
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c410aef5b5a89d4faf79a87875cf559, type: 3}

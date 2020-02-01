@@ -6,31 +6,47 @@ using UnityEngine.InputSystem;
 public class Car : MonoBehaviour
 {
     public float torque = 10.0f;
-    public int gus = 100;
 
-    GameObject[] tires;
+    GameObject[] wheelObjects;
+    GameObject lightObject;
 
     public void accel()
     {
-        if (gus > 0)
+        foreach (var wheelObj in wheelObjects)
         {
-            foreach (var tire in tires)
+            if (wheelObj.GetComponent<Wheel>().CanWork())
             {
-                tire.GetComponent<Rigidbody2D>().AddTorque(-torque, ForceMode2D.Force);
+                wheelObj.GetComponent<Rigidbody2D>().AddTorque(-torque, ForceMode2D.Force);
             }
-            gus--;
         }
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        tires = GameObject.FindGameObjectsWithTag("Tire");
+        wheelObjects = GameObject.FindGameObjectsWithTag("Wheel");
+        lightObject = GameObject.FindGameObjectWithTag("Light");
+
+        StartCoroutine(DecreaseDurability());
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
+    }
+
+    private IEnumerator DecreaseDurability()
+    {
+        while (true)
+        {
+            foreach (var wheel in wheelObjects)
+            {
+                wheel.GetComponent<Wheel>().DecreaseDurability(1.0f);
+            }
+            lightObject.GetComponent<CarLight>().DecreaseDurability(1.0f);
+
+            yield return new WaitForSeconds(1.0f);
+        }
     }
 
     
