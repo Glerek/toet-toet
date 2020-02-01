@@ -28,6 +28,12 @@ public class GameManager : Singleton<GameManager>, PlayerAction.IPlayerActions
         _car = Instantiate(_carTemplate, _spawnTarget.transform.position, Quaternion.identity);
     }
 
+	private void Start()
+	{
+		DrivingUI.Instance.Display(true);
+		RepairingUI.Instance.Display(false);
+	}
+
     void OnEnable() => _input.Enable();
     void OnDestroy() => _input.Disable();
 
