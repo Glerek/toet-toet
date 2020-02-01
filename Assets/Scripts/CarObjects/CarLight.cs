@@ -8,4 +8,11 @@ public class CarLight : Pickable
     {
         gameObject.SetActive(false);
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        var mag = collision.relativeVelocity.magnitude;
+        Debug.Log("Car Light: " + mag);
+        DecreaseDurability(mag);
+    }
 }

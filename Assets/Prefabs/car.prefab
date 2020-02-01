@@ -218,8 +218,9 @@ EdgeCollider2D:
   - {x: 1.2184191, y: -0.2831555}
   - {x: 1.9216994, y: -0.3074001}
   - {x: 1.9488499, y: -1.0275028}
-  - {x: 1.556834, y: -1.1849313}
-  - {x: -1.3849671, y: -1.1736606}
+  - {x: 1.357338, y: -0.5517478}
+  - {x: 0.014718294, y: -0.49346507}
+  - {x: -1.2114925, y: -0.6098672}
   - {x: -1.9147294, y: -0.98648095}
   - {x: -1.9132326, y: -0.839541}
 --- !u!50 &5061895367854924923
@@ -407,6 +408,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5061895367854924926}
     m_Modifications:
+    - target: {fileID: -7712510257738484042, guid: 0c410aef5b5a89d4faf79a87875cf559,
+        type: 3}
+      propertyPath: m_Offset.y
+      value: 0.008673936
+      objectReference: {fileID: 0}
+    - target: {fileID: -7712510257738484042, guid: 0c410aef5b5a89d4faf79a87875cf559,
+        type: 3}
+      propertyPath: m_Radius
+      value: 0.49132606
+      objectReference: {fileID: 0}
+    - target: {fileID: -7712510257738484042, guid: 0c410aef5b5a89d4faf79a87875cf559,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2327954574709265268, guid: 0c410aef5b5a89d4faf79a87875cf559,
         type: 3}
       propertyPath: m_SortingLayerID
