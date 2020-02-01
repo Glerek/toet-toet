@@ -26,16 +26,27 @@ public class Car : MonoBehaviour
     {
         wheelObjects = GameObject.FindGameObjectsWithTag("Wheel");
         lightObject = GameObject.FindGameObjectWithTag("Light");
+
+        StartCoroutine(DecreaseDurability());
     }
 
     // Update is called once per frame
     void Update()
     {
-        foreach (var wheel in wheelObjects)
+    }
+
+    private IEnumerator DecreaseDurability()
+    {
+        while (true)
         {
-            wheel.GetComponent<Wheel>().DecreaseDurability(0.1f);
+            foreach (var wheel in wheelObjects)
+            {
+                wheel.GetComponent<Wheel>().DecreaseDurability(1.0f);
+            }
+            lightObject.GetComponent<CarLight>().DecreaseDurability(1.0f);
+
+            yield return new WaitForSeconds(1.0f);
         }
-        lightObject.GetComponent<CarLight>().DecreaseDurability(0.1f);
     }
 
     

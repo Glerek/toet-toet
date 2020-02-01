@@ -34,9 +34,6 @@ public class GameManager : Singleton<GameManager>, PlayerAction.IPlayerActions
     // Start is called before the first frame update
     void Start()
     {
-        car = Instantiate(carPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-
-        Debug.Log(background.GetComponent<RectTransform>().sizeDelta.x);
     }
 
     // Update is called once per frame
