@@ -10,7 +10,6 @@ public class DragHandle : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDr
     public static GameObject item;
     Vector3 startPosition;
     Transform startParent;
-    //bool start = true;
 
 
 
@@ -20,7 +19,6 @@ public class DragHandle : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDr
         item = gameObject;
         startPosition = transform.position;
         startParent = transform.parent;
-
         GetComponent<CanvasGroup>().blocksRaycasts = false;
 
     }
@@ -54,4 +52,6 @@ public class DragHandle : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDr
 
     }
     #endregion
+
+
 }
