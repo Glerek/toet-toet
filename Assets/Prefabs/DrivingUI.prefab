@@ -44,13 +44,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 199b2b117248d4389bd66cb44425cf66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _canvas: {fileID: 1341469192527599832}
   _inventory:
   - {fileID: 7701704464894055422}
   - {fileID: 422543364300744945}
   - {fileID: 8544867861079151884}
-  _subsystems:
-  - {fileID: 819948884207415809}
-  - {fileID: 7837601682119636815}
+  _wheelsSubsystem: {fileID: 819948884207415809}
+  _lightsSubsystem: {fileID: 7837601682119636815}
   _hitchhiker: {fileID: 245671016248051947}
 --- !u!1 &882826162240200012
 GameObject:

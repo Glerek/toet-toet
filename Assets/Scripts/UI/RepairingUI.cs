@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class RepairingUI : Singleton<RepairingUI>
 {
+	[SerializeField]
+	private Canvas _canvas = null;
+
     public List<GameObject> items;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         int count = 0; //the index of the items
 
@@ -24,12 +26,10 @@ public class RepairingUI : Singleton<RepairingUI>
             }
             count++;
         }
-
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	public void Display(bool show)
+	{
+		_canvas.gameObject.SetActive(show);
+	}
 }

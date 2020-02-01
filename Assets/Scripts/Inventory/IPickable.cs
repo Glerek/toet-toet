@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public abstract class Pickable : MonoBehaviour
@@ -12,6 +13,18 @@ public abstract class Pickable : MonoBehaviour
 		get { return _icon; }
 	}
 
+	private Action<Pickable> _onBreakAction = null;
+	public event Action<Pickable> OnBreakAction
+	{
+		add 
+		{
+			_onBreakAction -= value;
+			_onBreakAction += value;
+		}
+
+		remove { _onBreakAction -= value; }
+	}
+
     public void DecreaseDurability(float diff)
     {
         if (_durability > 0.0f)
@@ -20,6 +33,13 @@ public abstract class Pickable : MonoBehaviour
             if (_durability <= 0.0f)
             {
                 _durability = 0.0f;
+				Debug.Log(gameObject.name + " just broke!");
+
+				if (_onBreakAction != null)
+				{
+					_onBreakAction(this);
+				}
+
                 OnBroken();
             }
         }
@@ -30,5 +50,5 @@ public abstract class Pickable : MonoBehaviour
         return _durability > 0.0f;
     }
 
-    public abstract void OnBroken();
+    protected abstract void OnBroken();
 }
