@@ -19,7 +19,6 @@ public class DropHandle : MonoBehaviour, IDropHandler
 		Wheel draggedWheel = InventoryManager.Instance.Inventory[0] as Wheel;
 
 		draggedWheel.transform.SetParent(GameManager.Instance.Car.transform);
-		draggedWheel.transform.localPosition = Vector3.zero;
 		draggedWheel.Durability = Pickable.MAX_DURABILITY;
 
 		switch (target.name)
@@ -27,11 +26,13 @@ public class DropHandle : MonoBehaviour, IDropHandler
 			case "FrontWheel":
 				GameManager.Instance.Car.FrontWheel.Wheel = draggedWheel;
 				GameManager.Instance.Car.FrontWheel.Joint.connectedBody = draggedWheel.GetComponent<Rigidbody2D>();
+				draggedWheel.transform.localPosition = GameManager.Instance.Car.FrontWheel.Joint.anchor;
 				break;
 
 			case "BackWheel":
 				GameManager.Instance.Car.BackWheel.Wheel = draggedWheel;
 				GameManager.Instance.Car.BackWheel.Joint.connectedBody = draggedWheel.GetComponent<Rigidbody2D>();
+				draggedWheel.transform.localPosition = GameManager.Instance.Car.BackWheel.Joint.anchor;
 				break;
 		}
 		
