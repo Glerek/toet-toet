@@ -3,5 +3,7 @@ using UnityEngine.UI;
 
 public class TrunkItem : MonoBehaviour
 {
-	public Image _icon = null;
+	[SerializeField]
+	private Image _icon = null;
+	public Image Icon { get { return _icon; } }
 }

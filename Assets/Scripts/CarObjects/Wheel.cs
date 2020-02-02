@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class Wheel : Pickable
 {
-    protected override void OnBroken() {}
+    protected override void OnBroken()
+	{
+		SpriteRenderer.color = Color.red;
+	}
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
