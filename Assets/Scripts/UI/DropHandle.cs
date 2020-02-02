@@ -16,14 +16,22 @@ public class DropHandle : MonoBehaviour, IDropHandler
         {
             if (hit.gameObject.name == "FrontWheel")
             {
-                Debug.Log("FrontWheel");
-                transform.position = hit.gameObject.transform.position;
+
+                //TODO
+                //change front wheel
+                //remove the current item from inventory
+                //updated repairUI
+
                 this.enabled = false;
             }
             else if (hit.gameObject.name == "BackWheel")
             {
-                Debug.Log("BackWheel");
-                transform.position = hit.gameObject.transform.position;
+
+                //TODO
+                //change front wheel
+                //remove the current item from inventory
+                //updated repairUI
+
                 this.enabled = false;
             }
         }
