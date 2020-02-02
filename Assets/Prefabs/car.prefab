@@ -25,13 +25,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5061895367528011206}
-  m_LocalRotation: {x: -0, y: 0.6913239, z: -0, w: 0.722545}
-  m_LocalPosition: {x: -0.17, y: -0.64, z: -3.38}
+  m_LocalRotation: {x: 0.06475178, y: 0.68854225, z: -0.061953858, w: 0.71963775}
+  m_LocalPosition: {x: 1.51, y: -0.11, z: -3.31}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5061895367854924926}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 87.47, z: 0}
+  m_LocalEulerAnglesHint: {x: 10.283001, y: 87.47, z: 0}
 --- !u!108 &5061895367528011205
 Light:
   m_ObjectHideFlags: 0
@@ -45,8 +45,8 @@ Light:
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 33.6
-  m_Range: 114
-  m_SpotAngle: 26.4
+  m_Range: 8.82
+  m_SpotAngle: 106.4
   m_InnerSpotAngle: 1
   m_CookieSize: 10
   m_Shadows:
@@ -212,7 +212,7 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: -1.9803739, y: -0.77878153}
+  - {x: -1.7487688, y: -0.6415341}
   - {x: -1.9726739, y: -0.49262327}
   - {x: -1.8764195, y: -0.49721277}
   - {x: -1.8597693, y: -0.011970222}
@@ -235,8 +235,8 @@ EdgeCollider2D:
   - {x: 1.949907, y: -0.15430772}
   - {x: 1.9183955, y: -0.24073273}
   - {x: 1.9216994, y: -0.3074001}
-  - {x: 1.8003697, y: -0.9850799}
-  - {x: 1.4103665, y: -1.0183986}
+  - {x: 1.5425509, y: -0.6413216}
+  - {x: 1.4189603, y: -0.87230134}
   - {x: 1.2479086, y: -0.6081916}
   - {x: 0.9806669, y: -0.46321142}
   - {x: 0.8167155, y: -0.4590932}
@@ -249,9 +249,9 @@ EdgeCollider2D:
   - {x: -1.0240932, y: -0.46359843}
   - {x: -1.2327037, y: -0.53562737}
   - {x: -1.37254, y: -0.73340845}
-  - {x: -1.416944, y: -0.9556579}
-  - {x: -1.5965581, y: -0.8910296}
-  - {x: -1.987473, y: -0.78651255}
+  - {x: -1.4427257, y: -0.7837787}
+  - {x: -1.5022006, y: -0.7795161}
+  - {x: -1.730134, y: -0.64068705}
 --- !u!50 &5061895367854924923
 Rigidbody2D:
   serializedVersion: 4
@@ -334,7 +334,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _torque: 10
-  _durabilityDecreasePerSecond: 40
+  _durabilityDecreasePerSecond: 0
   _backWheel:
     Joint: {fileID: 5061895367854924922}
     Wheel: {fileID: 9067361421990777434}
