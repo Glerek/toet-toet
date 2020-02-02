@@ -10,6 +10,7 @@ public class RepairingUI : Singleton<RepairingUI>
 
 	[SerializeField]
 	private List<Image> _items = new List<Image>();
+	public List<Image> Items { get { return _items; } }
 
 	public void Display(bool show)
 	{
