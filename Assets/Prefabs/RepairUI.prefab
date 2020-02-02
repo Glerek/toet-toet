@@ -146,10 +146,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _canvas: {fileID: 5706216463757366454}
-  items:
-  - {fileID: 5706216463847633522}
-  - {fileID: 5706216465446362028}
-  - {fileID: 5706216464106591645}
+  _items:
+  - {fileID: 5706216463847633520}
+  - {fileID: 5706216465446362018}
+  - {fileID: 5706216464106591635}
 --- !u!1 &5706216463847633522
 GameObject:
   m_ObjectHideFlags: 0

@@ -44,6 +44,7 @@ public class Car : MonoBehaviour
 	}
 
 	private bool _duringAcceleration = false;
+	private bool _duringBreak = true;
 	private bool _canMove = true;
 	public bool CanMove
 	{
@@ -56,6 +57,11 @@ public class Car : MonoBehaviour
 
 				DrivingUI.Instance.Display(_canMove);
 				RepairingUI.Instance.Display(!_canMove);
+
+				foreach (var wheel in _wheels)
+				{
+					wheel.GetComponent<Rigidbody2D>().constraints = value ? RigidbodyConstraints2D.None : RigidbodyConstraints2D.FreezeAll;
+				}
 			}
 		}
 	}
@@ -95,7 +101,7 @@ public class Car : MonoBehaviour
 			allWheelsBroken &= !_wheels[i].CanWork();
 		}
 
-		_canMove = !allWheelsBroken;
+		CanMove = !allWheelsBroken;
 	}
 
     private IEnumerator DecreaseDurability()
@@ -128,12 +134,14 @@ public class Car : MonoBehaviour
         }
     }
 
-    public void HandleMovement(bool accelerate)
+    public void HandleMovement(bool accelerate, bool breaking)
     {
 		_duringAcceleration = accelerate;
+		_duringBreak = breaking;
 
 		if (_duringAcceleration && _canMove)
 		{
+			_duringBreak = false;
 			foreach (var wheel in _wheels)
 			{
 				if (wheel.CanWork())
@@ -146,9 +154,28 @@ public class Car : MonoBehaviour
 				}
 			}
 		}
+		else if(_duringBreak)
+		{
+			_duringAcceleration = false;
+			foreach (var wheel in _wheels)
+			{
+				if (wheel.CanWork())
+				{
+					if (_canMove)
+					{
+						wheel.GetComponent<Rigidbody2D>().AddTorque(+_torque, ForceMode2D.Force);
+					}
+				}
+				else
+				{
+					_duringBreak = false;
+				}
+			}
+		}
 		else
 		{
 			_duringAcceleration = false;
+			_duringBreak = false;
 		}
-    }
+	}
 }
