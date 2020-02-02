@@ -7,7 +7,15 @@ public abstract class Pickable : MonoBehaviour
 	protected float _durability = MAX_DURABILITY;
 	public float Durability { get { return _durability; } }
 
-	protected Sprite _icon = null;
+	[SerializeField]
+	private SpriteRenderer _spriteRenderer = null;
+	public SpriteRenderer SpriteRenderer
+	{
+		get { return _spriteRenderer; }
+	}
+
+	[SerializeField]
+	private Sprite _icon = null;
 	public Sprite Icon
 	{
 		get { return _icon; }

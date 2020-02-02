@@ -44,6 +44,7 @@ public class Car : MonoBehaviour
 	}
 
 	private bool _duringAcceleration = false;
+
 	private bool _canMove = true;
 	public bool CanMove
 	{
@@ -56,6 +57,11 @@ public class Car : MonoBehaviour
 
 				DrivingUI.Instance.Display(_canMove);
 				RepairingUI.Instance.Display(!_canMove);
+
+				foreach (var wheel in _wheels)
+				{
+					wheel.GetComponent<Rigidbody2D>().constraints = value ? RigidbodyConstraints2D.None : RigidbodyConstraints2D.FreezeAll;
+				}
 			}
 		}
 	}
@@ -95,7 +101,7 @@ public class Car : MonoBehaviour
 			allWheelsBroken &= !_wheels[i].CanWork();
 		}
 
-		_canMove = !allWheelsBroken;
+		CanMove = !allWheelsBroken;
 	}
 
     private IEnumerator DecreaseDurability()
