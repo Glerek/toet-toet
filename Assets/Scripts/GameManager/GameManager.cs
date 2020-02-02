@@ -17,6 +17,7 @@ public class GameManager : Singleton<GameManager>, PlayerAction.IPlayerActions
     private PlayerAction.PlayerActions _input;
     private Car _car;
     private bool _pushedAcceleration = false;
+    private bool _pushedBreak = false;
 
 	private List<Wheel> _spawnedWheels = new List<Wheel>();
 
@@ -53,11 +54,20 @@ public class GameManager : Singleton<GameManager>, PlayerAction.IPlayerActions
 
     void Update()
     {
-		_car.HandleMovement(_pushedAcceleration);
+		_car.HandleMovement(_pushedAcceleration, _pushedBreak);
     }
 
     public void OnAccel(InputAction.CallbackContext context)
     {
+        //space 
         _pushedAcceleration = context.ReadValue<float>() == 1.0f;
+        _pushedBreak = !_pushedAcceleration;
+    }
+
+    public void OnBreak(InputAction.CallbackContext context)
+    {
+        //left control
+        _pushedBreak = context.ReadValue<float>() == 1.0f;
+        _pushedAcceleration = !_pushedBreak;
     }
 }

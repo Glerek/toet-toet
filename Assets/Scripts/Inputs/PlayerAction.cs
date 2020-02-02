@@ -1,4 +1,4 @@
-// GENERATED AUTOMATICALLY FROM 'Assets/PlayerAction.inputactions'
+// GENERATED AUTOMATICALLY FROM 'Assets/Scripts/Inputs/PlayerAction.inputactions'
 
 using System;
 using System.Collections;
@@ -25,6 +25,14 @@ public class @PlayerAction : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Break"",
+                    ""type"": ""Button"",
+                    ""id"": ""d6ec2063-5db8-459b-a1fd-108302dbbceb"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -38,6 +46,17 @@ public class @PlayerAction : IInputActionCollection, IDisposable
                     ""action"": ""Accel"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b294a5fe-f3b0-4be3-9d18-aa9bf9facc75"",
+                    ""path"": ""<Keyboard>/leftCtrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Break"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -47,6 +66,7 @@ public class @PlayerAction : IInputActionCollection, IDisposable
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Accel = m_Player.FindAction("Accel", throwIfNotFound: true);
+        m_Player_Break = m_Player.FindAction("Break", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -97,11 +117,13 @@ public class @PlayerAction : IInputActionCollection, IDisposable
     private readonly InputActionMap m_Player;
     private IPlayerActions m_PlayerActionsCallbackInterface;
     private readonly InputAction m_Player_Accel;
+    private readonly InputAction m_Player_Break;
     public struct PlayerActions
     {
         private @PlayerAction m_Wrapper;
         public PlayerActions(@PlayerAction wrapper) { m_Wrapper = wrapper; }
         public InputAction @Accel => m_Wrapper.m_Player_Accel;
+        public InputAction @Break => m_Wrapper.m_Player_Break;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -114,6 +136,9 @@ public class @PlayerAction : IInputActionCollection, IDisposable
                 @Accel.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAccel;
                 @Accel.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAccel;
                 @Accel.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAccel;
+                @Break.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBreak;
+                @Break.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBreak;
+                @Break.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBreak;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -121,6 +146,9 @@ public class @PlayerAction : IInputActionCollection, IDisposable
                 @Accel.started += instance.OnAccel;
                 @Accel.performed += instance.OnAccel;
                 @Accel.canceled += instance.OnAccel;
+                @Break.started += instance.OnBreak;
+                @Break.performed += instance.OnBreak;
+                @Break.canceled += instance.OnBreak;
             }
         }
     }
@@ -128,5 +156,6 @@ public class @PlayerAction : IInputActionCollection, IDisposable
     public interface IPlayerActions
     {
         void OnAccel(InputAction.CallbackContext context);
+        void OnBreak(InputAction.CallbackContext context);
     }
 }
