@@ -64,14 +64,20 @@ public class GameManager : Singleton<GameManager>, PlayerAction.IPlayerActions
     public void OnAccel(InputAction.CallbackContext context)
     {
         //space 
-        _pushedAcceleration = context.ReadValue<float>() == 1.0f;
-        _pushedBreak = !_pushedAcceleration;
+        if(context.ReadValue<float>() == 1.0f)
+        {
+            _pushedAcceleration = true;
+        }
+        _pushedBreak = false;
     }
 
     public void OnBreak(InputAction.CallbackContext context)
     {
         //left control
-        _pushedBreak = context.ReadValue<float>() == 1.0f;
-        _pushedAcceleration = !_pushedBreak;
+        if (context.ReadValue<float>() == 1.0f)
+        {
+            _pushedBreak = true;
+        }
+        _pushedAcceleration = false;
     }
 }
