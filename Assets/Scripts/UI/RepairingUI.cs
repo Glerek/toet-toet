@@ -1,35 +1,33 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RepairingUI : Singleton<RepairingUI>
 {
 	[SerializeField]
 	private Canvas _canvas = null;
 
-    public List<GameObject> items;
-
-    private void Start()
-    {
-        int count = 0; //the index of the items
-
-        //Get all items from the InventoryManager and do different things depends on the item type
-        foreach (var item in InventoryManager.Instance.Inventory)
-        {
-            //Change Icon, may need to fix the size
-            items[count].GetComponent<SpriteRenderer>().sprite = item.Icon;
-            if (item is Wheel)
-            {
-            }
-            else if (item is CarLight)
-            {
-            }
-            count++;
-        }
-    }
+	[SerializeField]
+	private List<Image> _items = new List<Image>();
 
 	public void Display(bool show)
 	{
 		_canvas.gameObject.SetActive(show);
+
+		if (show)
+		{
+			for (int i = 0; i < _items.Count; i++)
+			{
+				if (InventoryManager.Instance.Inventory.Count > i)
+				{
+					_items[i].sprite = InventoryManager.Instance.Inventory[i].Icon;
+				}
+				else
+				{
+					_items[i].sprite = null;
+				}
+			}
+		}
 	}
 }

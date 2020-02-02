@@ -11,10 +11,15 @@ public class GameManager : Singleton<GameManager>, PlayerAction.IPlayerActions
 	[SerializeField]
     private Car _carTemplate = null;
 
+	[SerializeField]
+	private Wheel _wheelTemplate = null;
+
     private PlayerAction.PlayerActions _input;
     private Car _car;
     private bool _pushedAcceleration = false;
     private bool _pushedBreak = false;
+
+	private List<Wheel> _spawnedWheels = new List<Wheel>();
 
 	public Car Car
 	{
@@ -33,6 +38,13 @@ public class GameManager : Singleton<GameManager>, PlayerAction.IPlayerActions
 	{
 		DrivingUI.Instance.Display(true);
 		RepairingUI.Instance.Display(false);
+
+		for (int i = 0; i < 3; i++)
+		{
+			Wheel spawnedWheel = GameObject.Instantiate(_wheelTemplate, new Vector3(-30, -2, 0), Quaternion.identity);
+			_spawnedWheels.Add(spawnedWheel);
+			InventoryManager.Instance.AddToInventory(spawnedWheel);
+		}
 	}
 
     void OnEnable() => _input.Enable();
@@ -40,7 +52,6 @@ public class GameManager : Singleton<GameManager>, PlayerAction.IPlayerActions
 
     void OnDisable() => _input.Disable();
 
-    // Update is called once per frame
     void Update()
     {
 		_car.HandleMovement(_pushedAcceleration, _pushedBreak);

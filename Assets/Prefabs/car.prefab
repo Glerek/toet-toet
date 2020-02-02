@@ -332,7 +332,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _torque: 10
-  _durabilityDecreasePerSecond: 2
+  _durabilityDecreasePerSecond: 20
   _wheels:
   - {fileID: 6745041448852412484}
   - {fileID: 9067361421990777434}
