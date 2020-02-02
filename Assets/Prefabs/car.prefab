@@ -122,7 +122,7 @@ GameObject:
   - component: {fileID: 5061895367854924924}
   - component: {fileID: 5061895367854924922}
   - component: {fileID: 5061895367854924921}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: car
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -334,10 +334,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _torque: 10
-  _durabilityDecreasePerSecond: 20
-  _wheels:
-  - {fileID: 6745041448852412484}
-  - {fileID: 9067361421990777434}
+  _durabilityDecreasePerSecond: 40
+  _backWheel:
+    Joint: {fileID: 5061895367854924922}
+    Wheel: {fileID: 9067361421990777434}
+  _frontWheel:
+    Joint: {fileID: 5061895367854924924}
+    Wheel: {fileID: 6745041448852412484}
   _lights:
   - {fileID: 2022981978922216912}
 --- !u!1001 &5061895368981470518
@@ -437,6 +440,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2327954574709265270, guid: 0c410aef5b5a89d4faf79a87875cf559,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c410aef5b5a89d4faf79a87875cf559, type: 3}
@@ -571,6 +579,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2327954574709265270, guid: 0c410aef5b5a89d4faf79a87875cf559,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c410aef5b5a89d4faf79a87875cf559, type: 3}

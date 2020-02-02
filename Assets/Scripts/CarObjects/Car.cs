@@ -11,19 +11,39 @@ public class Car : MonoBehaviour
 	[SerializeField]
 	private float _durabilityDecreasePerSecond = 2f;
 
+	[Serializable]
+	public class WheelStructure
+	{
+		public WheelJoint2D Joint;
+		public Wheel Wheel;
+	}
+
 	[SerializeField]
-	private List<Wheel> _wheels = new List<Wheel>();
+	private WheelStructure _backWheel = null;
+
+	[SerializeField]
+	private WheelStructure _frontWheel = null;
+
 	public float WheelsDurability
 	{
 		get
 		{
 			float totalDurability = 0f;
-			for (int i = 0; i < _wheels.Count; i++)
+			float amountOfWheels = 0f;
+
+			if (_backWheel.Wheel != null)
 			{
-				totalDurability += _wheels[i].Durability;
+				totalDurability += _backWheel.Wheel.Durability;
+				amountOfWheels++;
 			}
 
-			return totalDurability / (float)_wheels.Count;
+			if (_frontWheel.Wheel != null)
+			{
+				totalDurability += _frontWheel.Wheel.Durability;
+				amountOfWheels++;
+			}
+			
+			return totalDurability / amountOfWheels;
 		}
 	}
 
@@ -57,11 +77,6 @@ public class Car : MonoBehaviour
 
 				DrivingUI.Instance.Display(_canMove);
 				RepairingUI.Instance.Display(!_canMove);
-
-				foreach (var wheel in _wheels)
-				{
-					wheel.GetComponent<Rigidbody2D>().constraints = value ? RigidbodyConstraints2D.None : RigidbodyConstraints2D.FreezeAll;
-				}
 			}
 		}
 	}
@@ -83,25 +98,32 @@ public class Car : MonoBehaviour
 
 	void Start()
 	{
-		for (int i = 0; i < _wheels.Count; i++)
-		{
-			_wheels[i].OnBreakAction += OnWheelBroken;
-		}
+		_backWheel.Wheel.OnBreakAction += OnWheelBroken;
+		_frontWheel.Wheel.OnBreakAction += OnWheelBroken;
 
 		StartCoroutine(DecreaseDurability());
 	}
 
 	private void OnWheelBroken(Pickable wheel)
 	{
-		wheel.OnBreakAction -= OnWheelBroken;
+		Wheel brokenWheel = wheel as Wheel;
+		brokenWheel.OnBreakAction -= OnWheelBroken;
 
-		bool allWheelsBroken = true;
-		for (int i = 0; i < _wheels.Count; i++)
+		if (_backWheel.Wheel == brokenWheel)
 		{
-			allWheelsBroken &= !_wheels[i].CanWork();
+			_backWheel.Joint.connectedBody = null;
+			_backWheel.Wheel.GetComponent<Rigidbody2D>().AddTorque(-30f);
+			_backWheel.Wheel = null;
 		}
 
-		CanMove = !allWheelsBroken;
+		if (_frontWheel.Wheel == brokenWheel)
+		{
+			_frontWheel.Joint.connectedBody = null;
+			_frontWheel.Wheel.GetComponent<Rigidbody2D>().AddTorque(-30f);
+			_frontWheel.Wheel = null;
+		}
+
+		CanMove = _backWheel.Wheel != null && _frontWheel.Wheel != null;
 	}
 
 	private IEnumerator DecreaseDurability()
@@ -113,10 +135,8 @@ public class Car : MonoBehaviour
 
 			if (_duringAcceleration)
 			{
-				foreach (var wheel in _wheels)
-				{
-					wheel.DecreaseDurability(_durabilityDecreasePerSecond);
-				}
+				_backWheel.Wheel.DecreaseDurability(_durabilityDecreasePerSecond);
+				_frontWheel.Wheel.DecreaseDurability(_durabilityDecreasePerSecond);
 
 				foreach (var light in _lights)
 				{
@@ -140,12 +160,14 @@ public class Car : MonoBehaviour
 
 		if (enabled && _canMove)
 		{
-			foreach (var wheel in _wheels)
+			if (_backWheel.Wheel != null && _backWheel.Wheel.CanWork())
 			{
-				if (wheel.CanWork())
-				{
-					wheel.GetComponent<Rigidbody2D>().AddTorque(-_torque, ForceMode2D.Force);
-				}
+				_backWheel.Wheel.GetComponent<Rigidbody2D>().AddTorque(-_torque, ForceMode2D.Force);
+			}
+
+			if (_frontWheel.Wheel != null && _frontWheel.Wheel.CanWork())
+			{
+				_frontWheel.Wheel.GetComponent<Rigidbody2D>().AddTorque(-_torque, ForceMode2D.Force);
 			}
 		}
 	}
@@ -156,13 +178,14 @@ public class Car : MonoBehaviour
 
 		if (enabled && _canMove)
 		{
-			foreach (var wheel in _wheels)
+			if (_backWheel.Wheel != null && _backWheel.Wheel.CanWork())
 			{
-				if (wheel.CanWork())
-				{
+				_backWheel.Wheel.GetComponent<Rigidbody2D>().AddTorque(_torque, ForceMode2D.Force);
+			}
 
-					wheel.GetComponent<Rigidbody2D>().AddTorque(_torque, ForceMode2D.Force);
-				}
+			if (_frontWheel.Wheel != null && _frontWheel.Wheel.CanWork())
+			{
+				_frontWheel.Wheel.GetComponent<Rigidbody2D>().AddTorque(_torque, ForceMode2D.Force);
 			}
 		}
 	}
