@@ -14,6 +14,10 @@ public class GameManager : Singleton<GameManager>, PlayerAction.IPlayerActions
 	[SerializeField]
 	private Wheel _wheelTemplate = null;
 
+	[SerializeField]
+	private float _collisionMagnitudeThreshold = 0f;
+	public float CollisionMagnitudeThreshold { get { return _collisionMagnitudeThreshold; } }
+
     private PlayerAction.PlayerActions _input;
     private Car _car;
     private bool _pushedAcceleration = false;
