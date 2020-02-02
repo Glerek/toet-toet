@@ -30,10 +30,10 @@ public class DragHandle : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDr
     #region IDragHandler implementation
     public void OnDrag(PointerEventData eventData)
     {
-        transform.position = Camera.main.ScreenToWorldPoint(
+        transform.position =
                  new Vector3(Input.mousePosition.x,
                  Input.mousePosition.y,
-                 Camera.main.nearClipPlane));
+                 Camera.main.nearClipPlane);
     }
     #endregion
 
