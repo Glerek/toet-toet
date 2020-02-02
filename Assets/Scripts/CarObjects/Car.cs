@@ -20,9 +20,17 @@ public class Car : MonoBehaviour
 
 	[SerializeField]
 	private WheelStructure _backWheel = null;
+	public WheelStructure BackWheel
+	{
+		get { return _backWheel; }
+	}
 
 	[SerializeField]
 	private WheelStructure _frontWheel = null;
+	public WheelStructure FrontWheel
+	{
+		get { return _frontWheel; }
+	}
 
 	public float WheelsDurability
 	{
@@ -69,7 +77,7 @@ public class Car : MonoBehaviour
 	public bool CanMove
 	{
 		get { return _canMove; }
-		private set
+		set
 		{
 			if (_canMove != value)
 			{
@@ -101,7 +109,7 @@ public class Car : MonoBehaviour
 		_backWheel.Wheel.OnBreakAction += OnWheelBroken;
 		_frontWheel.Wheel.OnBreakAction += OnWheelBroken;
 
-		StartCoroutine(DecreaseDurability());
+		// StartCoroutine(DecreaseDurability());
 	}
 
 	private void OnWheelBroken(Pickable wheel)
@@ -112,6 +120,7 @@ public class Car : MonoBehaviour
 		if (_backWheel.Wheel == brokenWheel)
 		{
 			_backWheel.Joint.connectedBody = null;
+			_backWheel.Wheel.transform.SetParent(transform.parent);
 			_backWheel.Wheel.GetComponent<Rigidbody2D>().AddTorque(-30f);
 			_backWheel.Wheel = null;
 		}
@@ -119,6 +128,7 @@ public class Car : MonoBehaviour
 		if (_frontWheel.Wheel == brokenWheel)
 		{
 			_frontWheel.Joint.connectedBody = null;
+			_frontWheel.Wheel.transform.SetParent(transform.parent);
 			_frontWheel.Wheel.GetComponent<Rigidbody2D>().AddTorque(-30f);
 			_frontWheel.Wheel = null;
 		}
@@ -126,33 +136,33 @@ public class Car : MonoBehaviour
 		CanMove = _backWheel.Wheel != null && _frontWheel.Wheel != null;
 	}
 
-	private IEnumerator DecreaseDurability()
-	{
-		float timer = 0f;
-		while (true)
-		{
-			timer = 0f;
+	// private IEnumerator DecreaseDurability()
+	// {
+	// 	float timer = 0f;
+	// 	while (true)
+	// 	{
+	// 		timer = 0f;
 
-			if (_duringAcceleration)
-			{
-				_backWheel.Wheel.DecreaseDurability(_durabilityDecreasePerSecond);
-				_frontWheel.Wheel.DecreaseDurability(_durabilityDecreasePerSecond);
+	// 		if (_duringAcceleration)
+	// 		{
+	// 			_backWheel.Wheel.DecreaseDurability(_durabilityDecreasePerSecond);
+	// 			_frontWheel.Wheel.DecreaseDurability(_durabilityDecreasePerSecond);
 
-				foreach (var light in _lights)
-				{
-					light.DecreaseDurability(_durabilityDecreasePerSecond);
-				}
+	// 			foreach (var light in _lights)
+	// 			{
+	// 				light.DecreaseDurability(_durabilityDecreasePerSecond);
+	// 			}
 
-				while (timer < 1f && _duringAcceleration)
-				{
-					timer += Time.deltaTime;
-					yield return null;
-				}
-			}
+	// 			while (timer < 1f && _duringAcceleration)
+	// 			{
+	// 				timer += Time.deltaTime;
+	// 				yield return null;
+	// 			}
+	// 		}
 
-			yield return null;
-		}
-	}
+	// 		yield return null;
+	// 	}
+	// }
 
 	public void Accel(bool enabled)
 	{

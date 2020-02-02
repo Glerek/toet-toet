@@ -5,7 +5,7 @@ public abstract class Pickable : MonoBehaviour
 {
 	public static readonly float MAX_DURABILITY = 100f;
 	protected float _durability = MAX_DURABILITY;
-	public float Durability { get { return _durability; } }
+	public float Durability { get { return _durability; } set { _durability = value; } }
 
 	[SerializeField]
 	private SpriteRenderer _spriteRenderer = null;
