@@ -48,3 +48,4 @@ MonoBehaviour:
     type: 3}
   _wheelTemplate: {fileID: -4905886567672672404, guid: 0c410aef5b5a89d4faf79a87875cf559,
     type: 3}
+  _collisionMagnitudeThreshold: 15

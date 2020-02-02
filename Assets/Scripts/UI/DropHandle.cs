@@ -37,7 +37,7 @@ public class DropHandle : MonoBehaviour, IDropHandler
 		}
 		
 		InventoryManager.Instance.RemoveFromInventory(draggedWheel);
-		GameManager.Instance.Car.CanMove = true;
+		GameManager.Instance.Car.CanMove = GameManager.Instance.Car.BackWheel.Wheel && GameManager.Instance.Car.FrontWheel.Wheel;
 
         // var raycastResults = new List<RaycastResult>();
         // EventSystem.current.RaycastAll(eventData, raycastResults);
