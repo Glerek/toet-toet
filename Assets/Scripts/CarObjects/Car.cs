@@ -6,7 +6,7 @@ using UnityEngine;
 public class Car : MonoBehaviour
 {
 	[SerializeField]
-    private float _torque = 10.0f;
+	private float _torque = 10.0f;
 
 	[SerializeField]
 	private float _durabilityDecreasePerSecond = 2f;
@@ -69,7 +69,7 @@ public class Car : MonoBehaviour
 	private Action _onVehicleStuck = null;
 	public event Action OnVehicleStuck
 	{
-		add 
+		add
 		{
 			_onVehicleStuck -= value;
 			_onVehicleStuck += value;
@@ -81,15 +81,15 @@ public class Car : MonoBehaviour
 		}
 	}
 
-    void Start()
-    {
+	void Start()
+	{
 		for (int i = 0; i < _wheels.Count; i++)
 		{
 			_wheels[i].OnBreakAction += OnWheelBroken;
 		}
 
-        StartCoroutine(DecreaseDurability());
-    }
+		StartCoroutine(DecreaseDurability());
+	}
 
 	private void OnWheelBroken(Pickable wheel)
 	{
@@ -104,11 +104,11 @@ public class Car : MonoBehaviour
 		CanMove = !allWheelsBroken;
 	}
 
-    private IEnumerator DecreaseDurability()
-    {
+	private IEnumerator DecreaseDurability()
+	{
 		float timer = 0f;
-        while (true)
-        {
+		while (true)
+		{
 			timer = 0f;
 
 			if (_duringAcceleration)
@@ -118,7 +118,7 @@ public class Car : MonoBehaviour
 					wheel.DecreaseDurability(_durabilityDecreasePerSecond);
 				}
 
-				foreach(var light in _lights)
+				foreach (var light in _lights)
 				{
 					light.DecreaseDurability(_durabilityDecreasePerSecond);
 				}
@@ -131,51 +131,39 @@ public class Car : MonoBehaviour
 			}
 
 			yield return null;
-        }
-    }
+		}
+	}
 
-    public void HandleMovement(bool accelerate, bool breaking)
-    {
-		_duringAcceleration = accelerate;
-		_duringBreak = breaking;
+	public void Accel(bool enabled)
+	{
+		_duringAcceleration = enabled;
 
-		if (_duringAcceleration && _canMove)
+		if (enabled && _canMove)
 		{
-			_duringBreak = false;
 			foreach (var wheel in _wheels)
 			{
 				if (wheel.CanWork())
 				{
 					wheel.GetComponent<Rigidbody2D>().AddTorque(-_torque, ForceMode2D.Force);
 				}
-				else
-				{
-					_duringAcceleration = false;
-				}
 			}
 		}
-		else if(_duringBreak)
+	}
+
+	public void Brake(bool enabled)
+	{
+		_duringBreak = enabled;
+
+		if (enabled && _canMove)
 		{
-			_duringAcceleration = false;
 			foreach (var wheel in _wheels)
 			{
 				if (wheel.CanWork())
 				{
-					if (_canMove)
-					{
-						wheel.GetComponent<Rigidbody2D>().AddTorque(+_torque, ForceMode2D.Force);
-					}
-				}
-				else
-				{
-					_duringBreak = false;
+
+					wheel.GetComponent<Rigidbody2D>().AddTorque(_torque, ForceMode2D.Force);
 				}
 			}
-		}
-		else
-		{
-			_duringAcceleration = false;
-			_duringBreak = false;
 		}
 	}
 }
