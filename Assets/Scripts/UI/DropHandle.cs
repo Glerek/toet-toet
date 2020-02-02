@@ -10,13 +10,19 @@ public class DropHandle : MonoBehaviour, IDropHandler
     # region IDrophandler implementation
     public void OnDrop(PointerEventData eventData)
     {
-        Debug.Log("aaa");
         var raycastResults = new List<RaycastResult>();
         EventSystem.current.RaycastAll(eventData, raycastResults);
         foreach (var hit in raycastResults)
         {
-            if (hit.gameObject.CompareTag("tire"))
+            if (hit.gameObject.name == "FrontWheel")
             {
+                Debug.Log("FrontWheel");
+                transform.position = hit.gameObject.transform.position;
+                this.enabled = false;
+            }
+            else if (hit.gameObject.name == "BackWheel")
+            {
+                Debug.Log("BackWheel");
                 transform.position = hit.gameObject.transform.position;
                 this.enabled = false;
             }
