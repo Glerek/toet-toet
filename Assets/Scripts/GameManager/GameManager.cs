@@ -58,26 +58,19 @@ public class GameManager : Singleton<GameManager>, PlayerAction.IPlayerActions
 
     void Update()
     {
-		_car.HandleMovement(_pushedAcceleration, _pushedBreak);
+        _car.Accel(_pushedAcceleration);
+        _car.Brake(_pushedBreak);
     }
 
     public void OnAccel(InputAction.CallbackContext context)
     {
         //space 
-        if(context.ReadValue<float>() == 1.0f)
-        {
-            _pushedAcceleration = true;
-        }
-        _pushedBreak = false;
+        _pushedAcceleration = context.ReadValue<float>() == 1.0f;
     }
 
     public void OnBreak(InputAction.CallbackContext context)
     {
         //left control
-        if (context.ReadValue<float>() == 1.0f)
-        {
-            _pushedBreak = true;
-        }
-        _pushedAcceleration = false;
+        _pushedBreak = context.ReadValue<float>() == 1.0f;
     }
 }
