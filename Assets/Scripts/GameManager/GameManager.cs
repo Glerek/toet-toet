@@ -14,20 +14,22 @@ public class GameManager : Singleton<GameManager>
 	private SubsystemIconData _iconData = null;
 	public SubsystemIconData IconData { get { return _iconData; } }
 
-	// [SerializeField]
-	// private Wheel _wheelTemplate = null;
-
-	[SerializeField]
-	private float _collisionMagnitudeThreshold = 0f;
-	public float CollisionMagnitudeThreshold { get { return _collisionMagnitudeThreshold; } }
-
     private Car _car;
+	public Car Car { get { return _car; } }
 
-	// private List<Wheel> _spawnedWheels = new List<Wheel>();
-
-	public Car Car
+	private bool _duringRepairMode = false;
+	public bool DuringRepairMode
 	{
-		get { return _car; }
+		get { return _duringRepairMode; }
+		private set
+		{
+			if (_duringRepairMode != value)
+			{
+				_duringRepairMode = value;
+
+				RepairingUI.Instance.Display(_duringRepairMode);
+			}
+		}
 	}
 
     void Awake()
@@ -37,7 +39,6 @@ public class GameManager : Singleton<GameManager>
 
 	private void Start()
 	{
-		DrivingUI.Instance.Display(true);
 		RepairingUI.Instance.Display(false);
 
 		// for (int i = 0; i < 3; i++)
@@ -46,5 +47,11 @@ public class GameManager : Singleton<GameManager>
 		// 	_spawnedWheels.Add(spawnedWheel);
 		// 	InventoryManager.Instance.AddToInventory(spawnedWheel);
 		// }
+	}
+
+	public void ToggleRepairMode()
+	{
+		Debug.Log("Toggle to " + !DuringRepairMode);
+		DuringRepairMode = !DuringRepairMode;
 	}
 }

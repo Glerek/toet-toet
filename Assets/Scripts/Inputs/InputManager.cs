@@ -21,8 +21,23 @@ public class InputManager : Singleton<InputManager>, PlayerAction.IPlayerActions
 
     public void OnSubsystemDurability(InputAction.CallbackContext context)
     {
-        GameManager.Instance.Car.SubsystemUI.Display(context.ReadValue<float>() == 1.0f);
+		if (context.phase == InputActionPhase.Performed ||
+			context.phase == InputActionPhase.Canceled)
+		{
+			GameManager.Instance.Car.SubsystemUI.Display(context.phase == InputActionPhase.Performed);
+		}
     }
+
+	public void OnToggleRepair(InputAction.CallbackContext context)
+	{
+		if (context.phase == InputActionPhase.Performed)
+		{
+			if (context.ReadValue<float>() == 1.0f)
+			{
+				GameManager.Instance.ToggleRepairMode();
+			}
+		}
+	}
 
     private void Awake()
     {

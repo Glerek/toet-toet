@@ -41,6 +41,14 @@ public class @PlayerAction : IInputActionCollection, IDisposable
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""ToggleRepair"",
+                    ""type"": ""Button"",
+                    ""id"": ""d6756d7a-b8c4-480c-a0fd-b667c8cc9428"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -98,6 +106,17 @@ public class @PlayerAction : IInputActionCollection, IDisposable
                     ""action"": ""SubsystemDurability"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0b7c2efc-c804-4096-a5e6-820c56c43ae4"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleRepair"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -109,6 +128,7 @@ public class @PlayerAction : IInputActionCollection, IDisposable
         m_Player_Accelerate = m_Player.FindAction("Accelerate", throwIfNotFound: true);
         m_Player_Brake = m_Player.FindAction("Brake", throwIfNotFound: true);
         m_Player_SubsystemDurability = m_Player.FindAction("SubsystemDurability", throwIfNotFound: true);
+        m_Player_ToggleRepair = m_Player.FindAction("ToggleRepair", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -161,6 +181,7 @@ public class @PlayerAction : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Accelerate;
     private readonly InputAction m_Player_Brake;
     private readonly InputAction m_Player_SubsystemDurability;
+    private readonly InputAction m_Player_ToggleRepair;
     public struct PlayerActions
     {
         private @PlayerAction m_Wrapper;
@@ -168,6 +189,7 @@ public class @PlayerAction : IInputActionCollection, IDisposable
         public InputAction @Accelerate => m_Wrapper.m_Player_Accelerate;
         public InputAction @Brake => m_Wrapper.m_Player_Brake;
         public InputAction @SubsystemDurability => m_Wrapper.m_Player_SubsystemDurability;
+        public InputAction @ToggleRepair => m_Wrapper.m_Player_ToggleRepair;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -186,6 +208,9 @@ public class @PlayerAction : IInputActionCollection, IDisposable
                 @SubsystemDurability.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSubsystemDurability;
                 @SubsystemDurability.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSubsystemDurability;
                 @SubsystemDurability.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSubsystemDurability;
+                @ToggleRepair.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleRepair;
+                @ToggleRepair.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleRepair;
+                @ToggleRepair.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleRepair;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -199,6 +224,9 @@ public class @PlayerAction : IInputActionCollection, IDisposable
                 @SubsystemDurability.started += instance.OnSubsystemDurability;
                 @SubsystemDurability.performed += instance.OnSubsystemDurability;
                 @SubsystemDurability.canceled += instance.OnSubsystemDurability;
+                @ToggleRepair.started += instance.OnToggleRepair;
+                @ToggleRepair.performed += instance.OnToggleRepair;
+                @ToggleRepair.canceled += instance.OnToggleRepair;
             }
         }
     }
@@ -208,5 +236,6 @@ public class @PlayerAction : IInputActionCollection, IDisposable
         void OnAccelerate(InputAction.CallbackContext context);
         void OnBrake(InputAction.CallbackContext context);
         void OnSubsystemDurability(InputAction.CallbackContext context);
+        void OnToggleRepair(InputAction.CallbackContext context);
     }
 }
