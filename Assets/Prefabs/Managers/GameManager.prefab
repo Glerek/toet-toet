@@ -46,4 +46,5 @@ MonoBehaviour:
   _spawnTarget: {fileID: 0}
   _carTemplate: {fileID: 5061895367854924921, guid: 09ed5696caa354f498e4c7e2a96a7fb8,
     type: 3}
+  _iconData: {fileID: 11400000, guid: 011bb68050b0d484792c5a773c8bd2a6, type: 2}
   _collisionMagnitudeThreshold: 15

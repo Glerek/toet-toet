@@ -10,6 +10,10 @@ public class GameManager : Singleton<GameManager>
 	[SerializeField]
     private Car _carTemplate = null;
 
+	[SerializeField]
+	private SubsystemIconData _iconData = null;
+	public SubsystemIconData IconData { get { return _iconData; } }
+
 	// [SerializeField]
 	// private Wheel _wheelTemplate = null;
 

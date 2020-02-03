@@ -33,6 +33,14 @@ public class @PlayerAction : IInputActionCollection, IDisposable
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""SubsystemDurability"",
+                    ""type"": ""Button"",
+                    ""id"": ""91859018-26c2-4915-a8fd-7874f1576332"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -79,6 +87,17 @@ public class @PlayerAction : IInputActionCollection, IDisposable
                     ""action"": ""Brake"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""aa2c855a-7f87-459d-b919-c32a4a5c3193"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SubsystemDurability"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -89,6 +108,7 @@ public class @PlayerAction : IInputActionCollection, IDisposable
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Accelerate = m_Player.FindAction("Accelerate", throwIfNotFound: true);
         m_Player_Brake = m_Player.FindAction("Brake", throwIfNotFound: true);
+        m_Player_SubsystemDurability = m_Player.FindAction("SubsystemDurability", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -140,12 +160,14 @@ public class @PlayerAction : IInputActionCollection, IDisposable
     private IPlayerActions m_PlayerActionsCallbackInterface;
     private readonly InputAction m_Player_Accelerate;
     private readonly InputAction m_Player_Brake;
+    private readonly InputAction m_Player_SubsystemDurability;
     public struct PlayerActions
     {
         private @PlayerAction m_Wrapper;
         public PlayerActions(@PlayerAction wrapper) { m_Wrapper = wrapper; }
         public InputAction @Accelerate => m_Wrapper.m_Player_Accelerate;
         public InputAction @Brake => m_Wrapper.m_Player_Brake;
+        public InputAction @SubsystemDurability => m_Wrapper.m_Player_SubsystemDurability;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -161,6 +183,9 @@ public class @PlayerAction : IInputActionCollection, IDisposable
                 @Brake.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBrake;
                 @Brake.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBrake;
                 @Brake.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBrake;
+                @SubsystemDurability.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSubsystemDurability;
+                @SubsystemDurability.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSubsystemDurability;
+                @SubsystemDurability.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSubsystemDurability;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -171,6 +196,9 @@ public class @PlayerAction : IInputActionCollection, IDisposable
                 @Brake.started += instance.OnBrake;
                 @Brake.performed += instance.OnBrake;
                 @Brake.canceled += instance.OnBrake;
+                @SubsystemDurability.started += instance.OnSubsystemDurability;
+                @SubsystemDurability.performed += instance.OnSubsystemDurability;
+                @SubsystemDurability.canceled += instance.OnSubsystemDurability;
             }
         }
     }
@@ -179,5 +207,6 @@ public class @PlayerAction : IInputActionCollection, IDisposable
     {
         void OnAccelerate(InputAction.CallbackContext context);
         void OnBrake(InputAction.CallbackContext context);
+        void OnSubsystemDurability(InputAction.CallbackContext context);
     }
 }

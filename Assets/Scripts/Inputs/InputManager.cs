@@ -19,6 +19,11 @@ public class InputManager : Singleton<InputManager>, PlayerAction.IPlayerActions
         _brakePushed = context.ReadValue<float>() == 1.0f;
     }
 
+    public void OnSubsystemDurability(InputAction.CallbackContext context)
+    {
+        GameManager.Instance.Car.SubsystemUI.Display(context.ReadValue<float>() == 1.0f);
+    }
+
     private void Awake()
     {
         _input = new PlayerAction.PlayerActions(new PlayerAction());

@@ -45,7 +45,7 @@ public class DrivingUI : Singleton<DrivingUI>
 
 	private void Update()
 	{
-		_wheelsSubsystem._subsystemHpGauge.Display(GameManager.Instance.Car.WheelsDurability / Subsystem.MAX_DURABILITY);
+		// _wheelsSubsystem._subsystemHpGauge.Display(GameManager.Instance.Car.WheelsDurability / Subsystem.MAX_DURABILITY);
 		// _lightsSubsystem._subsystemHpGauge.Display(GameManager.Instance.Car.LightsDurability / Pickable.MAX_DURABILITY);
 	}
 }

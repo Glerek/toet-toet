@@ -32,7 +32,7 @@ public class Subsystem : MonoBehaviour
     public SubsystemData Data { get { return _data; } }
 
 	protected float _durability = MAX_DURABILITY;
-    public float Durability { get { return _durability; } }
+    public float DurabilityValue { get { return _durability / MAX_DURABILITY; } }
     public bool IsBroken { get {return _durability <= 0f; } }
 
 	private Action<Subsystem> _onBreak = null;

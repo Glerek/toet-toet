@@ -23,28 +23,32 @@ public class Car : MonoBehaviour
 	[SerializeField]
 	private WheelStructure _frontWheel = null;
 
-	public float WheelsDurability
-	{
-		get
-		{
-			float totalDurability = 0f;
-			float amountOfWheels = 0f;
+	[SerializeField]
+	private SubsystemContainer _subsystemUI = null;
+	public SubsystemContainer SubsystemUI { get { return _subsystemUI; } }
 
-			if (_backWheel.Wheel != null)
-			{
-				totalDurability += _backWheel.Wheel.Durability;
-				amountOfWheels++;
-			}
+	// public float WheelsDurability
+	// {
+	// 	get
+	// 	{
+	// 		float totalDurability = 0f;
+	// 		float amountOfWheels = 0f;
 
-			if (_frontWheel.Wheel != null)
-			{
-				totalDurability += _frontWheel.Wheel.Durability;
-				amountOfWheels++;
-			}
+	// 		if (_backWheel.Wheel != null)
+	// 		{
+	// 			totalDurability += _backWheel.Wheel.Durability;
+	// 			amountOfWheels++;
+	// 		}
+
+	// 		if (_frontWheel.Wheel != null)
+	// 		{
+	// 			totalDurability += _frontWheel.Wheel.Durability;
+	// 			amountOfWheels++;
+	// 		}
 			
-			return totalDurability / amountOfWheels;
-		}
-	}
+	// 		return totalDurability / amountOfWheels;
+	// 	}
+	// }
 
 	// TODO LATER
 	// [SerializeField]
@@ -94,10 +98,50 @@ public class Car : MonoBehaviour
 		}
 	}
 
+	private Action<Subsystem> _onSubsystemAdded = null;
+	public event Action<Subsystem> OnSubsystemAdded
+	{
+		add
+		{
+			_onSubsystemAdded -= value;
+			_onSubsystemAdded += value;
+		}
+
+		remove
+		{
+			_onSubsystemAdded -= value;
+		}
+	}
+
+	private Action<Subsystem> _onSubsystemRemoved = null;
+	public event Action<Subsystem> OnSubsystemRemoved
+	{
+		add
+		{
+			_onSubsystemRemoved -= value;
+			_onSubsystemRemoved += value;
+		}
+
+		remove
+		{
+			_onSubsystemRemoved -= value;
+		}
+	}
+
 	void Start()
 	{
 		_backWheel.Wheel.OnBreak += OnWheelBroken;
 		_frontWheel.Wheel.OnBreak += OnWheelBroken;
+
+		_subsystemUI.Initialize(new List<Subsystem>() { _backWheel.Wheel, _frontWheel.Wheel });
+	}
+
+	private void AddSubsystem(Subsystem subsystem)
+	{
+		if (_onSubsystemAdded != null)
+		{
+			_onSubsystemAdded(subsystem);
+		}
 	}
 
 	private void OnWheelBroken(Subsystem wheel)

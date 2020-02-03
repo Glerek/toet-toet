@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "SubsystemData", menuName = "ScriptableObjects/Subsystem/Create Data", order = 1)]
+[CreateAssetMenu(fileName = "SubsystemData", menuName = "ScriptableObjects/Subsystem/Create Data", order = 2)]
 public class SubsystemData : ScriptableObject
 {
     public enum SubsystemType

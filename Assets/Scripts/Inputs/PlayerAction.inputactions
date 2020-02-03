@@ -20,6 +20,14 @@
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "SubsystemDurability",
+                    "type": "Button",
+                    "id": "91859018-26c2-4915-a8fd-7874f1576332",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -64,6 +72,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Brake",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "aa2c855a-7f87-459d-b919-c32a4a5c3193",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SubsystemDurability",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
