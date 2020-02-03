@@ -44,8 +44,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spawnTarget: {fileID: 0}
-  _carTemplate: {fileID: 5061895367854924921, guid: 4e86d5cac8e14a04585782b59e15581f,
-    type: 3}
-  _wheelTemplate: {fileID: -4905886567672672404, guid: 0c410aef5b5a89d4faf79a87875cf559,
+  _carTemplate: {fileID: 5061895367854924921, guid: 09ed5696caa354f498e4c7e2a96a7fb8,
     type: 3}
   _collisionMagnitudeThreshold: 15

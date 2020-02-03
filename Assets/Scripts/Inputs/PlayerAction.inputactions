@@ -6,7 +6,7 @@
             "id": "2ac447f0-7ab7-459f-8b6b-296dac719319",
             "actions": [
                 {
-                    "name": "Accel",
+                    "name": "Accelerate",
                     "type": "Button",
                     "id": "12bee76c-3f42-42ea-b23e-154992461fd9",
                     "expectedControlType": "Button",
@@ -14,7 +14,7 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Break",
+                    "name": "Brake",
                     "type": "Button",
                     "id": "d6ec2063-5db8-459b-a1fd-108302dbbceb",
                     "expectedControlType": "",
@@ -30,7 +30,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Accel",
+                    "action": "Accelerate",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -41,7 +41,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Accel",
+                    "action": "Accelerate",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -52,7 +52,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Break",
+                    "action": "Brake",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -63,7 +63,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Break",
+                    "action": "Brake",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

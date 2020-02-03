@@ -14,21 +14,21 @@ public class RepairingUI : Singleton<RepairingUI>
 
 	public void Display(bool show)
 	{
-		_canvas.gameObject.SetActive(show);
+		// _canvas.gameObject.SetActive(show);
 
-		if (show)
-		{
-			for (int i = 0; i < _items.Count; i++)
-			{
-				if (InventoryManager.Instance.Inventory.Count > i)
-				{
-					_items[i].sprite = InventoryManager.Instance.Inventory[i].Icon;
-				}
-				else
-				{
-					_items[i].sprite = null;
-				}
-			}
-		}
+		// if (show)
+		// {
+		// 	for (int i = 0; i < _items.Count; i++)
+		// 	{
+		// 		if (InventoryManager.Instance.Inventory.Count > i)
+		// 		{
+		// 			_items[i].sprite = InventoryManager.Instance.Inventory[i].Icon;
+		// 		}
+		// 		else
+		// 		{
+		// 			_items[i].sprite = null;
+		// 		}
+		// 	}
+		// }
 	}
 }

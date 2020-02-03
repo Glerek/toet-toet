@@ -20,22 +20,22 @@ public class DrivingUI : Singleton<DrivingUI>
 
 	private void Awake()
 	{
-		InventoryManager.Instance.OnInventoryChanged += OnInventoryChanged;
+		// InventoryManager.Instance.OnInventoryChanged += OnInventoryChanged;
 	}
 
 	private void OnInventoryChanged()
 	{
-		for (int i = 0; i < _inventory.Count; i++)
-		{
-			if (InventoryManager.Instance.Inventory.Count > i)
-			{
-				_inventory[i].Icon.sprite = InventoryManager.Instance.Inventory[i].Icon;
-			}
-			else
-			{
-				_inventory[i].Icon.sprite = null;
-			}
-		}
+		// for (int i = 0; i < _inventory.Count; i++)
+		// {
+		// 	if (InventoryManager.Instance.Inventory.Count > i)
+		// 	{
+		// 		_inventory[i].Icon.sprite = InventoryManager.Instance.Inventory[i].Icon;
+		// 	}
+		// 	else
+		// 	{
+		// 		_inventory[i].Icon.sprite = null;
+		// 	}
+		// }
 	}
 
 	public void Display(bool show)
@@ -45,7 +45,7 @@ public class DrivingUI : Singleton<DrivingUI>
 
 	private void Update()
 	{
-		_wheelsSubsystem._subsystemHpGauge.Display(GameManager.Instance.Car.WheelsDurability / Pickable.MAX_DURABILITY);
-		_lightsSubsystem._subsystemHpGauge.Display(GameManager.Instance.Car.LightsDurability / Pickable.MAX_DURABILITY);
+		_wheelsSubsystem._subsystemHpGauge.Display(GameManager.Instance.Car.WheelsDurability / Subsystem.MAX_DURABILITY);
+		// _lightsSubsystem._subsystemHpGauge.Display(GameManager.Instance.Car.LightsDurability / Pickable.MAX_DURABILITY);
 	}
 }

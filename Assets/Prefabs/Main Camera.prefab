@@ -209,4 +209,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _target: {fileID: 0}
   _delta: {x: 0, y: 0}
-  _smoothTime: 0.3
+  _smoothTime: 0.8

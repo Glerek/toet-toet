@@ -19,7 +19,7 @@ public class @PlayerAction : IInputActionCollection, IDisposable
             ""id"": ""2ac447f0-7ab7-459f-8b6b-296dac719319"",
             ""actions"": [
                 {
-                    ""name"": ""Accel"",
+                    ""name"": ""Accelerate"",
                     ""type"": ""Button"",
                     ""id"": ""12bee76c-3f42-42ea-b23e-154992461fd9"",
                     ""expectedControlType"": ""Button"",
@@ -27,7 +27,7 @@ public class @PlayerAction : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""Break"",
+                    ""name"": ""Brake"",
                     ""type"": ""Button"",
                     ""id"": ""d6ec2063-5db8-459b-a1fd-108302dbbceb"",
                     ""expectedControlType"": """",
@@ -43,7 +43,7 @@ public class @PlayerAction : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Accel"",
+                    ""action"": ""Accelerate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -54,7 +54,7 @@ public class @PlayerAction : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Accel"",
+                    ""action"": ""Accelerate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -65,7 +65,7 @@ public class @PlayerAction : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Break"",
+                    ""action"": ""Brake"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -76,7 +76,7 @@ public class @PlayerAction : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Break"",
+                    ""action"": ""Brake"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -87,8 +87,8 @@ public class @PlayerAction : IInputActionCollection, IDisposable
 }");
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
-        m_Player_Accel = m_Player.FindAction("Accel", throwIfNotFound: true);
-        m_Player_Break = m_Player.FindAction("Break", throwIfNotFound: true);
+        m_Player_Accelerate = m_Player.FindAction("Accelerate", throwIfNotFound: true);
+        m_Player_Brake = m_Player.FindAction("Brake", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -138,14 +138,14 @@ public class @PlayerAction : IInputActionCollection, IDisposable
     // Player
     private readonly InputActionMap m_Player;
     private IPlayerActions m_PlayerActionsCallbackInterface;
-    private readonly InputAction m_Player_Accel;
-    private readonly InputAction m_Player_Break;
+    private readonly InputAction m_Player_Accelerate;
+    private readonly InputAction m_Player_Brake;
     public struct PlayerActions
     {
         private @PlayerAction m_Wrapper;
         public PlayerActions(@PlayerAction wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Accel => m_Wrapper.m_Player_Accel;
-        public InputAction @Break => m_Wrapper.m_Player_Break;
+        public InputAction @Accelerate => m_Wrapper.m_Player_Accelerate;
+        public InputAction @Brake => m_Wrapper.m_Player_Brake;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -155,29 +155,29 @@ public class @PlayerAction : IInputActionCollection, IDisposable
         {
             if (m_Wrapper.m_PlayerActionsCallbackInterface != null)
             {
-                @Accel.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAccel;
-                @Accel.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAccel;
-                @Accel.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAccel;
-                @Break.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBreak;
-                @Break.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBreak;
-                @Break.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBreak;
+                @Accelerate.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAccelerate;
+                @Accelerate.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAccelerate;
+                @Accelerate.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAccelerate;
+                @Brake.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBrake;
+                @Brake.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBrake;
+                @Brake.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBrake;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
             {
-                @Accel.started += instance.OnAccel;
-                @Accel.performed += instance.OnAccel;
-                @Accel.canceled += instance.OnAccel;
-                @Break.started += instance.OnBreak;
-                @Break.performed += instance.OnBreak;
-                @Break.canceled += instance.OnBreak;
+                @Accelerate.started += instance.OnAccelerate;
+                @Accelerate.performed += instance.OnAccelerate;
+                @Accelerate.canceled += instance.OnAccelerate;
+                @Brake.started += instance.OnBrake;
+                @Brake.performed += instance.OnBrake;
+                @Brake.canceled += instance.OnBrake;
             }
         }
     }
     public PlayerActions @Player => new PlayerActions(this);
     public interface IPlayerActions
     {
-        void OnAccel(InputAction.CallbackContext context);
-        void OnBreak(InputAction.CallbackContext context);
+        void OnAccelerate(InputAction.CallbackContext context);
+        void OnBrake(InputAction.CallbackContext context);
     }
 }
