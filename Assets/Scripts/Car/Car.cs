@@ -5,10 +5,17 @@ using UnityEngine;
 
 public class Car : MonoBehaviour
 {
-	#region Subclasses
+	#region Subclasses & Enum
+	public enum WheelPosition
+	{
+		Front,
+		Back
+	}
+
 	[Serializable]
 	public class WheelStructure
 	{
+		public WheelPosition Position;
 		public WheelJoint2D Joint;
 		public Subsystem Wheel;
 	}
@@ -18,37 +25,11 @@ public class Car : MonoBehaviour
 	private float _torque = 10.0f;
 
 	[SerializeField]
-	private WheelStructure _backWheel = null;
-
-	[SerializeField]
-	private WheelStructure _frontWheel = null;
+	private List<WheelStructure> _wheels = new List<WheelStructure>();
 
 	[SerializeField]
 	private SubsystemContainer _subsystemUI = null;
 	public SubsystemContainer SubsystemUI { get { return _subsystemUI; } }
-
-	// public float WheelsDurability
-	// {
-	// 	get
-	// 	{
-	// 		float totalDurability = 0f;
-	// 		float amountOfWheels = 0f;
-
-	// 		if (_backWheel.Wheel != null)
-	// 		{
-	// 			totalDurability += _backWheel.Wheel.Durability;
-	// 			amountOfWheels++;
-	// 		}
-
-	// 		if (_frontWheel.Wheel != null)
-	// 		{
-	// 			totalDurability += _frontWheel.Wheel.Durability;
-	// 			amountOfWheels++;
-	// 		}
-			
-	// 		return totalDurability / amountOfWheels;
-	// 	}
-	// }
 
 	// TODO LATER
 	// [SerializeField]
@@ -64,22 +45,6 @@ public class Car : MonoBehaviour
 	// 		}
 
 	// 		return totalDurability / (float)_lights.Count;
-	// 	}
-	// }
-
-	// private bool _canMove = true;
-	// public bool CanMove
-	// {
-	// 	get { return _canMove; }
-	// 	set
-	// 	{
-	// 		if (_canMove != value)
-	// 		{
-	// 			_canMove = value;
-
-	// 			DrivingUI.Instance.Display(_canMove);
-	// 			RepairingUI.Instance.Display(!_canMove);
-	// 		}
 	// 	}
 	// }
 
@@ -130,10 +95,21 @@ public class Car : MonoBehaviour
 
 	void Start()
 	{
-		_backWheel.Wheel.OnBreak += OnWheelBroken;
-		_frontWheel.Wheel.OnBreak += OnWheelBroken;
+		List<Subsystem> subsystems = new List<Subsystem>();
+		for (int i = 0; i < _wheels.Count; i++)
+		{
+			AddWheel(_wheels[i].Wheel as Wheel, _wheels[i].Position);
+			subsystems.Add(_wheels[i].Wheel);
+		}
 
-		_subsystemUI.Initialize(new List<Subsystem>() { _backWheel.Wheel, _frontWheel.Wheel });
+		_subsystemUI.Initialize(subsystems);
+	}
+
+	public void AddWheel(Wheel wheel, WheelPosition position)
+	{
+		wheel.ParentStructure = _wheels.Find(item => item.Position == position);
+
+		AddSubsystem(wheel);
 	}
 
 	private void AddSubsystem(Subsystem subsystem)
@@ -142,30 +118,30 @@ public class Car : MonoBehaviour
 		{
 			_onSubsystemAdded(subsystem);
 		}
+
+		subsystem.OnBreak += OnSubsystemBroken;
 	}
 
-	private void OnWheelBroken(Subsystem wheel)
+	private void OnSubsystemBroken(Subsystem subsystem)
 	{
-		// Wheel brokenWheel = wheel as Wheel;
-		// brokenWheel.OnBreakAction -= OnWheelBroken;
+		subsystem.OnBreak -= OnSubsystemBroken;
 
-		// if (_backWheel.Wheel == brokenWheel)
-		// {
-		// 	_backWheel.Joint.connectedBody = null;
-		// 	_backWheel.Wheel.transform.SetParent(transform.parent);
-		// 	_backWheel.Wheel.GetComponent<Rigidbody2D>().AddTorque(-30f);
-		// 	_backWheel.Wheel = null;
-		// }
+		switch (subsystem.Data.Type)
+		{
+			case SubsystemData.SubsystemType.Wheel:
+				Wheel wheel = subsystem as Wheel;
+				wheel.transform.SetParent(transform.root);
+				wheel.GetComponent<Rigidbody2D>().AddTorque(-30f);
 
-		// if (_frontWheel.Wheel == brokenWheel)
-		// {
-		// 	_frontWheel.Joint.connectedBody = null;
-		// 	_frontWheel.Wheel.transform.SetParent(transform.parent);
-		// 	_frontWheel.Wheel.GetComponent<Rigidbody2D>().AddTorque(-30f);
-		// 	_frontWheel.Wheel = null;
-		// }
+				WheelStructure structure = _wheels.Find(item => item.Wheel == wheel);
+				structure.Joint.connectedBody = null;
+				structure.Wheel = null;
+				break;
 
-		// CanMove = _backWheel.Wheel != null && _frontWheel.Wheel != null;
+			default:
+				Debug.LogWarning($"Break not implemented for {subsystem.Data.Type}");
+				break;
+		}
 	}
 
 	public void Accelerate()
@@ -180,14 +156,12 @@ public class Car : MonoBehaviour
 
 	private void ApplyTorque(float torque)
 	{
-		if (_backWheel.Wheel != null && !_backWheel.Wheel.IsBroken)
+		for (int i = 0; i < _wheels.Count; i++)
 		{
-			_backWheel.Wheel.GetComponent<Rigidbody2D>().AddTorque(torque, ForceMode2D.Force);
-		}
-
-		if (_frontWheel.Wheel != null && !_frontWheel.Wheel.IsBroken)
-		{
-			_frontWheel.Wheel.GetComponent<Rigidbody2D>().AddTorque(torque, ForceMode2D.Force);
+			if (_wheels[i].Wheel != null && !_wheels[i].Wheel.IsBroken)
+			{
+				_wheels[i].Wheel.GetComponent<Rigidbody2D>().AddTorque(torque, ForceMode2D.Force);
+			}
 		}
 	}
 }

@@ -244,12 +244,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _torque: 10
-  _backWheel:
-    Joint: {fileID: 3916773967010316864}
-    Wheel: {fileID: 8602001869983180427}
-  _frontWheel:
+  _wheels:
+  - Position: 0
     Joint: {fileID: 3778947885018577504}
     Wheel: {fileID: 6784026331790021273}
+  - Position: 1
+    Joint: {fileID: 3916773967010316864}
+    Wheel: {fileID: 8602001869983180427}
   _subsystemUI: {fileID: 3432968980034151652}
 --- !u!212 &5061895367854924927
 SpriteRenderer:
@@ -678,7 +679,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 585376a6b9c45a7429c75eb8d884d5f6, type: 3}
+  m_Script: {fileID: 11500000, guid: 255fbcba18e791f43834586da504ba7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!50 &7562621435364831532 stripped
@@ -783,6 +784,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 585376a6b9c45a7429c75eb8d884d5f6, type: 3}
+  m_Script: {fileID: 11500000, guid: 255fbcba18e791f43834586da504ba7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

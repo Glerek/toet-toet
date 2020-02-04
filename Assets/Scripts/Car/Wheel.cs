@@ -2,19 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// public class Wheel : Sub
-// {
-//     protected override void OnBroken()
-// 	{
-// 		SpriteRenderer.color = Color.red;
-// 	}
-
-//     private void OnCollisionEnter2D(Collision2D collision)
-//     {
-//         var mag = collision.relativeVelocity.magnitude;
-// 		if (mag > GameManager.Instance.CollisionMagnitudeThreshold)
-// 		{
-// 			DecreaseDurability(mag);
-// 		}
-//     }
-// }
+public class Wheel : Subsystem
+{
+    private Car.WheelStructure _parentStructure = null;
+    public Car.WheelStructure ParentStructure
+    {
+        get { return _parentStructure; }
+        set { _parentStructure = value; }
+    }
+}

@@ -31,6 +31,12 @@ public class Subsystem : MonoBehaviour
     private SubsystemData _data = null;
     public SubsystemData Data { get { return _data; } }
 
+    [SerializeField]
+    [Tooltip("Delay between two damages (in seconds)")]
+    private float _delayBetweenDamages = 1.0f;
+    private bool _canTakeDamage = true;
+    private float _timer = 0f;
+
 	protected float _durability = MAX_DURABILITY;
     public float DurabilityValue { get { return _durability / MAX_DURABILITY; } }
     public bool IsBroken { get {return _durability <= 0f; } }
@@ -49,12 +55,13 @@ public class Subsystem : MonoBehaviour
 
     public void ApplyDamage(DamageType type)
     {
-        if (DurabilityByDamage.ContainsKey(type))
+        if (_canTakeDamage && DurabilityByDamage.ContainsKey(type))
         {
             if (_durability > 0f)
             {
                 Debug.Log("Apply " + type + " damage (" + DurabilityByDamage[type] + ") to " + (transform.parent != null ? transform.parent.name : gameObject.name));
                 _durability -= DurabilityByDamage[type];
+                _canTakeDamage = false;
 
                 if (_durability <= 0f)
                 {
@@ -79,6 +86,20 @@ public class Subsystem : MonoBehaviour
             {
                 ApplyDamage(item.Value);
                 break;
+            }
+        }
+    }
+
+    private void Update()
+    {
+        if (!_canTakeDamage)
+        {
+            _timer += Time.deltaTime;
+
+            if (_timer >= _delayBetweenDamages)
+            {
+                _canTakeDamage = true;
+                _timer = 0f;
             }
         }
     }
