@@ -5,43 +5,63 @@ using System.Collections.Generic;
 public class InventoryManager : Singleton<InventoryManager>
 {
 	public const int MAX_INVENTORY_SIZE = 3;
-	// private List<Pickable> _inventory = new List<Pickable>();
-	// public List<Pickable> Inventory
-	// {
-	// 	get { return _inventory; }
-	// }
+	private List<SubsystemData>_inventory = new List<SubsystemData>(MAX_INVENTORY_SIZE);
+	public List<SubsystemData> Inventory
+	{
+		get { return _inventory; }
+	}
 
-	// private Action _onInventoryChanged = null;
-	// public event Action OnInventoryChanged
-	// {
-	// 	add
-	// 	{
-	// 		_onInventoryChanged -= value;
-	// 		_onInventoryChanged += value;
-	// 	}
+	private Action<List<SubsystemData>> _onInventoryChanged = null;
+	public event Action<List<SubsystemData>> OnInventoryChanged
+	{
+		add
+		{
+			_onInventoryChanged -= value;
+			_onInventoryChanged += value;
+		}
 
-	// 	remove { _onInventoryChanged -= value; }
-	// }
+		remove { _onInventoryChanged -= value; }
+	}
 
-	// public void AddToInventory(Pickable pickup)
-	// {
-	// 	if (_inventory.Count < MAX_INVENTORY_SIZE)
-	// 	{
-	// 		_inventory.Add(pickup);
+	private Action<bool> _displayInventoryCallback = null;
+	public event Action<bool> DisplayInventoryCallback
+	{
+		add
+		{
+			_displayInventoryCallback -= value;
+			_displayInventoryCallback += value;
+		}
 
-	// 		if (_onInventoryChanged != null)
-	// 			_onInventoryChanged();
-	// 	}
-	// }
+		remove { _displayInventoryCallback -= value; }
+	}
 
-	// public void RemoveFromInventory(Pickable pickup)
-	// {
-	// 	if (_inventory.Contains(pickup))
-	// 	{
-	// 		_inventory.Remove(pickup);
+	public void AddToInventory(SubsystemData subsystem)
+	{
+		if (_inventory.Count < MAX_INVENTORY_SIZE)
+		{
+			_inventory.Add(subsystem);
 
-	// 		if (_onInventoryChanged != null)
-	// 			_onInventoryChanged();
-	// 	}
-	// }
+			if (_onInventoryChanged != null)
+				_onInventoryChanged(_inventory);
+		}
+	}
+
+	public void RemoveFromInventory(SubsystemData subsystem)
+	{
+		if (_inventory.Contains(subsystem))
+		{
+			_inventory.Remove(subsystem);
+
+			if (_onInventoryChanged != null)
+				_onInventoryChanged(_inventory);
+		}
+	}
+
+	public void DisplayInventory(bool show)
+	{
+		if (_displayInventoryCallback != null)
+		{
+			_displayInventoryCallback(show);
+		}
+	}
 }

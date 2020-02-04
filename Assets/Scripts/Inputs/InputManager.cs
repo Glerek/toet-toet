@@ -39,6 +39,11 @@ public class InputManager : Singleton<InputManager>, PlayerAction.IPlayerActions
 		}
 	}
 
+	public void OnInventory(InputAction.CallbackContext context)
+	{
+		InventoryManager.Instance.DisplayInventory(context.ReadValue<float>() == 1.0f);
+	}
+
     private void Awake()
     {
         _input = new PlayerAction.PlayerActions(new PlayerAction());
