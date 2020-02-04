@@ -31,23 +31,6 @@ public class Car : MonoBehaviour
 	private SubsystemContainer _subsystemUI = null;
 	public SubsystemContainer SubsystemUI { get { return _subsystemUI; } }
 
-	// TODO LATER
-	// [SerializeField]
-	// private List<CarLight> _lights = new List<CarLight>();
-	// public float LightsDurability
-	// {
-	// 	get
-	// 	{
-	// 		float totalDurability = 0f;
-	// 		for (int i = 0; i < _lights.Count; i++)
-	// 		{
-	// 			totalDurability += _lights[i].Durability;
-	// 		}
-
-	// 		return totalDurability / (float)_lights.Count;
-	// 	}
-	// }
-
 	private Action _onVehicleStuck = null;
 	public event Action OnVehicleStuck
 	{
@@ -141,6 +124,11 @@ public class Car : MonoBehaviour
 			default:
 				Debug.LogWarning($"Break not implemented for {subsystem.Data.Type}");
 				break;
+		}
+
+		if (_onSubsystemRemoved != null)
+		{
+			_onSubsystemRemoved(subsystem);
 		}
 	}
 

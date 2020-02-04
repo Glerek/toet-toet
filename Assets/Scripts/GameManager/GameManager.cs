@@ -51,7 +51,6 @@ public class GameManager : Singleton<GameManager>
 
 	public void ToggleRepairMode()
 	{
-		Debug.Log("Toggle to " + !DuringRepairMode);
 		DuringRepairMode = !DuringRepairMode;
 	}
 }
