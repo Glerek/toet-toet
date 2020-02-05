@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6f6eed9fee9d724fba57a1c0e0ca88d, type: 3}
   m_Name: StandardWheel
   m_EditorClassIdentifier: 
+  _name: Base Wheel
   _type: 0
   _icon: {fileID: 21300000, guid: 15dec92366bc8416a9ed38a44426d6e5, type: 3}

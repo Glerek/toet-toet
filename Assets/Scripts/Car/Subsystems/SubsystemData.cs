@@ -14,6 +14,10 @@ public class SubsystemData : ScriptableObject
     }
 
     [SerializeField]
+    private string _name = string.Empty;
+    public string Name { get { return _name; } }
+
+    [SerializeField]
     private SubsystemType _type =　SubsystemType.Count;
     public SubsystemType Type { get { return _type; } }
 
