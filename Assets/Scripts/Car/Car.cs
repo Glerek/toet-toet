@@ -31,20 +31,7 @@ public class Car : MonoBehaviour
 	private SubsystemContainer _subsystemUI = null;
 	public SubsystemContainer SubsystemUI { get { return _subsystemUI; } }
 
-	private Action _onVehicleStuck = null;
-	public event Action OnVehicleStuck
-	{
-		add
-		{
-			_onVehicleStuck -= value;
-			_onVehicleStuck += value;
-		}
-
-		remove
-		{
-			_onVehicleStuck -= value;
-		}
-	}
+	private bool _ongoingRepairMode = false;
 
 	private Action<Subsystem> _onSubsystemAdded = null;
 	public event Action<Subsystem> OnSubsystemAdded
@@ -74,6 +61,18 @@ public class Car : MonoBehaviour
 		{
 			_onSubsystemRemoved -= value;
 		}
+	}
+
+	private Action<bool> _onRepairMode = null;
+	public event Action<bool> OnRepairMode
+	{
+		add
+		{
+			_onRepairMode -= value;
+			_onRepairMode += value;
+		}
+
+		remove { _onRepairMode -= value; }
 	}
 
 	void Start()
@@ -144,12 +143,25 @@ public class Car : MonoBehaviour
 
 	private void ApplyTorque(float torque)
 	{
-		for (int i = 0; i < _wheels.Count; i++)
+		if (_ongoingRepairMode == false)
 		{
-			if (_wheels[i].Wheel != null && !_wheels[i].Wheel.IsBroken)
+			for (int i = 0; i < _wheels.Count; i++)
 			{
-				_wheels[i].Wheel.GetComponent<Rigidbody2D>().AddTorque(torque, ForceMode2D.Force);
+				if (_wheels[i].Wheel != null && !_wheels[i].Wheel.IsBroken)
+				{
+					_wheels[i].Wheel.GetComponent<Rigidbody2D>().AddTorque(torque, ForceMode2D.Force);
+				}
 			}
+		}
+	}
+
+	public void SetRepairMode(bool enable)
+	{
+		_ongoingRepairMode = enable;
+		
+		if (_onRepairMode != null)
+		{
+			_onRepairMode(enable);
 		}
 	}
 }

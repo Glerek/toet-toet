@@ -26,8 +26,7 @@ public class GameManager : Singleton<GameManager>
 			if (_duringRepairMode != value)
 			{
 				_duringRepairMode = value;
-
-				RepairingUI.Instance.Display(_duringRepairMode);
+				GameManager.Instance.Car.SetRepairMode(_duringRepairMode);
 			}
 		}
 	}
@@ -39,8 +38,6 @@ public class GameManager : Singleton<GameManager>
 
 	private void Start()
 	{
-		RepairingUI.Instance.Display(false);
-
 		// for (int i = 0; i < 3; i++)
 		// {
 		// 	Wheel spawnedWheel = GameObject.Instantiate(_wheelTemplate, new Vector3(-30, -2, 0), Quaternion.identity);
