@@ -28,6 +28,9 @@ public class Subsystem : MonoBehaviour
 	public static readonly float MAX_DURABILITY = 100f;
 
     [SerializeField]
+    protected SpriteRenderer _renderer = null;
+
+    [SerializeField]
     private SubsystemData _data = null;
     public SubsystemData Data { get { return _data; } }
 
@@ -41,17 +44,23 @@ public class Subsystem : MonoBehaviour
     public float DurabilityValue { get { return _durability / MAX_DURABILITY; } }
     public bool IsBroken { get {return _durability <= 0f; } }
 
-	private Action<Subsystem> _onBreak = null;
-	public event Action<Subsystem> OnBreak
+	private Action<Subsystem> _onBreakAction = null;
+	public event Action<Subsystem> OnBreakAction
 	{
 		add 
 		{
-			_onBreak -= value;
-			_onBreak += value;
+			_onBreakAction -= value;
+			_onBreakAction += value;
 		}
 
-		remove { _onBreak -= value; }
+		remove { _onBreakAction -= value; }
 	}
+
+    public void Initialize(SubsystemData data)
+    {
+        _data = data;
+        _renderer.sprite = _data.Icon; 
+    }
 
     public void ApplyDamage(DamageType type)
     {
@@ -67,10 +76,12 @@ public class Subsystem : MonoBehaviour
                 {
                     _durability = 0f;
 
-                    if (_onBreak != null)
+                    if (_onBreakAction != null)
                     {
-                        _onBreak(this);
+                        _onBreakAction(this);
                     }
+
+                    OnBreak();
                 }
             }
         }
@@ -103,4 +114,6 @@ public class Subsystem : MonoBehaviour
             }
         }
     }
+
+    protected virtual void OnBreak() {}
 }

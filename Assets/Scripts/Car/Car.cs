@@ -101,12 +101,12 @@ public class Car : MonoBehaviour
 			_onSubsystemAdded(subsystem);
 		}
 
-		subsystem.OnBreak += OnSubsystemBroken;
+		subsystem.OnBreakAction += OnSubsystemBroken;
 	}
 
 	private void OnSubsystemBroken(Subsystem subsystem)
 	{
-		subsystem.OnBreak -= OnSubsystemBroken;
+		subsystem.OnBreakAction -= OnSubsystemBroken;
 
 		switch (subsystem.Data.Type)
 		{

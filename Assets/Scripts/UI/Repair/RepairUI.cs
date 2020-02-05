@@ -27,14 +27,14 @@ public class RepairUI : MonoBehaviour
         _container.SetActive(show);
     }
 
-    private void Update()
-    {
-        Ray ray = _repairCamera.ScreenPointToRay(Input.mousePosition);
-        Debug.DrawRay(ray.origin, 5f * ray.direction, Color.red, 5f);
-        RaycastHit2D hit2D =  Physics2D.GetRayIntersection(ray, 5f, LayerMask.GetMask(new string[] {"Car", "Wheel"})); 
-        if (hit2D.collider != null)
-        {
-            Debug.Log(hit2D.collider);
-        }
-    }
+    // private void Update()
+    // {
+    //     Ray ray = _repairCamera.ScreenPointToRay(Input.mousePosition);
+    //     Debug.DrawRay(ray.origin, 5f * ray.direction, Color.red, 5f);
+    //     RaycastHit2D hit2D =  Physics2D.GetRayIntersection(ray, 5f, LayerMask.GetMask(new string[] {"Car", "Wheel"})); 
+    //     if (hit2D.collider != null)
+    //     {
+    //         Debug.Log(hit2D.collider);
+    //     }
+    // }
 }

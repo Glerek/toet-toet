@@ -35,7 +35,7 @@ public class InventoryManager : Singleton<InventoryManager>
 		remove { _displayInventoryCallback -= value; }
 	}
 
-	public void AddToInventory(SubsystemData subsystem)
+	public bool AddToInventory(SubsystemData subsystem)
 	{
 		if (_inventory.Count < MAX_INVENTORY_SIZE)
 		{
@@ -43,7 +43,11 @@ public class InventoryManager : Singleton<InventoryManager>
 
 			if (_onInventoryChanged != null)
 				_onInventoryChanged(_inventory);
+
+			return true;
 		}
+
+		return false;
 	}
 
 	public void RemoveFromInventory(SubsystemData subsystem)
