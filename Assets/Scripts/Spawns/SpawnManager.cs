@@ -14,16 +14,15 @@ public class SpawnManager : Singleton<SpawnManager>
     [SerializeField]
     private float _delayBetweenSpawns = 10f;
 
+    [SerializeField]
+    private float _distanceMinimumBetweenSpawns = 20f;
+
     private Coroutine _spawnCoroutine = null;
     private List<PickableObject> _spawnedObjects = new List<PickableObject>();
 
     private void Start()
     {
-        // _spawnCoroutine = StartCoroutine(SpawnCoroutine());
-
-        // Debug.Log(Camera.main.name);
-        // Vector3 carPosition = GameManager.Instance.Car.transform.position;
-        // SpawnObjectAtWorldPosition(Camera.main.ViewportToWorldPoint(new Vector3(0f, 0f, carPosition.z)));
+        _spawnCoroutine = StartCoroutine(SpawnCoroutine());
     }
 
     private void OnDestroy()
@@ -32,6 +31,12 @@ public class SpawnManager : Singleton<SpawnManager>
         {
             StopCoroutine(_spawnCoroutine);
         }
+
+        for (int i = 0; i < _spawnedObjects.Count; i++)
+        {
+            GameObject.Destroy(_spawnedObjects[i].gameObject);
+        }
+        _spawnedObjects.Clear();
     }
 
     private IEnumerator SpawnCoroutine()
@@ -51,32 +56,35 @@ public class SpawnManager : Singleton<SpawnManager>
         if (data != null)
         {
             Vector3 carPosition = GameManager.Instance.Car.transform.position;
-            Vector3 spawnPos = Camera.main.ViewportToWorldPoint(new Vector3(1.5f, 0.5f, 0f));
-            spawnPos.z = carPosition.z;
-            
-            PickableObject spawnedObject = GameObject.Instantiate(_objectTemplate, transform);
-            spawnedObject.transform.position = spawnPos;
-            spawnedObject.Initialize(data);
+            Vector3 spawnPos = Camera.main.ViewportToWorldPoint(new Vector3(Random.Range(1.1f, 1.6f), 1.5f, Mathf.Abs(carPosition.z - Camera.main.transform.position.z)));
 
-            _spawnedObjects.Add(spawnedObject);
+            if (ChekSpawnDistance(spawnPos))
+            {
+                RaycastHit2D hit = Physics2D.Raycast(spawnPos, Vector2.down, LayerMask.GetMask("Road"));
+                if (hit.collider != null)
+                {
+                    spawnPos.y = hit.point.y;
+                }
 
-            Debug.Log($"<color=green>Spawned {data.Name} at position {spawnPos}</color>");
+                PickableObject spawnedObject = GameObject.Instantiate(_objectTemplate, spawnPos, Quaternion.identity, transform);
+                spawnedObject.Initialize(data);
+                _spawnedObjects.Add(spawnedObject);
+
+                Debug.Log($"<color=green>Spawned {data.Name} at position {spawnPos}</color>");
+            }
         }
     }
 
-    private void SpawnObjectAtWorldPosition(Vector3 worldPosition)
+    private bool ChekSpawnDistance(Vector3 spawnPosition)
     {
-        SubsystemData data = _spawnTable.GetRandomData();
+        PickableObject lastSpawnedObject = _spawnedObjects.Count > 0 ? _spawnedObjects[_spawnedObjects.Count - 1] : null;
 
-        if (data != null)
+        // TODO: Improve that in case we're going backward
+        if (lastSpawnedObject != null)
         {
-            PickableObject spawnedObject = GameObject.Instantiate(_objectTemplate, worldPosition, Quaternion.identity, transform);
-            spawnedObject.Initialize(data);
-
-            _spawnedObjects.Add(spawnedObject);
-
-            Debug.Log($"<color=green>Spawned {data.Name} at position {worldPosition}</color>");
+            return Mathf.Abs(spawnPosition.x - lastSpawnedObject.transform.position.x) > _distanceMinimumBetweenSpawns;
         }
+        return true;
     }
 
     public void PickupObject(PickableObject obj)
