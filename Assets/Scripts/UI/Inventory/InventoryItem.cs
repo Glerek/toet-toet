@@ -1,12 +1,17 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using System;
 
 public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     [SerializeField]
     private Image _icon = null;
 
+	private Action<InventoryItem, PointerEventData> _startDragCallback = null;
+	private Action<InventoryItem, PointerEventData> _stopDragCallback = null;
+	private SubsystemData _data = null;
+	public SubsystemData Data { get { return _data; } }
 	private GameObject _draggingPlaceholder = null;
 
     private void Awake()
@@ -14,10 +19,17 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         _icon.enabled = false;
     }
 
-    public void SetSprite(Sprite sprite)
+	public void Initialize(Action<InventoryItem, PointerEventData> startDragCallback, Action<InventoryItem, PointerEventData> stopDragCallback)
+	{
+		_startDragCallback = startDragCallback;
+		_stopDragCallback = stopDragCallback;
+	}
+
+    public void SetData(SubsystemData data)
     {
-        _icon.enabled = sprite != null;
-        _icon.sprite = sprite;
+		_data = data;
+        _icon.enabled = data != null && data.Icon != null;
+        _icon.sprite = _data?.Icon;
     }
 
     public void OnBeginDrag(PointerEventData data)
@@ -36,6 +48,10 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 				_draggingPlaceholder.GetComponent<RectTransform>().sizeDelta = new Vector2(_icon.rectTransform.rect.width, _icon.rectTransform.rect.height);
 
 				SetDraggedPosition(data);
+
+				_icon.enabled = false;
+
+				_startDragCallback?.Invoke(this, data);
 			}
 		}
 	}
@@ -69,5 +85,8 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 			GameObject.Destroy(_draggingPlaceholder.gameObject);
 			_draggingPlaceholder = null;
 		}
+
+		_icon.enabled = true;
+		_stopDragCallback?.Invoke(this, eventData);
 	}
 }

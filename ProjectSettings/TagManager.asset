@@ -53,6 +53,9 @@ TagManager:
   - name: Wheel
     uniqueID: 3247304019
     locked: 0
+  - name: WorldUI
+    uniqueID: 538799413
+    locked: 0
   - name: Foreground
     uniqueID: 2740353931
     locked: 0

@@ -36,16 +36,6 @@ public class GameManager : Singleton<GameManager>
         _car = Instantiate(_carTemplate, _spawnTarget.transform.position, Quaternion.identity);
     }
 
-	private void Start()
-	{
-		// for (int i = 0; i < 3; i++)
-		// {
-		// 	Wheel spawnedWheel = GameObject.Instantiate(_wheelTemplate, new Vector3(-30, -2, 0), Quaternion.identity);
-		// 	_spawnedWheels.Add(spawnedWheel);
-		// 	InventoryManager.Instance.AddToInventory(spawnedWheel);
-		// }
-	}
-
 	public void ToggleRepairMode()
 	{
 		DuringRepairMode = !DuringRepairMode;

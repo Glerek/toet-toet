@@ -94,6 +94,11 @@ public class Car : MonoBehaviour
 		AddSubsystem(wheel);
 	}
 
+	public Subsystem GetWheel(WheelPosition position)
+	{
+		return _wheels.Find(item => item.Position == position).Wheel;
+	}
+
 	private void AddSubsystem(Subsystem subsystem)
 	{
 		if (_onSubsystemAdded != null)
