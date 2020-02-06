@@ -10,6 +10,8 @@ public class RepairUI : MonoBehaviour
     [SerializeField]
     private Camera _repairCamera = null;
 
+    private bool _duringRepairMode = false;
+
     private void Start()
     {
         OnRepairMode(false);
@@ -24,17 +26,18 @@ public class RepairUI : MonoBehaviour
 
     private void OnRepairMode(bool show)
     {
+        _duringRepairMode = show;
         _container.SetActive(show);
     }
 
-    // private void Update()
-    // {
-    //     Ray ray = _repairCamera.ScreenPointToRay(Input.mousePosition);
-    //     Debug.DrawRay(ray.origin, 5f * ray.direction, Color.red, 5f);
-    //     RaycastHit2D hit2D =  Physics2D.GetRayIntersection(ray, 5f, LayerMask.GetMask(new string[] {"Car", "Wheel"})); 
-    //     if (hit2D.collider != null)
-    //     {
-    //         Debug.Log(hit2D.collider);
-    //     }
-    // }
+    private void Update()
+    {
+        // Ray ray = _repairCamera.ScreenPointToRay(Input.mousePosition);
+        // Debug.DrawRay(ray.origin, 5f * ray.direction, Color.red, 5f);
+        // RaycastHit2D hit2D =  Physics2D.GetRayIntersection(ray, 5f, LayerMask.GetMask(new string[] {"Car", "Wheel"})); 
+        // if (hit2D.collider != null)
+        // {
+        //     Debug.Log(hit2D.collider);
+        // }
+    }
 }
