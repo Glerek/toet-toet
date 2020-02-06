@@ -9,6 +9,7 @@ public class RepairUI : MonoBehaviour
 
     [SerializeField]
     private Camera _repairCamera = null;
+	public Camera RepairCamera { get {return _repairCamera; } }
 
     private void Start()
     {

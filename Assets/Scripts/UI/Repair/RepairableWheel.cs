@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+[RequireComponent(typeof(BoxCollider2D))]
 public class RepairableWheel : RepairablePart
 {
 	[SerializeField]
@@ -28,23 +29,26 @@ public class RepairableWheel : RepairablePart
 			item.Data.Type == SubsystemData.SubsystemType.Wheel &&
 			GameManager.Instance.Car.GetWheel(_wheelPosition) == null)
 		{
-			DisplayRepairHighlight(true);
+			SetAllowedTarget(true);
 		}
 	}
 
 	private void OnItemDragStop(InventoryItem item, PointerEventData pointerData)
 	{
+		if (_allowedTarget)
+		{
+			// TODO MOVE THAT TO INVENTORY ITEM 
+			Ray ray = _repairUI.RepairCamera.ScreenPointToRay(pointerData.position);
+			RaycastHit2D hit2D =  Physics2D.GetRayIntersection(ray, 5f, LayerMask.GetMask(new string[] {"RepairablePart"})); 
+			if (hit2D.collider != null && hit2D.collider.gameObject == gameObject)
+			{
+				Debug.Log($"Dropped item on {gameObject.name}");
+			}
+
+		}
 		// TODO do that
 
-        // Ray ray = _repairCamera.ScreenPointToRay(Input.mousePosition);
-        // Debug.DrawRay(ray.origin, 5f * ray.direction, Color.red, 5f);
-        // RaycastHit2D hit2D =  Physics2D.GetRayIntersection(ray, 5f, LayerMask.GetMask(new string[] {"Car", "Wheel"})); 
-        // if (hit2D.collider != null)
-        // {
-        //     Debug.Log(hit2D.collider);
-        // }
-
 		// TODO Also Repair the wheel and remove it from inventory
-		DisplayRepairHighlight(false);
+		SetAllowedTarget(false);
 	}
 }

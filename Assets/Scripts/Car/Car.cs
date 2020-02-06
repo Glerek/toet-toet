@@ -31,6 +31,10 @@ public class Car : MonoBehaviour
 	private SubsystemContainer _subsystemUI = null;
 	public SubsystemContainer SubsystemUI { get { return _subsystemUI; } }
 
+	[SerializeField]
+	private RepairUI _repairUI = null;
+	public RepairUI RepairUI { get { return _repairUI; } }
+
 	private bool _ongoingRepairMode = false;
 
 	private Action<Subsystem> _onSubsystemAdded = null;
