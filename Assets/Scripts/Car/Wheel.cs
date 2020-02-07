@@ -40,6 +40,7 @@ public class Wheel : Subsystem
             rendererColor.a = Mathf.Lerp(1f, 0f, timer / _fadeOutDuration);
 
             _renderer.color = rendererColor;
+            yield return null;
         }
 
         GameObject.Destroy(this.gameObject);
