@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class InventoryContainer : MonoBehaviour
 {
@@ -12,8 +11,8 @@ public class InventoryContainer : MonoBehaviour
 	[SerializeField]
 	private List<InventoryItem> _items = new List<InventoryItem>(InventoryManager.MAX_INVENTORY_SIZE);
 
-	private static Action<InventoryItem, PointerEventData> _onItemStartDragEvent = null;
-	public static event Action<InventoryItem, PointerEventData> OnItemStartDragEvent
+	private static Action<InventoryItem> _onItemStartDragEvent = null;
+	public static event Action<InventoryItem> OnItemStartDragEvent
 	{
 		add
 		{
@@ -24,8 +23,8 @@ public class InventoryContainer : MonoBehaviour
 		remove { _onItemStartDragEvent -= value; }
 	}
 
-	private static Action<InventoryItem, PointerEventData> _onItemStopDragEvent = null;
-	public static event Action<InventoryItem, PointerEventData> OnItemStopDragEvent
+	private static Action<InventoryItem> _onItemStopDragEvent = null;
+	public static event Action<InventoryItem> OnItemStopDragEvent
 	{
 		add
 		{
@@ -66,9 +65,9 @@ public class InventoryContainer : MonoBehaviour
 
 	private void OnInventoryChanged(List<SubsystemData> newInventory)
 	{
-		for (int i = 0; i < newInventory.Count; i++)
+		for (int i = 0; i < _items.Count; i++)
 		{
-			_items[i].SetData(newInventory[i]);
+			_items[i].SetData(newInventory.Count > i ? newInventory[i] : null);
 		}
 	}
 
@@ -78,13 +77,13 @@ public class InventoryContainer : MonoBehaviour
 		OnDisplayInventory(_forceShow);
 	}
 
-	private void OnStartDrag(InventoryItem item, PointerEventData pointerEventData)
+	private void OnStartDrag(InventoryItem item)
 	{
-		_onItemStartDragEvent?.Invoke(item, pointerEventData);
+		_onItemStartDragEvent?.Invoke(item);
 	}
 
-	private void OnStopDrag(InventoryItem item, PointerEventData pointerEventData)
+	private void OnStopDrag(InventoryItem item)
 	{
-		_onItemStopDragEvent?.Invoke(item, pointerEventData);
+		_onItemStopDragEvent?.Invoke(item);
 	}
 }

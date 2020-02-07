@@ -23,7 +23,7 @@ public class RepairableWheel : RepairablePart
 		InventoryContainer.OnItemStopDragEvent -= OnItemDragStop;
 	}
 
-	private void OnItemDragStart(InventoryItem item, PointerEventData pointerData)
+	private void OnItemDragStart(InventoryItem item)
 	{
 		if (_ongoingRepairMode &&
 			item.Data.Type == SubsystemData.SubsystemType.Wheel &&
@@ -33,22 +33,32 @@ public class RepairableWheel : RepairablePart
 		}
 	}
 
-	private void OnItemDragStop(InventoryItem item, PointerEventData pointerData)
+	private void OnItemDragStop(InventoryItem item)
+	{
+		SetAllowedTarget(false);
+	}
+
+	public override void DropItem(InventoryItem item)
 	{
 		if (_allowedTarget)
 		{
-			// TODO MOVE THAT TO INVENTORY ITEM 
-			Ray ray = _repairUI.RepairCamera.ScreenPointToRay(pointerData.position);
-			RaycastHit2D hit2D =  Physics2D.GetRayIntersection(ray, 5f, LayerMask.GetMask(new string[] {"RepairablePart"})); 
-			if (hit2D.collider != null && hit2D.collider.gameObject == gameObject)
+			if (item.Data.Type == _type)
 			{
-				Debug.Log($"Dropped item on {gameObject.name}");
+				Debug.Log($"{item.Data.Name} dropped onto {gameObject.name}");
+
+				if (item.Data.PrefabTemplate is Wheel)
+				{
+					Wheel newWheel = GameObject.Instantiate(item.Data.PrefabTemplate) as Wheel;
+
+					newWheel.transform.SetParent(transform);
+					GameManager.Instance.Car.AddWheel(newWheel, _wheelPosition);
+					InventoryManager.Instance.RemoveFromInventory(item.Data);
+				}
 			}
-
+			else
+			{
+				Debug.LogError($"Dropped a {item.Data.Type} item onto a {_type} part. Should never happen");
+			}
 		}
-		// TODO do that
-
-		// TODO Also Repair the wheel and remove it from inventory
-		SetAllowedTarget(false);
 	}
 }

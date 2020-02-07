@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 public abstract class RepairablePart : MonoBehaviour
 {
 	[SerializeField]
-	private SubsystemData.SubsystemType _type = SubsystemData.SubsystemType.Count;
+	protected SubsystemData.SubsystemType _type = SubsystemData.SubsystemType.Count;
 
 	protected RepairUI _repairUI = null;
 	protected bool _ongoingRepairMode = false;
@@ -31,6 +31,7 @@ public abstract class RepairablePart : MonoBehaviour
 
 	protected abstract void Initialize();
 	protected abstract void Release();
+	public abstract void DropItem(InventoryItem item);
 
 	protected void SetAllowedTarget(bool allowed)
 	{

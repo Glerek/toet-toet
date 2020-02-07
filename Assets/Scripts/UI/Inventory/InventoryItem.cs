@@ -8,8 +8,8 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     [SerializeField]
     private Image _icon = null;
 
-	private Action<InventoryItem, PointerEventData> _startDragCallback = null;
-	private Action<InventoryItem, PointerEventData> _stopDragCallback = null;
+	private Action<InventoryItem> _startDragCallback = null;
+	private Action<InventoryItem> _stopDragCallback = null;
 	private SubsystemData _data = null;
 	public SubsystemData Data { get { return _data; } }
 	private GameObject _draggingPlaceholder = null;
@@ -19,7 +19,7 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         _icon.enabled = false;
     }
 
-	public void Initialize(Action<InventoryItem, PointerEventData> startDragCallback, Action<InventoryItem, PointerEventData> stopDragCallback)
+	public void Initialize(Action<InventoryItem> startDragCallback, Action<InventoryItem> stopDragCallback)
 	{
 		_startDragCallback = startDragCallback;
 		_stopDragCallback = stopDragCallback;
@@ -51,7 +51,7 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
 				_icon.enabled = false;
 
-				_startDragCallback?.Invoke(this, data);
+				_startDragCallback?.Invoke(this);
 			}
 		}
 	}
@@ -87,6 +87,18 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 		}
 
 		_icon.enabled = true;
-		_stopDragCallback?.Invoke(this, eventData);
+
+		Ray ray = GameManager.Instance.Car.RepairUI.RepairCamera.ScreenPointToRay(eventData.position);
+		RaycastHit2D hit2D =  Physics2D.GetRayIntersection(ray, 5f, LayerMask.GetMask(new string[] {"RepairablePart"})); 
+		if (hit2D.collider != null)
+		{
+			RepairablePart repairablePart = hit2D.collider.GetComponent<RepairablePart>();
+			if (repairablePart != null)
+			{
+				repairablePart.DropItem(this);
+			}
+		}
+
+		_stopDragCallback?.Invoke(this);
 	}
 }

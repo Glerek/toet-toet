@@ -93,7 +93,10 @@ public class Car : MonoBehaviour
 
 	public void AddWheel(Wheel wheel, WheelPosition position)
 	{
-		wheel.ParentStructure = _wheels.Find(item => item.Position == position);
+		WheelStructure structure = _wheels.Find(item => item.Position == position);
+		wheel.ParentStructure = structure;
+		structure.Wheel = wheel;
+		structure.Joint.connectedBody = wheel.GetComponent<Rigidbody2D>();
 
 		AddSubsystem(wheel);
 	}

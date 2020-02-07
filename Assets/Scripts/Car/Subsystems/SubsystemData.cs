@@ -21,8 +21,11 @@ public class SubsystemData : ScriptableObject
     private SubsystemType _type =　SubsystemType.Count;
     public SubsystemType Type { get { return _type; } }
 
-
     [SerializeField]
     private Sprite _icon = null;
 	public Sprite Icon { get { return _icon; } }
+
+    [SerializeField]
+    private Subsystem _prefabTemplate = null;
+    public Subsystem PrefabTemplate { get { return _prefabTemplate; } }
 }
