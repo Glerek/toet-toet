@@ -5,14 +5,14 @@ using System.Collections.Generic;
 public class InventoryManager : Singleton<InventoryManager>
 {
 	public const int MAX_INVENTORY_SIZE = 3;
-	private List<Pickable> _inventory = new List<Pickable>();
-	public List<Pickable> Inventory
+	private List<SubsystemData>_inventory = new List<SubsystemData>(MAX_INVENTORY_SIZE);
+	public List<SubsystemData> Inventory
 	{
 		get { return _inventory; }
 	}
 
-	private Action _onInventoryChanged = null;
-	public event Action OnInventoryChanged
+	private Action<List<SubsystemData>> _onInventoryChanged = null;
+	public event Action<List<SubsystemData>> OnInventoryChanged
 	{
 		add
 		{
@@ -23,25 +23,49 @@ public class InventoryManager : Singleton<InventoryManager>
 		remove { _onInventoryChanged -= value; }
 	}
 
-	public void AddToInventory(Pickable pickup)
+	private Action<bool> _displayInventoryCallback = null;
+	public event Action<bool> DisplayInventoryCallback
+	{
+		add
+		{
+			_displayInventoryCallback -= value;
+			_displayInventoryCallback += value;
+		}
+
+		remove { _displayInventoryCallback -= value; }
+	}
+
+	public bool AddToInventory(SubsystemData subsystem)
 	{
 		if (_inventory.Count < MAX_INVENTORY_SIZE)
 		{
-			_inventory.Add(pickup);
+			_inventory.Add(subsystem);
 
 			if (_onInventoryChanged != null)
-				_onInventoryChanged();
+				_onInventoryChanged(_inventory);
+
+			return true;
+		}
+
+		return false;
+	}
+
+	public void RemoveFromInventory(SubsystemData subsystem)
+	{
+		if (_inventory.Contains(subsystem))
+		{
+			_inventory.Remove(subsystem);
+
+			if (_onInventoryChanged != null)
+				_onInventoryChanged(_inventory);
 		}
 	}
 
-	public void RemoveFromInventory(Pickable pickup)
+	public void DisplayInventory(bool show)
 	{
-		if (_inventory.Contains(pickup))
+		if (_displayInventoryCallback != null)
 		{
-			_inventory.Remove(pickup);
-
-			if (_onInventoryChanged != null)
-				_onInventoryChanged();
+			_displayInventoryCallback(show);
 		}
 	}
 }

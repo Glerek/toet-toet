@@ -18,8 +18,8 @@ TagManager:
   - 
   - Car
   - Wheel
-  - 
-  - 
+  - Road
+  - RepairablePart
   - 
   - 
   - 
@@ -52,6 +52,9 @@ TagManager:
     locked: 0
   - name: Wheel
     uniqueID: 3247304019
+    locked: 0
+  - name: WorldUI
+    uniqueID: 538799413
     locked: 0
   - name: Foreground
     uniqueID: 2740353931

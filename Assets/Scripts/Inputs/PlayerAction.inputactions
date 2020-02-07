@@ -6,7 +6,7 @@
             "id": "2ac447f0-7ab7-459f-8b6b-296dac719319",
             "actions": [
                 {
-                    "name": "Accel",
+                    "name": "Accelerate",
                     "type": "Button",
                     "id": "12bee76c-3f42-42ea-b23e-154992461fd9",
                     "expectedControlType": "Button",
@@ -14,9 +14,33 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Break",
+                    "name": "Brake",
                     "type": "Button",
                     "id": "d6ec2063-5db8-459b-a1fd-108302dbbceb",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "SubsystemDurability",
+                    "type": "Button",
+                    "id": "91859018-26c2-4915-a8fd-7874f1576332",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "ToggleRepair",
+                    "type": "Button",
+                    "id": "d6756d7a-b8c4-480c-a0fd-b667c8cc9428",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Inventory",
+                    "type": "Button",
+                    "id": "0efaabd5-6a1e-4007-8ea2-b748c3418d96",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": ""
@@ -30,7 +54,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Accel",
+                    "action": "Accelerate",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -41,7 +65,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Accel",
+                    "action": "Accelerate",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -52,7 +76,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Break",
+                    "action": "Brake",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -63,7 +87,40 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Break",
+                    "action": "Brake",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "aa2c855a-7f87-459d-b919-c32a4a5c3193",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SubsystemDurability",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0b7c2efc-c804-4096-a5e6-820c56c43ae4",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ToggleRepair",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3ca1ca74-449e-48f4-9752-fb541cd83cfd",
+                    "path": "<Keyboard>/i",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Inventory",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

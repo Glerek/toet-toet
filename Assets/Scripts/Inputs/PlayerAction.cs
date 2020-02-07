@@ -19,7 +19,7 @@ public class @PlayerAction : IInputActionCollection, IDisposable
             ""id"": ""2ac447f0-7ab7-459f-8b6b-296dac719319"",
             ""actions"": [
                 {
-                    ""name"": ""Accel"",
+                    ""name"": ""Accelerate"",
                     ""type"": ""Button"",
                     ""id"": ""12bee76c-3f42-42ea-b23e-154992461fd9"",
                     ""expectedControlType"": ""Button"",
@@ -27,9 +27,33 @@ public class @PlayerAction : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""Break"",
+                    ""name"": ""Brake"",
                     ""type"": ""Button"",
                     ""id"": ""d6ec2063-5db8-459b-a1fd-108302dbbceb"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""SubsystemDurability"",
+                    ""type"": ""Button"",
+                    ""id"": ""91859018-26c2-4915-a8fd-7874f1576332"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""ToggleRepair"",
+                    ""type"": ""Button"",
+                    ""id"": ""d6756d7a-b8c4-480c-a0fd-b667c8cc9428"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Inventory"",
+                    ""type"": ""Button"",
+                    ""id"": ""0efaabd5-6a1e-4007-8ea2-b748c3418d96"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """"
@@ -43,7 +67,7 @@ public class @PlayerAction : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Accel"",
+                    ""action"": ""Accelerate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -54,7 +78,7 @@ public class @PlayerAction : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Accel"",
+                    ""action"": ""Accelerate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -65,7 +89,7 @@ public class @PlayerAction : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Break"",
+                    ""action"": ""Brake"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -76,7 +100,40 @@ public class @PlayerAction : IInputActionCollection, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Break"",
+                    ""action"": ""Brake"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""aa2c855a-7f87-459d-b919-c32a4a5c3193"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SubsystemDurability"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0b7c2efc-c804-4096-a5e6-820c56c43ae4"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleRepair"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3ca1ca74-449e-48f4-9752-fb541cd83cfd"",
+                    ""path"": ""<Keyboard>/i"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Inventory"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -87,8 +144,11 @@ public class @PlayerAction : IInputActionCollection, IDisposable
 }");
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
-        m_Player_Accel = m_Player.FindAction("Accel", throwIfNotFound: true);
-        m_Player_Break = m_Player.FindAction("Break", throwIfNotFound: true);
+        m_Player_Accelerate = m_Player.FindAction("Accelerate", throwIfNotFound: true);
+        m_Player_Brake = m_Player.FindAction("Brake", throwIfNotFound: true);
+        m_Player_SubsystemDurability = m_Player.FindAction("SubsystemDurability", throwIfNotFound: true);
+        m_Player_ToggleRepair = m_Player.FindAction("ToggleRepair", throwIfNotFound: true);
+        m_Player_Inventory = m_Player.FindAction("Inventory", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -138,14 +198,20 @@ public class @PlayerAction : IInputActionCollection, IDisposable
     // Player
     private readonly InputActionMap m_Player;
     private IPlayerActions m_PlayerActionsCallbackInterface;
-    private readonly InputAction m_Player_Accel;
-    private readonly InputAction m_Player_Break;
+    private readonly InputAction m_Player_Accelerate;
+    private readonly InputAction m_Player_Brake;
+    private readonly InputAction m_Player_SubsystemDurability;
+    private readonly InputAction m_Player_ToggleRepair;
+    private readonly InputAction m_Player_Inventory;
     public struct PlayerActions
     {
         private @PlayerAction m_Wrapper;
         public PlayerActions(@PlayerAction wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Accel => m_Wrapper.m_Player_Accel;
-        public InputAction @Break => m_Wrapper.m_Player_Break;
+        public InputAction @Accelerate => m_Wrapper.m_Player_Accelerate;
+        public InputAction @Brake => m_Wrapper.m_Player_Brake;
+        public InputAction @SubsystemDurability => m_Wrapper.m_Player_SubsystemDurability;
+        public InputAction @ToggleRepair => m_Wrapper.m_Player_ToggleRepair;
+        public InputAction @Inventory => m_Wrapper.m_Player_Inventory;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -155,29 +221,50 @@ public class @PlayerAction : IInputActionCollection, IDisposable
         {
             if (m_Wrapper.m_PlayerActionsCallbackInterface != null)
             {
-                @Accel.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAccel;
-                @Accel.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAccel;
-                @Accel.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAccel;
-                @Break.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBreak;
-                @Break.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBreak;
-                @Break.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBreak;
+                @Accelerate.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAccelerate;
+                @Accelerate.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAccelerate;
+                @Accelerate.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAccelerate;
+                @Brake.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBrake;
+                @Brake.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBrake;
+                @Brake.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBrake;
+                @SubsystemDurability.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSubsystemDurability;
+                @SubsystemDurability.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSubsystemDurability;
+                @SubsystemDurability.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSubsystemDurability;
+                @ToggleRepair.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleRepair;
+                @ToggleRepair.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleRepair;
+                @ToggleRepair.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleRepair;
+                @Inventory.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInventory;
+                @Inventory.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInventory;
+                @Inventory.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInventory;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
             {
-                @Accel.started += instance.OnAccel;
-                @Accel.performed += instance.OnAccel;
-                @Accel.canceled += instance.OnAccel;
-                @Break.started += instance.OnBreak;
-                @Break.performed += instance.OnBreak;
-                @Break.canceled += instance.OnBreak;
+                @Accelerate.started += instance.OnAccelerate;
+                @Accelerate.performed += instance.OnAccelerate;
+                @Accelerate.canceled += instance.OnAccelerate;
+                @Brake.started += instance.OnBrake;
+                @Brake.performed += instance.OnBrake;
+                @Brake.canceled += instance.OnBrake;
+                @SubsystemDurability.started += instance.OnSubsystemDurability;
+                @SubsystemDurability.performed += instance.OnSubsystemDurability;
+                @SubsystemDurability.canceled += instance.OnSubsystemDurability;
+                @ToggleRepair.started += instance.OnToggleRepair;
+                @ToggleRepair.performed += instance.OnToggleRepair;
+                @ToggleRepair.canceled += instance.OnToggleRepair;
+                @Inventory.started += instance.OnInventory;
+                @Inventory.performed += instance.OnInventory;
+                @Inventory.canceled += instance.OnInventory;
             }
         }
     }
     public PlayerActions @Player => new PlayerActions(this);
     public interface IPlayerActions
     {
-        void OnAccel(InputAction.CallbackContext context);
-        void OnBreak(InputAction.CallbackContext context);
+        void OnAccelerate(InputAction.CallbackContext context);
+        void OnBrake(InputAction.CallbackContext context);
+        void OnSubsystemDurability(InputAction.CallbackContext context);
+        void OnToggleRepair(InputAction.CallbackContext context);
+        void OnInventory(InputAction.CallbackContext context);
     }
 }

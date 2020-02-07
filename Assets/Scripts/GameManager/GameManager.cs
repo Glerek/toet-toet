@@ -1,9 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-public class GameManager : Singleton<GameManager>, PlayerAction.IPlayerActions
+public class GameManager : Singleton<GameManager>
 {
 	[SerializeField]
 	private GameObject _spawnTarget = null;
@@ -12,65 +11,33 @@ public class GameManager : Singleton<GameManager>, PlayerAction.IPlayerActions
     private Car _carTemplate = null;
 
 	[SerializeField]
-	private Wheel _wheelTemplate = null;
+	private SubsystemIconData _iconData = null;
+	public SubsystemIconData IconData { get { return _iconData; } }
 
-	[SerializeField]
-	private float _collisionMagnitudeThreshold = 0f;
-	public float CollisionMagnitudeThreshold { get { return _collisionMagnitudeThreshold; } }
-
-    private PlayerAction.PlayerActions _input;
     private Car _car;
-    private bool _pushedAcceleration = false;
-    private bool _pushedBreak = false;
+	public Car Car { get { return _car; } }
 
-	private List<Wheel> _spawnedWheels = new List<Wheel>();
-
-	public Car Car
+	private bool _duringRepairMode = false;
+	public bool DuringRepairMode
 	{
-		get { return _car; }
+		get { return _duringRepairMode; }
+		private set
+		{
+			if (_duringRepairMode != value)
+			{
+				_duringRepairMode = value;
+				GameManager.Instance.Car.SetRepairMode(_duringRepairMode);
+			}
+		}
 	}
 
     void Awake()
     {
-        _input = new PlayerAction.PlayerActions(new PlayerAction());
-        _input.SetCallbacks(this);
-
         _car = Instantiate(_carTemplate, _spawnTarget.transform.position, Quaternion.identity);
     }
 
-	private void Start()
+	public void ToggleRepairMode()
 	{
-		DrivingUI.Instance.Display(true);
-		RepairingUI.Instance.Display(false);
-
-		for (int i = 0; i < 3; i++)
-		{
-			Wheel spawnedWheel = GameObject.Instantiate(_wheelTemplate, new Vector3(-30, -2, 0), Quaternion.identity);
-			_spawnedWheels.Add(spawnedWheel);
-			InventoryManager.Instance.AddToInventory(spawnedWheel);
-		}
+		DuringRepairMode = !DuringRepairMode;
 	}
-
-    void OnEnable() => _input.Enable();
-    void OnDestroy() => _input.Disable();
-
-    void OnDisable() => _input.Disable();
-
-    void Update()
-    {
-        _car.Accel(_pushedAcceleration);
-        _car.Brake(_pushedBreak);
-    }
-
-    public void OnAccel(InputAction.CallbackContext context)
-    {
-        //space 
-        _pushedAcceleration = context.ReadValue<float>() == 1.0f;
-    }
-
-    public void OnBreak(InputAction.CallbackContext context)
-    {
-        //left control
-        _pushedBreak = context.ReadValue<float>() == 1.0f;
-    }
 }
