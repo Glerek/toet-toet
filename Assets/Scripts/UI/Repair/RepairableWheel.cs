@@ -51,6 +51,7 @@ public class RepairableWheel : RepairablePart
 					Wheel newWheel = GameObject.Instantiate(item.Data.PrefabTemplate) as Wheel;
 
 					newWheel.transform.SetParent(transform);
+					newWheel.transform.localPosition = Vector3.zero;
 					GameManager.Instance.Car.AddWheel(newWheel, _wheelPosition);
 					InventoryManager.Instance.RemoveFromInventory(item.Data);
 				}
