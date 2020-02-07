@@ -10,12 +10,14 @@ public class SubsystemContainer : MonoBehaviour
     [SerializeField]
     private RectTransform _anchor = null;
 
+    private bool _ongoingRepairMode = false;
     private List<SubsystemUI> _items = new List<SubsystemUI>();
 
     public void Initialize(List<Subsystem> subsystems)
     {
         GameManager.Instance.Car.OnSubsystemAdded += OnSubsystemAdded;
         GameManager.Instance.Car.OnSubsystemRemoved += OnSubsystemRemoved;
+        GameManager.Instance.Car.OnRepairMode += OnRepairMode;
 
         foreach (Subsystem subsystem in subsystems)
         {
@@ -27,6 +29,7 @@ public class SubsystemContainer : MonoBehaviour
     {
         GameManager.Instance.Car.OnSubsystemAdded -= OnSubsystemAdded;
         GameManager.Instance.Car.OnSubsystemRemoved -= OnSubsystemRemoved;
+        GameManager.Instance.Car.OnRepairMode -= OnRepairMode;
     }
 
     private void OnSubsystemAdded(Subsystem subsystem)
@@ -47,9 +50,16 @@ public class SubsystemContainer : MonoBehaviour
         }
     }
 
+    private void OnRepairMode(bool repairMode)
+    {
+        _ongoingRepairMode = repairMode;
+        Display(false);
+
+    }
+
 	public void Display(bool show)
 	{
-		_anchor.gameObject.SetActive(show);
+		_anchor.gameObject.SetActive(show && !_ongoingRepairMode);
 	}
 
 }
