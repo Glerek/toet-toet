@@ -126,6 +126,7 @@ public class Car : MonoBehaviour
 				Wheel wheel = subsystem as Wheel;
 				wheel.transform.SetParent(transform.root);
 				wheel.GetComponent<Rigidbody2D>().AddTorque(-30f);
+				wheel.gameObject.layer = LayerMask.NameToLayer("ToDespawn");
 
 				WheelStructure structure = _wheels.Find(item => item.Wheel == wheel);
 				structure.Joint.connectedBody = null;
