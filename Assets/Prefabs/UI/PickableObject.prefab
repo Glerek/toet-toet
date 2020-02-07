@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 182138478466608117}
   - component: {fileID: 182138478466608116}
-  - component: {fileID: 2176781399423981685}
+  - component: {fileID: 6118322315541320193}
   m_Layer: 0
   m_Name: Icon
   m_TagString: Untagged
@@ -82,8 +82,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!60 &2176781399423981685
-PolygonCollider2D:
+--- !u!61 &6118322315541320193
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -92,7 +92,7 @@ PolygonCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -105,26 +105,9 @@ PolygonCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0.48, y: -0.24}
-      - {x: 0.48999998, y: -0.16}
-      - {x: 0.48999998, y: 0.14}
-      - {x: 0.42, y: 0.26}
-      - {x: 0.24, y: 0.42999998}
-      - {x: 0.12, y: 0.48}
-      - {x: -0.16, y: 0.48}
-      - {x: -0.35, y: 0.39}
-      - {x: -0.45, y: 0.26}
-      - {x: -0.53, y: 0.099999994}
-      - {x: -0.53, y: -0.14}
-      - {x: -0.48, y: -0.26999998}
-      - {x: -0.34, y: -0.45}
-      - {x: -0.14, y: -0.53}
-      - {x: 0.11, y: -0.53}
-      - {x: 0.29999998, y: -0.44}
-      - {x: 0.39, y: -0.32}
-      - {x: 0.42999998, y: -0.26999998}
+  serializedVersion: 2
+  m_Size: {x: 1.46, y: 1.38}
+  m_EdgeRadius: 0
 --- !u!1 &182138478704565342
 GameObject:
   m_ObjectHideFlags: 0
