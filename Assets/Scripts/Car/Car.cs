@@ -36,6 +36,7 @@ public class Car : MonoBehaviour
 	public RepairUI RepairUI { get { return _repairUI; } }
 
 	private bool _ongoingRepairMode = false;
+	private Rigidbody2D _carRigidbody = null;
 
 	private Action<Subsystem> _onSubsystemAdded = null;
 	public event Action<Subsystem> OnSubsystemAdded
@@ -81,6 +82,8 @@ public class Car : MonoBehaviour
 
 	void Start()
 	{
+		_carRigidbody = gameObject.GetComponent<Rigidbody2D>();
+
 		List<Subsystem> subsystems = new List<Subsystem>();
 		for (int i = 0; i < _wheels.Count; i++)
 		{
@@ -171,6 +174,7 @@ public class Car : MonoBehaviour
 	public void SetRepairMode(bool enable)
 	{
 		_ongoingRepairMode = enable;
+		_carRigidbody.constraints = enable ? RigidbodyConstraints2D.FreezeAll : RigidbodyConstraints2D.None;
 		
 		if (_onRepairMode != null)
 		{

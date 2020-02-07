@@ -26,6 +26,14 @@ public class GameManager : Singleton<GameManager>
 			if (_duringRepairMode != value)
 			{
 				_duringRepairMode = value;
+
+				int layerMask = ~0;
+				if (_duringRepairMode)
+				{
+					layerMask = ~LayerMask.GetMask(new string[] {"UI", "Car", "Wheel"});
+				}
+
+				Camera.main.cullingMask = layerMask;
 				GameManager.Instance.Car.SetRepairMode(_duringRepairMode);
 			}
 		}

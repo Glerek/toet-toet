@@ -84,21 +84,21 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 		{
 			GameObject.Destroy(_draggingPlaceholder.gameObject);
 			_draggingPlaceholder = null;
-		}
 
-		_icon.enabled = true;
+			_icon.enabled = true;
 
-		Ray ray = GameManager.Instance.Car.RepairUI.RepairCamera.ScreenPointToRay(eventData.position);
-		RaycastHit2D hit2D =  Physics2D.GetRayIntersection(ray, 5f, LayerMask.GetMask(new string[] {"RepairablePart"})); 
-		if (hit2D.collider != null)
-		{
-			RepairablePart repairablePart = hit2D.collider.GetComponent<RepairablePart>();
-			if (repairablePart != null)
+			Ray ray = GameManager.Instance.Car.RepairUI.RepairCamera.ScreenPointToRay(eventData.position);
+			RaycastHit2D hit2D =  Physics2D.GetRayIntersection(ray, 5f, LayerMask.GetMask(new string[] {"RepairablePart"})); 
+			if (hit2D.collider != null)
 			{
-				repairablePart.DropItem(this);
+				RepairablePart repairablePart = hit2D.collider.GetComponent<RepairablePart>();
+				if (repairablePart != null)
+				{
+					repairablePart.DropItem(this);
+				}
 			}
-		}
 
-		_stopDragCallback?.Invoke(this);
+			_stopDragCallback?.Invoke(this);
+		}
 	}
 }
