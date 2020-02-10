@@ -21,4 +21,20 @@ public class PickableObject : MonoBehaviour, IPointerClickHandler
     {
         SpawnManager.Instance.PickupObject(this);
     }
+
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        if (string.Equals(col.tag, "Car"))
+        {
+            SpawnManager.Instance.RegisterPickable(this);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collider)
+    {
+        if (string.Equals(collider.tag, "Car"))
+        {
+            SpawnManager.Instance.UnregisterPickable(this);
+        }
+    }
 }

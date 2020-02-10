@@ -19,6 +19,7 @@ public class SpawnManager : Singleton<SpawnManager>
 
     private Coroutine _spawnCoroutine = null;
     private List<PickableObject> _spawnedObjects = new List<PickableObject>();
+    private List<PickableObject> _nearbyObjects = new List<PickableObject>();
 
     private void Start()
     {
@@ -87,12 +88,37 @@ public class SpawnManager : Singleton<SpawnManager>
         return true;
     }
 
-    public void PickupObject(PickableObject obj)
+    public void PickupNearbyObjects()
+    {
+        for (int i = _nearbyObjects.Count - 1; i >= 0; i--)
+        {
+            PickupObject(_nearbyObjects[i]);
+        }
+    }
+
+    public bool PickupObject(PickableObject obj)
     {
         if (InventoryManager.Instance.AddToInventory(obj.Data))
         {
             _spawnedObjects.Remove(obj);
             GameObject.Destroy(obj.gameObject);
+
+            return true;
         }
+
+        return false;
+    }
+
+    public void RegisterPickable(PickableObject obj)
+    {
+        if (_nearbyObjects.Contains(obj) == false)
+        {
+            _nearbyObjects.Add(obj);
+        }
+    }
+
+    public void UnregisterPickable(PickableObject obj)
+    {
+        _nearbyObjects.Remove(obj);
     }
 }
