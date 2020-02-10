@@ -18,6 +18,12 @@ public class SpawnTable : ScriptableObject
 
     private int _totalWeight = int.MaxValue;
 
+    private void OnValidate()
+    {
+        if (_totalWeight != int.MaxValue)
+            _totalWeight = int.MaxValue;
+    }
+
     public SubsystemData GetRandomData()
     {
         if (_totalWeight == int.MaxValue)

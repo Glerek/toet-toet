@@ -20,9 +20,9 @@ public class Subsystem : MonoBehaviour
 
     private static readonly Dictionary<DamageType, float> DurabilityByDamage = new Dictionary<DamageType, float>()
     {
-        { DamageType.Minor,         5f },
-        { DamageType.Intermediate,  10f },
-        { DamageType.Major,         20f },
+        { DamageType.Minor,         2f },
+        { DamageType.Intermediate,  5f },
+        { DamageType.Major,         10f },
     };
 
 	public static readonly float MAX_DURABILITY = 100f;

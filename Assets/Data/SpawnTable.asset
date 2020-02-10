@@ -14,4 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _table:
   - Data: {fileID: 11400000, guid: f1386b36eea9b0c4cac53f19baa8b5b1, type: 2}
-    Weight: 100
+    Weight: 10
+  - Data: {fileID: 11400000, guid: e6645929896ab3240a9631209215fd8f, type: 2}
+    Weight: 10
+  - Data: {fileID: 11400000, guid: 91d8bc4830405614e8fb2cb6af219628, type: 2}
+    Weight: 10
