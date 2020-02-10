@@ -16,14 +16,22 @@ public class SubsystemUI : MonoBehaviour
 	private Subsystem _subsystem = null;
 	public Subsystem Subsystem { get { return _subsystem; } }
 
-	public void Initialize(Subsystem subsystem)
+	private SubsystemContainer _container = null;
+
+	public void Initialize(Subsystem subsystem, SubsystemContainer container)
 	{
 		_subsystem = subsystem;
+		_container = container;
 		_icon.sprite = GameManager.Instance.IconData.Icons.Find(item => item.Type == subsystem.Data.Type).Icon;
 
 		Vector3 screenPosition = Camera.main.WorldToScreenPoint(subsystem.transform.position);
-		Vector3 relativeLinePosition = _targetLine.transform.InverseTransformPoint(screenPosition);
-		Debug.Log($"screenPosition: {screenPosition} relativeLinePosition: {relativeLinePosition}");
+		// Vector3 relativeLinePosition = _targetLine.transform.InverseTransformPoint(subsystem.transform.position);
+		Vector2 screenPositionUI;
+		// RectTransformUtility.WorldToScreenPoint(_container.GetComponent<RectTransform>(), _icon.transform.position, Camera.main, out screenPositionUI);
+		screenPositionUI = RectTransformUtility.WorldToScreenPoint(Camera.main, _icon.transform.position);
+		Debug.Log($"screenPosition: {screenPosition}");
+		// Debug.Log($"relativeLinePosition: {relativeLinePosition}");
+		Debug.Log($"screenPositionUI: {screenPositionUI}");
 	}
 
 	private void Update()

@@ -37,7 +37,7 @@ public class SubsystemContainer : MonoBehaviour
         SubsystemUI item = GameObject.Instantiate(_uiTemplate, _anchor);
         _items.Add(item);
 
-        item.Initialize(subsystem);
+        item.Initialize(subsystem, this);
     }
 
     private void OnSubsystemRemoved(Subsystem subsystem)
