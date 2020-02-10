@@ -57,6 +57,14 @@ public class @PlayerAction : IInputActionCollection, IDisposable
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""PickUpItem"",
+                    ""type"": ""Button"",
+                    ""id"": ""86a963b0-43bd-425f-a28f-4aabb680bdce"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -136,6 +144,17 @@ public class @PlayerAction : IInputActionCollection, IDisposable
                     ""action"": ""Inventory"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ad144f08-2d4a-4152-a753-c1756b2501e3"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PickUpItem"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -149,6 +168,7 @@ public class @PlayerAction : IInputActionCollection, IDisposable
         m_Player_SubsystemDurability = m_Player.FindAction("SubsystemDurability", throwIfNotFound: true);
         m_Player_ToggleRepair = m_Player.FindAction("ToggleRepair", throwIfNotFound: true);
         m_Player_Inventory = m_Player.FindAction("Inventory", throwIfNotFound: true);
+        m_Player_PickUpItem = m_Player.FindAction("PickUpItem", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -203,6 +223,7 @@ public class @PlayerAction : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_SubsystemDurability;
     private readonly InputAction m_Player_ToggleRepair;
     private readonly InputAction m_Player_Inventory;
+    private readonly InputAction m_Player_PickUpItem;
     public struct PlayerActions
     {
         private @PlayerAction m_Wrapper;
@@ -212,6 +233,7 @@ public class @PlayerAction : IInputActionCollection, IDisposable
         public InputAction @SubsystemDurability => m_Wrapper.m_Player_SubsystemDurability;
         public InputAction @ToggleRepair => m_Wrapper.m_Player_ToggleRepair;
         public InputAction @Inventory => m_Wrapper.m_Player_Inventory;
+        public InputAction @PickUpItem => m_Wrapper.m_Player_PickUpItem;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -236,6 +258,9 @@ public class @PlayerAction : IInputActionCollection, IDisposable
                 @Inventory.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInventory;
                 @Inventory.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInventory;
                 @Inventory.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInventory;
+                @PickUpItem.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPickUpItem;
+                @PickUpItem.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPickUpItem;
+                @PickUpItem.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPickUpItem;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -255,6 +280,9 @@ public class @PlayerAction : IInputActionCollection, IDisposable
                 @Inventory.started += instance.OnInventory;
                 @Inventory.performed += instance.OnInventory;
                 @Inventory.canceled += instance.OnInventory;
+                @PickUpItem.started += instance.OnPickUpItem;
+                @PickUpItem.performed += instance.OnPickUpItem;
+                @PickUpItem.canceled += instance.OnPickUpItem;
             }
         }
     }
@@ -266,5 +294,6 @@ public class @PlayerAction : IInputActionCollection, IDisposable
         void OnSubsystemDurability(InputAction.CallbackContext context);
         void OnToggleRepair(InputAction.CallbackContext context);
         void OnInventory(InputAction.CallbackContext context);
+        void OnPickUpItem(InputAction.CallbackContext context);
     }
 }

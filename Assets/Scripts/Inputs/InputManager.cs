@@ -44,6 +44,15 @@ public class InputManager : Singleton<InputManager>, PlayerAction.IPlayerActions
 		InventoryManager.Instance.DisplayInventory(context.ReadValue<float>() == 1.0f);
 	}
 
+    public void OnPickUpItem(InputAction.CallbackContext context)
+    {
+        if (context.ReadValue<float>() == 1.0f &&
+            context.phase == InputActionPhase.Performed)
+        {
+            SpawnManager.Instance.PickupNearbyObjects();
+        }
+    }
+
     private void Awake()
     {
         _input = new PlayerAction.PlayerActions(new PlayerAction());

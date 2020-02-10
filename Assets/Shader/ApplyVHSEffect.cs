@@ -1,7 +1,6 @@
 using UnityEngine;
 using System.Collections;
 
-[ExecuteInEditMode]
 public class ApplyVHSEffect : MonoBehaviour
 {
 	private Material _material;
