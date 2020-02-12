@@ -49,11 +49,13 @@ public class RepairableWheel : RepairablePart
 				if (item.Data.PrefabTemplate is Wheel)
 				{
 					Wheel newWheel = GameObject.Instantiate(item.Data.PrefabTemplate) as Wheel;
+					Car vehicle = GameManager.Instance.Car;
 
 					newWheel.transform.SetParent(transform);
 					newWheel.transform.localPosition = Vector3.zero;
-					GameManager.Instance.Car.AddWheel(newWheel, _wheelPosition);
+					vehicle.AddWheel(newWheel, _wheelPosition);
 					InventoryManager.Instance.RemoveFromInventory(item.Data);
+					vehicle.transform.Translate(vehicle.transform.up * (newWheel.GetWorldSize().y / 2f));
 				}
 			}
 			else

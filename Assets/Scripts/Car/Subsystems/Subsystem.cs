@@ -59,7 +59,20 @@ public class Subsystem : MonoBehaviour
     public void Initialize(SubsystemData data)
     {
         _data = data;
-        _renderer.sprite = _data.Icon; 
+        _renderer.sprite = _data.Icon;
+    }
+
+    public Vector2 GetWorldSize()
+    {
+        Vector2 size = Vector2.zero;
+
+        if (_renderer.sprite != null)
+        {
+            size.x = _renderer.sprite.rect.width / _renderer.sprite.pixelsPerUnit;
+            size.y = _renderer.sprite.rect.height / _renderer.sprite.pixelsPerUnit;
+        }
+
+        return size;
     }
 
     public void ApplyDamage(DamageType type)
