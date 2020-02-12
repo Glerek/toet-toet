@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -6,14 +7,26 @@ public abstract class RepairablePart : MonoBehaviour
 	[SerializeField]
 	protected SubsystemData.SubsystemType _type = SubsystemData.SubsystemType.Count;
 
+	[SerializeField]
+	private SpriteRenderer _highlightSprite = null;
+
+	[SerializeField]
+	private float _animationDuration = 1.5f;
+
 	protected RepairUI _repairUI = null;
 	protected bool _ongoingRepairMode = false;
 	protected bool _allowedTarget = false;
+
+	private Vector3 _localHighlightScale = Vector3.zero;
+	private Coroutine _animationCoroutine = null;
 
 	private void Start()
 	{
 		_repairUI = GameManager.Instance.Car.RepairUI;
 		GameManager.Instance.Car.OnRepairMode += OnRepairMode;
+
+		_localHighlightScale = _highlightSprite.transform.localScale;
+		_highlightSprite.enabled = false;
 
 		Initialize();
 	}
@@ -45,7 +58,41 @@ public abstract class RepairablePart : MonoBehaviour
 
 	private void DisplayRepairHighlight(bool display)
 	{
-		// TODO
-		Debug.Log($"Display Highlight for {gameObject.name}: {display}");
+		_highlightSprite.enabled = display;
+
+		if (display)
+		{
+			_animationCoroutine = StartCoroutine(AnimateHighlight());
+		}
+		else if (_animationCoroutine != null)
+		{
+			StopCoroutine(_animationCoroutine);
+		}
+	}
+
+	private IEnumerator AnimateHighlight()
+	{
+		_highlightSprite.transform.localScale = _localHighlightScale;
+		float timer = 0f;
+		Vector3 from =  Vector3.zero;
+		Vector3 to = _localHighlightScale;
+		bool downscale = false;
+
+		while (true)
+		{
+			_highlightSprite.transform.localScale = Vector3.Lerp(from, to, timer / _animationDuration);
+
+			timer += Time.deltaTime;
+
+			if (timer > _animationDuration)
+			{
+				timer = 0;				
+				downscale = !downscale;
+
+				from = downscale ? _localHighlightScale : Vector3.zero;
+				to = downscale ? Vector3.zero : _localHighlightScale;
+			}
+			yield return null;
+		}
 	}
 }
