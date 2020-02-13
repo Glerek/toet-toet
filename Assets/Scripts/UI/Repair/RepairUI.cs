@@ -15,12 +15,15 @@ public class RepairUI : MonoBehaviour
     {
         OnRepairMode(false);
 
-        GameManager.Instance.Car.OnRepairMode += OnRepairMode;
+        (GameManager.Instance.CurrentGameMode as DrivingMode).Car.OnRepairMode += OnRepairMode;
     }
     
     private void OnDestroy()
     {
-        GameManager.Instance.Car.OnRepairMode -= OnRepairMode;
+        if (GameManager.HasInstance)
+        {
+            (GameManager.Instance.CurrentGameMode as DrivingMode).Car.OnRepairMode -= OnRepairMode;
+        }
     }
 
     private void OnRepairMode(bool show)

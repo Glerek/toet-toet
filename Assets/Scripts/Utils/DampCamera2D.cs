@@ -14,7 +14,7 @@ public class DampCamera2D : MonoBehaviour
 	{
 		if (_target == null)
 		{
-			_target = GameManager.Instance.Car.transform;
+			_target = (GameManager.Instance.CurrentGameMode as DrivingMode).Car.transform;
 		}
 
 		_zDepth = transform.position.z;

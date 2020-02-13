@@ -1,51 +1,75 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
-	[SerializeField]
-	private GameObject _spawnTarget = null;
-
-	[SerializeField]
-    private Car _carTemplate = null;
-
-	[SerializeField]
-	private SubsystemIconData _iconData = null;
-	public SubsystemIconData IconData { get { return _iconData; } }
-
-    private Car _car;
-	public Car Car { get { return _car; } }
-
-	private bool _duringRepairMode = false;
-	public bool DuringRepairMode
+	public enum GameMode
 	{
-		get { return _duringRepairMode; }
-		private set
+		Boot = 0,
+		TitleScreen,
+		DrivingMode,
+		GameOver,
+	}
+
+	public static readonly Dictionary<GameMode, string> SceneByGameMode = new Dictionary<GameMode, string>()
+	{
+		{ GameMode.Boot, 			"Boot" },
+		{ GameMode.TitleScreen, 	"Start" },
+		{ GameMode.DrivingMode, 	"AmosTesting" },
+	};
+
+	[SerializeField]
+	private GameMode _startingGameMode = GameMode.Boot;
+
+	private IGameMode _currentGameMode = null;
+	public IGameMode CurrentGameMode { get { return _currentGameMode; }	}
+
+	private List<IGameMode> _registeredGameModes = new List<IGameMode>();
+
+	private void Start()
+	{
+		for (int i = 0; i < _registeredGameModes.Count; i++)
 		{
-			if (_duringRepairMode != value)
+			if (_registeredGameModes[i].GameMode == _startingGameMode)
 			{
-				_duringRepairMode = value;
-
-				int layerMask = ~0;
-				if (_duringRepairMode)
-				{
-					layerMask = ~LayerMask.GetMask(new string[] {"UI", "Car", "Wheel"});
-				}
-
-				Camera.main.cullingMask = layerMask;
-				GameManager.Instance.Car.SetRepairMode(_duringRepairMode);
+				StartGameMode(_registeredGameModes[i]);
+				break;
 			}
 		}
 	}
 
-    void Awake()
-    {
-        _car = Instantiate(_carTemplate, _spawnTarget.transform.position, Quaternion.identity);
-    }
-
-	public void ToggleRepairMode()
+	public void RegisterGameMode(IGameMode gameMode)
 	{
-		DuringRepairMode = !DuringRepairMode;
+		_registeredGameModes.Add(gameMode);
+	}
+
+	public void UnregisterGameMode(IGameMode gameMode)
+	{
+		_registeredGameModes.Remove(gameMode);
+		gameMode.StopGameMode();
+	}
+
+	public AsyncOperation StartGameMode(GameMode gameMode)
+	{
+		if (SceneByGameMode.ContainsKey(gameMode))
+		{
+			AsyncOperation loadOperation = SceneManager.LoadSceneAsync(SceneByGameMode[gameMode], LoadSceneMode.Additive);
+
+			loadOperation.completed += (AsyncOperation operation) => {
+				StartGameMode(_registeredGameModes.Find(item => item.GameMode == gameMode));
+			};
+
+			return loadOperation;
+		}
+
+		throw new System.Exception("Can't find related Scene name for " + gameMode.ToString());
+	}
+
+	private void StartGameMode(IGameMode gameMode)
+	{
+		gameMode.StartGameMode();
+		_currentGameMode = gameMode;
 	}
 }

@@ -22,8 +22,8 @@ public abstract class RepairablePart : MonoBehaviour
 
 	private void Start()
 	{
-		_repairUI = GameManager.Instance.Car.RepairUI;
-		GameManager.Instance.Car.OnRepairMode += OnRepairMode;
+		_repairUI = (GameManager.Instance.CurrentGameMode as DrivingMode).Car.RepairUI;
+		(GameManager.Instance.CurrentGameMode as DrivingMode).Car.OnRepairMode += OnRepairMode;
 
 		_localHighlightScale = _highlightSprite.transform.localScale;
 		_highlightSprite.enabled = false;
@@ -33,7 +33,10 @@ public abstract class RepairablePart : MonoBehaviour
 
 	private void OnDestroy()
 	{
-		GameManager.Instance.Car.OnRepairMode -= OnRepairMode;
+		if (GameManager.HasInstance)
+		{
+			(GameManager.Instance.CurrentGameMode as DrivingMode).Car.OnRepairMode -= OnRepairMode;
+		}
 		Release();
 	}
 

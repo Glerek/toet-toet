@@ -25,11 +25,13 @@ public class TitleScreen : IGameMode
 
 	public override void StopGameMode()
 	{
+		SceneManager.UnloadSceneAsync("Start");
 	}
 
 	private void Update()
 	{
-		if (Input.GetKeyDown(KeyCode.Return) && !_duringLoad)
+		if (!_duringLoad &&
+			(Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)))
 		{
 			StartCoroutine(LoadGameScene());
 		}
@@ -39,7 +41,7 @@ public class TitleScreen : IGameMode
 	{
 		_duringLoad = true;
 
-		AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(_gameSceneName, LoadSceneMode.Additive);
+		AsyncOperation asyncLoad = GameManager.Instance.StartGameMode(GameManager.GameMode.DrivingMode);
 		asyncLoad.allowSceneActivation = false;
 
 		while (!asyncLoad.isDone)
@@ -72,7 +74,6 @@ public class TitleScreen : IGameMode
 			yield return null;
 		}
 
-		SceneManager.UnloadSceneAsync("Start");
 		_duringLoad = false;
 	}
 }

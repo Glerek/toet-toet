@@ -15,7 +15,7 @@ public class SubsystemUI : MonoBehaviour
 	public void Initialize(Subsystem subsystem)
 	{
 		_subsystem = subsystem;
-		_icon.sprite = GameManager.Instance.IconData.Icons.Find(item => item.Type == subsystem.Data.Type).Icon;
+		_icon.sprite = (GameManager.Instance.CurrentGameMode as DrivingMode).IconData.Icons.Find(item => item.Type == subsystem.Data.Type).Icon;
 	}
 
 	private void Update()

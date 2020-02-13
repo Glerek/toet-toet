@@ -15,9 +15,9 @@ public class SubsystemContainer : MonoBehaviour
 
     public void Initialize(List<Subsystem> subsystems)
     {
-        GameManager.Instance.Car.OnSubsystemAdded += OnSubsystemAdded;
-        GameManager.Instance.Car.OnSubsystemRemoved += OnSubsystemRemoved;
-        GameManager.Instance.Car.OnRepairMode += OnRepairMode;
+        (GameManager.Instance.CurrentGameMode as DrivingMode).Car.OnSubsystemAdded += OnSubsystemAdded;
+        (GameManager.Instance.CurrentGameMode as DrivingMode).Car.OnSubsystemRemoved += OnSubsystemRemoved;
+        (GameManager.Instance.CurrentGameMode as DrivingMode).Car.OnRepairMode += OnRepairMode;
 
         foreach (Subsystem subsystem in subsystems)
         {
@@ -27,9 +27,12 @@ public class SubsystemContainer : MonoBehaviour
 
     private void OnDestroy()
     {
-        GameManager.Instance.Car.OnSubsystemAdded -= OnSubsystemAdded;
-        GameManager.Instance.Car.OnSubsystemRemoved -= OnSubsystemRemoved;
-        GameManager.Instance.Car.OnRepairMode -= OnRepairMode;
+        if (GameManager.HasInstance)
+        {
+            (GameManager.Instance.CurrentGameMode as DrivingMode).Car.OnSubsystemAdded -= OnSubsystemAdded;
+            (GameManager.Instance.CurrentGameMode as DrivingMode).Car.OnSubsystemRemoved -= OnSubsystemRemoved;
+            (GameManager.Instance.CurrentGameMode as DrivingMode).Car.OnRepairMode -= OnRepairMode;
+        }
     }
 
     private void OnSubsystemAdded(Subsystem subsystem)

@@ -87,7 +87,7 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
 			_icon.enabled = true;
 
-			Ray ray = GameManager.Instance.Car.RepairUI.RepairCamera.ScreenPointToRay(eventData.position);
+			Ray ray = (GameManager.Instance.CurrentGameMode as DrivingMode).Car.RepairUI.RepairCamera.ScreenPointToRay(eventData.position);
 			RaycastHit2D hit2D =  Physics2D.GetRayIntersection(ray, 5f, LayerMask.GetMask(new string[] {"RepairablePart"})); 
 			if (hit2D.collider != null)
 			{

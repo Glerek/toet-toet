@@ -13,6 +13,7 @@ public class PrefabAttribute : Attribute
 public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 {
 	private static T _instance = null;
+	private static bool _onApplicationQuit = false;
 	public static bool IsAwake { get { return (_instance != null); } }
 
 	public static T Instance
@@ -23,7 +24,7 @@ public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 			if (_instance == null)
 			{
 				_instance = (T)FindObjectOfType(mytype);
-				if (_instance == null)
+				if (_instance == null && !_onApplicationQuit)
 				{
 					string goName = mytype.ToString();
 					GameObject go = GameObject.Find(goName);
@@ -85,8 +86,11 @@ public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 		}
 	}
 
+	public static bool HasInstance { get { return _instance != null; } }
+
 	public virtual void OnApplicationQuit()
 	{
+		_onApplicationQuit = true;
 		_instance = null;
 	}
 }
