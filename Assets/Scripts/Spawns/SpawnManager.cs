@@ -56,7 +56,7 @@ public class SpawnManager : Singleton<SpawnManager>
 
         if (data != null)
         {
-            Vector3 carPosition = GameManager.Instance.Car.transform.position;
+            Vector3 carPosition = (GameManager.Instance.CurrentGameMode as DrivingMode).Car.transform.position;
             Vector3 spawnPos = Camera.main.ViewportToWorldPoint(new Vector3(Random.Range(1.1f, 1.6f), 1.5f, Mathf.Abs(carPosition.z - Camera.main.transform.position.z)));
 
             if (ChekSpawnDistance(spawnPos))

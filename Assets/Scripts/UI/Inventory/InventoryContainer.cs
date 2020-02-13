@@ -48,14 +48,21 @@ public class InventoryContainer : MonoBehaviour
 
 		InventoryManager.Instance.DisplayInventoryCallback += OnDisplayInventory;
 		InventoryManager.Instance.OnInventoryChanged += OnInventoryChanged;
-		GameManager.Instance.Car.OnRepairMode += ForceDisplay;
+		(GameManager.Instance.CurrentGameMode as DrivingMode).Car.OnRepairMode += ForceDisplay;
 	}
 
 	private void OnDestroy()
 	{
-		InventoryManager.Instance.DisplayInventoryCallback -= OnDisplayInventory;
-		InventoryManager.Instance.OnInventoryChanged -= OnInventoryChanged;
-		GameManager.Instance.Car.OnRepairMode -= ForceDisplay;
+		if (InventoryManager.HasInstance)
+		{
+			InventoryManager.Instance.DisplayInventoryCallback -= OnDisplayInventory;
+			InventoryManager.Instance.OnInventoryChanged -= OnInventoryChanged;
+		}
+
+		if (GameManager.HasInstance)
+		{
+			(GameManager.Instance.CurrentGameMode as DrivingMode).Car.OnRepairMode -= ForceDisplay;
+		}
 	}
 
 	private void OnDisplayInventory(bool show)

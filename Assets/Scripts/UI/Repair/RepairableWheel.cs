@@ -27,7 +27,7 @@ public class RepairableWheel : RepairablePart
 	{
 		if (_ongoingRepairMode &&
 			item.Data.Type == SubsystemData.SubsystemType.Wheel &&
-			GameManager.Instance.Car.GetWheel(_wheelPosition) == null)
+			(GameManager.Instance.CurrentGameMode as DrivingMode).Car.GetWheel(_wheelPosition) == null)
 		{
 			SetAllowedTarget(true);
 		}
@@ -49,7 +49,7 @@ public class RepairableWheel : RepairablePart
 				if (item.Data.PrefabTemplate is Wheel)
 				{
 					Wheel newWheel = GameObject.Instantiate(item.Data.PrefabTemplate) as Wheel;
-					Car vehicle = GameManager.Instance.Car;
+					Car vehicle = (GameManager.Instance.CurrentGameMode as DrivingMode).Car;
 
 					newWheel.transform.SetParent(transform);
 					newWheel.transform.localPosition = Vector3.zero;
