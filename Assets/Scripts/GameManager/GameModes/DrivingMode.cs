@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DrivingMode : IGameMode
 {
@@ -44,11 +45,19 @@ public class DrivingMode : IGameMode
 
 	public override void StopGameMode()
 	{
-		throw new System.NotImplementedException();
+		SceneManager.UnloadSceneAsync("AmosTesting");
 	}
 
 	public void ToggleRepairMode()
 	{
 		DuringRepairMode = !DuringRepairMode;
+	}
+
+	private void Update()
+	{
+		if (Input.GetKeyDown(KeyCode.G))
+		{
+			GameManager.Instance.StartGameMode(GameManager.GameMode.GameOver);
+		}
 	}
 }
