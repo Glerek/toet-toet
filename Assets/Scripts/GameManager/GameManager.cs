@@ -18,6 +18,7 @@ public class GameManager : Singleton<GameManager>
 		{ GameMode.Boot, 			"Boot" },
 		{ GameMode.TitleScreen, 	"Start" },
 		{ GameMode.DrivingMode, 	"AmosTesting" },
+		{ GameMode.GameOver, 		"GameOver" },
 	};
 
 	[SerializeField]
@@ -69,6 +70,11 @@ public class GameManager : Singleton<GameManager>
 
 	private void StartGameMode(IGameMode gameMode)
 	{
+		if (_currentGameMode != null)
+		{
+			_currentGameMode.StopGameMode();
+		}
+
 		gameMode.StartGameMode();
 		_currentGameMode = gameMode;
 	}
