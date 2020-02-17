@@ -28,6 +28,9 @@ public class Subsystem : MonoBehaviour
 	public static readonly float MAX_DURABILITY = 100f;
 
     [SerializeField]
+    protected bool _showDamages = false;
+
+    [SerializeField]
     protected SpriteRenderer _renderer = null;
 
     [SerializeField]
@@ -81,7 +84,10 @@ public class Subsystem : MonoBehaviour
         {
             if (_durability > 0f)
             {
-                Debug.Log("Apply " + type + " damage (" + DurabilityByDamage[type] + ") to " + (transform.parent != null ? transform.parent.name : gameObject.name));
+                if (_showDamages)
+                {
+                    Debug.Log("Apply " + type + " damage (" + DurabilityByDamage[type] + ") to " + (transform.parent != null ? transform.parent.name : gameObject.name));
+                }
                 _durability -= DurabilityByDamage[type];
                 _canTakeDamage = false;
 

@@ -26,6 +26,7 @@ public class Car : MonoBehaviour
 
 	[SerializeField]
 	private List<WheelStructure> _wheels = new List<WheelStructure>();
+	public List<WheelStructure> Wheels { get { return _wheels; } }
 
 	[SerializeField]
 	private SubsystemContainer _subsystemUI = null;
@@ -37,6 +38,7 @@ public class Car : MonoBehaviour
 
 	private bool _ongoingRepairMode = false;
 	private Rigidbody2D _carRigidbody = null;
+	private bool _rigidbodyWasSleeping = false;
 
 	private Action<Subsystem> _onSubsystemAdded = null;
 	public event Action<Subsystem> OnSubsystemAdded
@@ -79,6 +81,18 @@ public class Car : MonoBehaviour
 
 		remove { _onRepairMode -= value; }
 	}
+
+	private Action<bool> _onCarMovementChanged = null;
+	public event Action<bool> OnCarMovementChanged
+	{
+		add
+		{
+			_onCarMovementChanged -= value;
+			_onCarMovementChanged += value;
+		}
+
+		remove { _onCarMovementChanged -= value; }
+	} 
 
 	void Start()
 	{
@@ -179,6 +193,22 @@ public class Car : MonoBehaviour
 		if (_onRepairMode != null)
 		{
 			_onRepairMode(enable);
+		}
+	}
+
+	private void Update()
+	{
+		if (_carRigidbody != null)
+		{
+			if (_carRigidbody.IsSleeping() != _rigidbodyWasSleeping)
+			{
+				_rigidbodyWasSleeping = _carRigidbody.IsSleeping();
+
+				if (_onCarMovementChanged != null)
+				{
+					_onCarMovementChanged(_rigidbodyWasSleeping);
+				}
+			}
 		}
 	}
 }

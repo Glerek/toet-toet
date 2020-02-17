@@ -19,6 +19,8 @@ public class SpawnManager : Singleton<SpawnManager>
 
     private Coroutine _spawnCoroutine = null;
     private List<PickableObject> _spawnedObjects = new List<PickableObject>();
+    public List<PickableObject> SpawnedObjects { get { return _spawnedObjects; } }
+
     private List<PickableObject> _nearbyObjects = new List<PickableObject>();
 
     private void Start()
