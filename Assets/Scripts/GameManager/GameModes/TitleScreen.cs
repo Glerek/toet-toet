@@ -17,10 +17,18 @@ public class TitleScreen : IGameMode
 	[SerializeField]
 	private float _fadeDuration = 1.5f;
 
+	[SerializeField]
+	private GameObject _playText = null;
+
+	[SerializeField]
+	private GameObject _playImage = null;
+
 	private bool _duringLoad = false;
 
 	public override void StartGameMode()
 	{
+		_playText.SetActive(true);
+		_playImage.SetActive(false);
 	}
 
 	public override void StopGameMode()
@@ -40,6 +48,9 @@ public class TitleScreen : IGameMode
 	private IEnumerator LoadGameScene()
 	{
 		_duringLoad = true;
+
+		_playText.SetActive(false);
+		_playImage.SetActive(true);
 
 		AsyncOperation asyncLoad = GameManager.Instance.StartGameMode(GameManager.GameMode.DrivingMode);
 		asyncLoad.allowSceneActivation = false;

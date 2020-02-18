@@ -13,6 +13,9 @@ public class DrivingMode : IGameMode
 	private SubsystemIconData _iconData = null;
 	public SubsystemIconData IconData { get { return _iconData; } }
 
+	[SerializeField]
+	private GameFinishUI _finishGameUI = null;
+
 	private Car _car;
 	public Car Car { get { return _car; } }
 
@@ -38,9 +41,59 @@ public class DrivingMode : IGameMode
 		}
 	}
 
+	private void OnGameFinished()
+	{
+		GameManager.Instance.StartGameMode(GameManager.GameMode.GameOver);
+	}
+
+	private void OnCarMovementChanged(bool isSleeping)
+	{
+		if (isSleeping && _car != null)
+		{
+			// Game over if (AND):
+			// * Both wheels are broken
+			// * No wheel in inventory
+			// * No wheel visible on the screen
+			
+			bool bothWheelsBroken = AreAllWheelsBroken();
+			bool noWheelInInventory = InventoryManager.Instance.Inventory.FindAll(item => item.Type == SubsystemData.SubsystemType.Wheel).Count <= 0;
+			bool noWheelsOnScreen = IsThereSpawnedWheelsOnScreen() == false;
+
+			if (bothWheelsBroken && noWheelInInventory && noWheelsOnScreen)
+			{
+				_finishGameUI.Play(false, OnGameFinished);
+			}
+		}
+	}
+
+	private bool AreAllWheelsBroken()
+	{
+		bool result = true;
+		for (int i = 0; i < _car.Wheels.Count; i++)
+		{
+			result &= _car.Wheels[i].Wheel == null;
+		}
+
+		return result;
+	}
+
+	private bool IsThereSpawnedWheelsOnScreen()
+	{
+		bool result = false;
+		Plane[] cameraPlanes = GeometryUtility.CalculateFrustumPlanes(Camera.main);
+		for (int i = 0; i < SpawnManager.Instance.SpawnedObjects.Count; i++)
+		{
+			result |= GeometryUtility.TestPlanesAABB(cameraPlanes, SpawnManager.Instance.SpawnedObjects[i].GetComponent<Collider2D>().bounds);
+		}
+
+		return result;
+	}
+
 	public override void StartGameMode()
 	{
 		_car = Instantiate(_carTemplate, _spawnTarget.transform.position, Quaternion.identity);
+
+		_car.OnCarMovementChanged += OnCarMovementChanged;
 	}
 
 	public override void StopGameMode()
@@ -51,13 +104,5 @@ public class DrivingMode : IGameMode
 	public void ToggleRepairMode()
 	{
 		DuringRepairMode = !DuringRepairMode;
-	}
-
-	private void Update()
-	{
-		if (Input.GetKeyDown(KeyCode.G))
-		{
-			GameManager.Instance.StartGameMode(GameManager.GameMode.GameOver);
-		}
 	}
 }
