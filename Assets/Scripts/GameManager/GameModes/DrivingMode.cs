@@ -13,6 +13,9 @@ public class DrivingMode : IGameMode
 	private SubsystemIconData _iconData = null;
 	public SubsystemIconData IconData { get { return _iconData; } }
 
+	[SerializeField]
+	private GameFinishUI _finishGameUI = null;
+
 	private Car _car;
 	public Car Car { get { return _car; } }
 
@@ -38,6 +41,11 @@ public class DrivingMode : IGameMode
 		}
 	}
 
+	private void OnGameFinished()
+	{
+		GameManager.Instance.StartGameMode(GameManager.GameMode.GameOver);
+	}
+
 	private void OnCarMovementChanged(bool isSleeping)
 	{
 		if (isSleeping && _car != null)
@@ -53,7 +61,7 @@ public class DrivingMode : IGameMode
 
 			if (bothWheelsBroken && noWheelInInventory && noWheelsOnScreen)
 			{
-				GameManager.Instance.StartGameMode(GameManager.GameMode.GameOver);
+				_finishGameUI.Play(false, OnGameFinished);
 			}
 		}
 	}
