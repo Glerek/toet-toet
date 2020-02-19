@@ -219,9 +219,14 @@ public class Car : MonoBehaviour
 		{
 			for (int i = 0; i < _wheels.Count; i++)
 			{
-				_wheels[i].Joint.useMotor = _movement != 0f;
-				JointMotor2D motor = new JointMotor2D { motorSpeed = _movement, maxMotorTorque = 10000 };
-				_wheels[i].Joint.motor = motor;
+				bool isMoving = _movement != 0f;
+				_wheels[i].Joint.useMotor = isMoving;
+
+				if (isMoving)
+				{
+					JointMotor2D motor = new JointMotor2D { motorSpeed = _movement, maxMotorTorque = 10000 };
+					_wheels[i].Joint.motor = motor;
+				}
 			}
 		}
 	}
