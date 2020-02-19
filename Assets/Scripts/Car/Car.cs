@@ -22,7 +22,7 @@ public class Car : MonoBehaviour
 	#endregion
 
 	[SerializeField]
-	private float _torque = 10.0f;
+	private float _speed = 250.0f;
 
 	[SerializeField]
 	private List<WheelStructure> _wheels = new List<WheelStructure>();
@@ -36,6 +36,7 @@ public class Car : MonoBehaviour
 	private RepairUI _repairUI = null;
 	public RepairUI RepairUI { get { return _repairUI; } }
 
+	private float _movement = 0f;
 	private bool _ongoingRepairMode = false;
 	private Rigidbody2D _carRigidbody = null;
 	private bool _rigidbodyWasSleeping = false;
@@ -161,29 +162,24 @@ public class Car : MonoBehaviour
 		}
 	}
 
-	public void Accelerate()
+	public void SetMovement(float rawMovement)
 	{
-		ApplyTorque(-_torque);
+		_movement = - rawMovement * _speed;
 	}
 
-	public void Brake()
-	{
-		ApplyTorque(_torque);
-	}
-
-	private void ApplyTorque(float torque)
-	{
-		if (_ongoingRepairMode == false)
-		{
-			for (int i = 0; i < _wheels.Count; i++)
-			{
-				if (_wheels[i].Wheel != null && !_wheels[i].Wheel.IsBroken)
-				{
-					_wheels[i].Wheel.GetComponent<Rigidbody2D>().AddTorque(torque, ForceMode2D.Force);
-				}
-			}
-		}
-	}
+	// private void ApplyTorque(float torque)
+	// {
+	// 	if (_ongoingRepairMode == false)
+	// 	{
+	// 		for (int i = 0; i < _wheels.Count; i++)
+	// 		{
+	// 			if (_wheels[i].Wheel != null && !_wheels[i].Wheel.IsBroken)
+	// 			{
+	// 				_wheels[i].Wheel.GetComponent<Rigidbody2D>().AddTorque(torque, ForceMode2D.Force);
+	// 			}
+	// 		}
+	// 	}
+	// }
 
 	public void SetRepairMode(bool enable)
 	{
@@ -213,6 +209,19 @@ public class Car : MonoBehaviour
 				{
 					_onCarMovementChanged(_rigidbodyWasSleeping);
 				}
+			}
+		}
+	}
+
+	private void FixedUpdate()
+	{
+		if (_ongoingRepairMode == false)
+		{
+			for (int i = 0; i < _wheels.Count; i++)
+			{
+				_wheels[i].Joint.useMotor = _movement != 0f;
+				JointMotor2D motor = new JointMotor2D { motorSpeed = _movement, maxMotorTorque = 10000 };
+				_wheels[i].Joint.motor = motor;
 			}
 		}
 	}

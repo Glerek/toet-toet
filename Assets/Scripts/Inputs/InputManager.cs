@@ -6,17 +6,17 @@ using UnityEngine.InputSystem;
 public class InputManager : Singleton<InputManager>, PlayerAction.IPlayerActions
 {
 	private PlayerAction.PlayerActions _input;
-	private bool _acceleratePushed = false;
-	private bool _brakePushed = false;
+	private float _accelerateValue = 0f;
+	private float _brakeValue = 0f;
 
 	public void OnAccelerate(InputAction.CallbackContext context)
 	{
-		_acceleratePushed = context.ReadValue<float>() == 1.0f;
+		_accelerateValue = context.ReadValue<float>();
 	}
 
 	public void OnBrake(InputAction.CallbackContext context)
 	{
-		_brakePushed = context.ReadValue<float>() == 1.0f;
+		_brakeValue = context.ReadValue<float>();
 	}
 
 	public void OnSubsystemDurability(InputAction.CallbackContext context)
@@ -76,14 +76,14 @@ public class InputManager : Singleton<InputManager>, PlayerAction.IPlayerActions
 
 	private void Update()
 	{
-		if (_acceleratePushed)
+		if (GameManager.Instance.CurrentGameMode is DrivingMode)
 		{
-			(GameManager.Instance.CurrentGameMode as DrivingMode).Car.Accelerate();
-		}
+			DrivingMode drivingMode = GameManager.Instance.CurrentGameMode as DrivingMode;
 
-		if (_brakePushed)
-		{
-			(GameManager.Instance.CurrentGameMode as DrivingMode).Car.Brake();
+			if (drivingMode.Car != null)
+			{
+				drivingMode.Car.SetMovement(_accelerateValue - _brakeValue);
+			}
 		}
 	}
 }
