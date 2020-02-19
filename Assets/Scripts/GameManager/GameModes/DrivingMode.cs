@@ -43,7 +43,14 @@ public class DrivingMode : IGameMode
 
 	private void OnGameFinished()
 	{
+		GameObject.Destroy(_car.gameObject);
 		GameManager.Instance.StartGameMode(GameManager.GameMode.GameOver);
+	}
+
+	public void FinishDrivingMode(bool victory)
+	{
+		Car.FreezeCar(true);
+		_finishGameUI.Play(victory, OnGameFinished);
 	}
 
 	private void OnCarMovementChanged(bool isSleeping)
@@ -61,7 +68,7 @@ public class DrivingMode : IGameMode
 
 			if (bothWheelsBroken && noWheelInInventory && noWheelsOnScreen)
 			{
-				_finishGameUI.Play(false, OnGameFinished);
+				FinishDrivingMode(false);
 			}
 		}
 	}

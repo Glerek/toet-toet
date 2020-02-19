@@ -188,12 +188,17 @@ public class Car : MonoBehaviour
 	public void SetRepairMode(bool enable)
 	{
 		_ongoingRepairMode = enable;
-		_carRigidbody.constraints = enable ? RigidbodyConstraints2D.FreezeAll : RigidbodyConstraints2D.None;
+		FreezeCar(enable);
 		
 		if (_onRepairMode != null)
 		{
 			_onRepairMode(enable);
 		}
+	}
+
+	public void FreezeCar(bool freeze)
+	{
+		_carRigidbody.constraints = freeze ? RigidbodyConstraints2D.FreezeAll : RigidbodyConstraints2D.None;
 	}
 
 	private void Update()
