@@ -22,9 +22,12 @@ public class DampCamera2D : MonoBehaviour
 
 	void Update()
 	{
-		Vector3 newPosition = Vector2.SmoothDamp(transform.position, _target.position, ref _velocity, _smoothTime);
-		newPosition.z = _zDepth;
+		if (_target != null)
+		{
+			Vector3 newPosition = Vector2.SmoothDamp(transform.position, _target.position, ref _velocity, _smoothTime);
+			newPosition.z = _zDepth;
 
-		transform.position = newPosition;
+			transform.position = newPosition;
+		}
 	}
 }

@@ -40,7 +40,11 @@ public class Subsystem : MonoBehaviour
     [SerializeField]
     [Tooltip("Delay between two damages (in seconds)")]
     private float _delayBetweenDamages = 1.0f;
+
+    [SerializeField]
+    private bool _unlimitedDurability = false;
     private bool _canTakeDamage = true;
+    private bool ShouldApplyDamage { get { return !_unlimitedDurability && _canTakeDamage; } }
     private float _timer = 0f;
 
 	protected float _durability = MAX_DURABILITY;
@@ -80,7 +84,7 @@ public class Subsystem : MonoBehaviour
 
     public void ApplyDamage(DamageType type)
     {
-        if (_canTakeDamage && DurabilityByDamage.ContainsKey(type))
+        if (ShouldApplyDamage && DurabilityByDamage.ContainsKey(type))
         {
             if (_durability > 0f)
             {
