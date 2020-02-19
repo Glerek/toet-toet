@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2327954574709265268}
   - component: {fileID: -6529976561436035677}
   - component: {fileID: 4247875121710195204}
-  - component: {fileID: 4147480183249346340}
+  - component: {fileID: 5841516017022167951}
   m_Layer: 9
   m_Name: WatermelonWheel
   m_TagString: Wheel
@@ -96,11 +96,11 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 5
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: aa539111c0aad48158c07ac4094197e2, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -117,13 +117,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 255fbcba18e791f43834586da504ba7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _showDamages: 0
   _renderer: {fileID: 2327954574709265268}
   _data: {fileID: 11400000, guid: e6645929896ab3240a9631209215fd8f, type: 2}
   _delayBetweenDamages: 1
+  _unlimitedDurability: 0
   _breakFadeOutDelay: 5
   _fadeOutDuration: 2
---- !u!60 &4147480183249346340
-PolygonCollider2D:
+--- !u!58 &5841516017022167951
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -135,34 +137,6 @@ PolygonCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.38, y: 1.46}
-    newSize: {x: 1.46, y: 1.38}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0.48, y: 0.24}
-      - {x: 0.42999998, y: 0.31}
-      - {x: 0.29, y: 0.45}
-      - {x: 0.216974, y: 0.49424264}
-      - {x: 0.18239962, y: 0.5506027}
-      - {x: 0.07752952, y: 0.5478746}
-      - {x: -0.008486794, y: 0.53938925}
-      - {x: -0.07092206, y: 0.50393313}
-      - {x: -0.124856405, y: 0.48243693}
-      - {x: -0.29, y: 0.42}
-      - {x: -0.47, y: 0.16}
-      - {x: -0.47, y: -0.17999999}
-      - {x: -0.44, y: -0.26}
-      - {x: -0.29999998, y: -0.45}
-      - {x: -0.16, y: -0.53}
-      - {x: 0.17999999, y: -0.53}
-      - {x: 0.39, y: -0.42}
-      - {x: 0.53, y: -0.17999999}
-      - {x: 0.53, y: 0.099999994}
+  m_Offset: {x: 0.02, y: -0.02}
+  serializedVersion: 2
+  m_Radius: 0.5
