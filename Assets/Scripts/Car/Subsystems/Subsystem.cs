@@ -149,7 +149,7 @@ public class Subsystem : MonoBehaviour
 		}
 		else
 		{
-			DecreaseDurability(2f * mag);
+			DecreaseDurability(3f * mag);
 		}
 	}
 
