@@ -970,7 +970,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5b05f8d245908041a34ed99610c5e01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _torque: 10
+  _speed: 250
+  _tortoiseStuckDelay: 5
   _wheels:
   - Position: 0
     Joint: {fileID: 3778947885018577504}
@@ -1042,9 +1043,9 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 20
+  m_Mass: 2
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 5
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
@@ -1068,8 +1069,8 @@ WheelJoint2D:
   m_Anchor: {x: -0.955, y: -0.92}
   m_ConnectedAnchor: {x: 0, y: 0}
   m_Suspension:
-    m_DampingRatio: 0.7
-    m_Frequency: 100
+    m_DampingRatio: 1
+    m_Frequency: 20
     m_Angle: 90
   m_UseMotor: 0
   m_Motor:
@@ -1092,8 +1093,8 @@ WheelJoint2D:
   m_Anchor: {x: 0.935, y: -0.92}
   m_ConnectedAnchor: {x: 0, y: 0}
   m_Suspension:
-    m_DampingRatio: 0.7
-    m_Frequency: 100
+    m_DampingRatio: 1
+    m_Frequency: 20
     m_Angle: 90
   m_UseMotor: 0
   m_Motor:

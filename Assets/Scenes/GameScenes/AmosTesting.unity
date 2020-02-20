@@ -2457,6 +2457,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 61288918793402952, guid: 3327231870f0a4ff2b6aad8264aa42fc,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: 06eb63a1621ee4f159a3ef17014f032d, type: 2}
     - target: {fileID: 501072602438467832, guid: 3327231870f0a4ff2b6aad8264aa42fc,
         type: 3}
       propertyPath: m_ShapeTexture
@@ -2537,6 +2542,26 @@ PrefabInstance:
       propertyPath: m_ShapeTexture
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 625177314869710165, guid: 3327231870f0a4ff2b6aad8264aa42fc,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: 06eb63a1621ee4f159a3ef17014f032d, type: 2}
+    - target: {fileID: 993459677067583626, guid: 3327231870f0a4ff2b6aad8264aa42fc,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: 06eb63a1621ee4f159a3ef17014f032d, type: 2}
+    - target: {fileID: 1175426487224045702, guid: 3327231870f0a4ff2b6aad8264aa42fc,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: 06eb63a1621ee4f159a3ef17014f032d, type: 2}
+    - target: {fileID: 2123861754212595967, guid: 3327231870f0a4ff2b6aad8264aa42fc,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: 06eb63a1621ee4f159a3ef17014f032d, type: 2}
     - target: {fileID: 2246462092915720473, guid: 3327231870f0a4ff2b6aad8264aa42fc,
         type: 3}
       propertyPath: m_SpriteShape
@@ -3957,6 +3982,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: cafe1ffb5375a6347a16eef3be5a92b6,
         type: 2}
+    - target: {fileID: 3462370853127382551, guid: 3327231870f0a4ff2b6aad8264aa42fc,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: 06eb63a1621ee4f159a3ef17014f032d, type: 2}
     - target: {fileID: 3629787128567417143, guid: 3327231870f0a4ff2b6aad8264aa42fc,
         type: 3}
       propertyPath: m_ShapeTexture
@@ -3972,6 +4002,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0.76
       objectReference: {fileID: 0}
+    - target: {fileID: 4491226880377150001, guid: 3327231870f0a4ff2b6aad8264aa42fc,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: 06eb63a1621ee4f159a3ef17014f032d, type: 2}
     - target: {fileID: 4669527045281463465, guid: 3327231870f0a4ff2b6aad8264aa42fc,
         type: 3}
       propertyPath: m_Spline.m_ControlPoints.Array.size
@@ -8066,6 +8101,16 @@ PrefabInstance:
       propertyPath: m_Points.m_Paths.Array.data[0].Array.data[114].x
       value: 9.54
       objectReference: {fileID: 0}
+    - target: {fileID: 5670608585170671144, guid: 3327231870f0a4ff2b6aad8264aa42fc,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: 06eb63a1621ee4f159a3ef17014f032d, type: 2}
+    - target: {fileID: 6334705397178322397, guid: 3327231870f0a4ff2b6aad8264aa42fc,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: 06eb63a1621ee4f159a3ef17014f032d, type: 2}
     - target: {fileID: 6673979371846849555, guid: 3327231870f0a4ff2b6aad8264aa42fc,
         type: 3}
       propertyPath: m_ShapeTexture
@@ -8280,6 +8325,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 23f97df76b3620248adf1638fc141b42,
         type: 3}
+    - target: {fileID: 7111242788084569234, guid: 3327231870f0a4ff2b6aad8264aa42fc,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: 06eb63a1621ee4f159a3ef17014f032d, type: 2}
     - target: {fileID: 7841735051948776817, guid: 3327231870f0a4ff2b6aad8264aa42fc,
         type: 3}
       propertyPath: m_ShapeTexture
@@ -8481,5 +8531,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LevelStructure
       objectReference: {fileID: 0}
+    - target: {fileID: 9012040114846980233, guid: 3327231870f0a4ff2b6aad8264aa42fc,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: 06eb63a1621ee4f159a3ef17014f032d, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3327231870f0a4ff2b6aad8264aa42fc, type: 3}

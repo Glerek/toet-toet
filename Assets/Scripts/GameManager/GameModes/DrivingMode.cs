@@ -73,6 +73,11 @@ public class DrivingMode : IGameMode
 		}
 	}
 
+	private void OnCarStuck()
+	{
+		FinishDrivingMode(false);
+	}
+
 	private bool AreAllWheelsBroken()
 	{
 		bool result = true;
@@ -101,6 +106,7 @@ public class DrivingMode : IGameMode
 		_car = Instantiate(_carTemplate, _spawnTarget.transform.position, Quaternion.identity);
 
 		_car.OnCarMovementChanged += OnCarMovementChanged;
+		_car.OnCarStuck += OnCarStuck;
 	}
 
 	public override void StopGameMode()

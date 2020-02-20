@@ -63,7 +63,7 @@ public class SpawnManager : Singleton<SpawnManager>
 
             if (ChekSpawnDistance(spawnPos))
             {
-                RaycastHit2D hit = Physics2D.Raycast(spawnPos, Vector2.down, LayerMask.GetMask("Road"));
+                RaycastHit2D hit = Physics2D.Raycast(spawnPos, Vector2.down, float.PositiveInfinity, LayerMask.GetMask("Road"));
                 if (hit.collider != null)
                 {
                     spawnPos.y = hit.point.y;
