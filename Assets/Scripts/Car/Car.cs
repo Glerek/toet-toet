@@ -25,6 +25,9 @@ public class Car : MonoBehaviour
 	private float _speed = 250.0f;
 
 	[SerializeField]
+	private float _tortoiseStuckDelay = 3f;
+
+	[SerializeField]
 	private List<WheelStructure> _wheels = new List<WheelStructure>();
 	public List<WheelStructure> Wheels { get { return _wheels; } }
 
@@ -40,7 +43,10 @@ public class Car : MonoBehaviour
 	private bool _ongoingRepairMode = false;
 	private Rigidbody2D _carRigidbody = null;
 	private bool _rigidbodyWasSleeping = false;
+	private float _turtleStuckTimer = 0f;
+	private bool _carStucked = false;
 
+	#region Events
 	private Action<Subsystem> _onSubsystemAdded = null;
 	public event Action<Subsystem> OnSubsystemAdded
 	{
@@ -93,7 +99,20 @@ public class Car : MonoBehaviour
 		}
 
 		remove { _onCarMovementChanged -= value; }
-	} 
+	}
+
+	private Action _onCarStuck = null;
+	public event Action OnCarStuck
+	{
+		add
+		{
+			_onCarStuck -= value;
+			_onCarStuck += value;
+		}
+
+		remove { _onCarStuck -= value; }
+	}
+	#endregion
 
 	void Start()
 	{
@@ -210,6 +229,40 @@ public class Car : MonoBehaviour
 					_onCarMovementChanged(_rigidbodyWasSleeping);
 				}
 			}
+
+			if (_carStucked == false)
+			{
+				CheckForTurtleStuck();
+			}
+		}
+	}
+
+	private void CheckForTurtleStuck()
+	{
+		// If all wheels are airborne for more than the corresponding timer we're stuck
+		// (Maybe at some point also check that we're not moving on the x-axis)
+		bool allWheelsAirborne = true;
+		for (int i = 0; i < _wheels.Count; i++)
+		{
+			if (_wheels[i].Wheel != null)
+			{
+				RaycastHit2D hit = Physics2D.Raycast(_wheels[i].Wheel.transform.parent.position, -_wheels[i].Wheel.transform.parent.up, 1.5f, LayerMask.GetMask("Road"));
+				allWheelsAirborne &= hit.collider == null;
+			}
+		}
+
+		_turtleStuckTimer += Time.deltaTime;
+
+		if (!allWheelsAirborne)
+		{
+			_turtleStuckTimer = 0f;
+		}
+
+		if (_turtleStuckTimer > _tortoiseStuckDelay)
+		{
+			_carStucked = true;
+			_turtleStuckTimer = 0f;
+			_onCarStuck?.Invoke();
 		}
 	}
 
