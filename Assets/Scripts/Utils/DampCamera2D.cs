@@ -10,11 +10,28 @@ public class DampCamera2D : MonoBehaviour
 	private Vector2 _velocity = Vector2.zero;
 	private float _zDepth = 0f;
 
+	private void OnGameModeStarted(IGameMode gameMode)
+	{
+		if (gameMode is DrivingMode)
+		{
+			GameManager.Instance.OnGameModeStarted -= OnGameModeStarted;
+
+			_target = (gameMode as DrivingMode).Car.transform;
+		}
+	}
+
 	private void Start()
 	{
 		if (_target == null)
 		{
-			_target = (GameManager.Instance.CurrentGameMode as DrivingMode).Car.transform;
+			if (GameManager.Instance.CurrentGameMode is DrivingMode)
+			{
+				_target = (GameManager.Instance.CurrentGameMode as DrivingMode).Car.transform;
+			}
+			else
+			{
+				GameManager.Instance.OnGameModeStarted += OnGameModeStarted;
+			}
 		}
 
 		_zDepth = transform.position.z;

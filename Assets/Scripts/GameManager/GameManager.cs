@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -28,6 +29,18 @@ public class GameManager : Singleton<GameManager>
 	public IGameMode CurrentGameMode { get { return _currentGameMode; }	}
 
 	private List<IGameMode> _registeredGameModes = new List<IGameMode>();
+
+	private Action<IGameMode> _onGameModeStarted = null;
+	public event Action<IGameMode> OnGameModeStarted
+	{
+		add
+		{
+			_onGameModeStarted -= value;
+			_onGameModeStarted += value;
+		}
+
+		remove { _onGameModeStarted -= value; }
+	}
 
 	private void Start()
 	{
@@ -77,5 +90,7 @@ public class GameManager : Singleton<GameManager>
 
 		gameMode.StartGameMode();
 		_currentGameMode = gameMode;
+
+	 	_onGameModeStarted?.Invoke(gameMode);
 	}
 }

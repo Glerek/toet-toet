@@ -2,18 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RoadGeneratorParameters
+public class RoadGenerator : Singleton<RoadGenerator>
 {
-	public RoadBlock RoadBlock;
-}
-
-public class RoadGenerator
-{	
+	[SerializeField]
 	private RoadGeneratorParameters _parameters = null;
-	private List<RoadBlock> _currentInstanciated = new List<RoadBlock>();
 
-	public RoadGenerator(RoadGeneratorParameters parameters)
+	private List<RoadBlock> _blocks = new List<RoadBlock>();
+
+	private void Awake()
 	{
-		_parameters = parameters;
+		_blocks.Add(SpawnBlock(Vector3.zero, Vector3.zero));
+	}
+
+	private RoadBlock SpawnBlock(Vector3 position, Vector3 rotation)
+	{
+		RoadBlock newBlock = GameObject.Instantiate(_parameters.RoadBlock, position, Quaternion.Euler(rotation), transform);
+		newBlock.Initialize();
+
+		return newBlock;
+	}
+
+	public void OnEndOfBlockCrossed(RoadBlock block)
+	{
+		Vector3 newSpawnPosition = block.EndConnector.transform.position + (block.transform.position - block.StartConnector.transform.position);
+
+		_blocks.Add(SpawnBlock(newSpawnPosition, Vector3.zero));
 	}
 }
