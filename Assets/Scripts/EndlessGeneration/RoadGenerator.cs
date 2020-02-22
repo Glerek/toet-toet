@@ -8,9 +8,11 @@ public class RoadGenerator : Singleton<RoadGenerator>
 	private RoadGeneratorParameters _parameters = null;
 
 	private List<RoadBlock> _blocks = new List<RoadBlock>();
+	private float _currentGlobalAngle = 0f;
 
 	private void Awake()
 	{
+		// Change initial spawn to prevent going BACKWARDS
 		_blocks.Add(SpawnBlock(Vector3.zero, Vector3.zero));
 	}
 
@@ -21,24 +23,12 @@ public class RoadGenerator : Singleton<RoadGenerator>
 
 		return newBlock;
 	}
-
-	private Vector3 _latestSpawnVectorA;
-	private Vector3 _latestSpawnVectorB;
 	public void OnEndOfBlockCrossed(RoadBlock block)
 	{
-		// Vector3 newSpawnPosition = block.EndConnector.transform.position + (block.transform.position - block.StartConnector.transform.position);
-		Vector3 newSpawnPosition = block.transform.position - block.StartConnector.transform.position;
-		float randomAngle = Random.Range(-20f, 20f);
-		Debug.Log("Random angle: " + randomAngle);
-		newSpawnPosition = Quaternion.AngleAxis(randomAngle, Vector3.forward) * newSpawnPosition;
-		_latestSpawnVectorB = newSpawnPosition;
-		_latestSpawnVectorA = block.EndConnector.transform.position;
+		_currentGlobalAngle= Random.Range(
+									Mathf.Max(-_parameters.MaxRoadAngle, _currentGlobalAngle - _parameters.BlockRandomAngleCap),
+									Mathf.Min(_parameters.MaxRoadAngle, _currentGlobalAngle + _parameters.BlockRandomAngleCap));
 
-		_blocks.Add(SpawnBlock(block.EndConnector.transform.position + newSpawnPosition, new Vector3(0, 0, randomAngle)));
-	}
-
-	private void Update()
-	{
-		Debug.DrawLine(_latestSpawnVectorA, _latestSpawnVectorB, Color.red, 1f);
+		_blocks.Add(SpawnBlock(block.EndConnector.transform.position, new Vector3(0, 0, _currentGlobalAngle)));
 	}
 }
