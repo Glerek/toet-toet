@@ -13,9 +13,12 @@ public class RoadBlock : MonoBehaviour
 	[SerializeField]
 	private GameObject Graphics = null;
 
+	[SerializeField]
+	private Bezier _bezier = null;
+
 	public void Initialize()
 	{
-		
+
 	}
 
 	public void OnEndBlockCrossed(GameObject trigger, Collider2D collider)
