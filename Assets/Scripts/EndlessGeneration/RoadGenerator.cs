@@ -19,7 +19,7 @@ public class RoadGenerator : Singleton<RoadGenerator>
 	private RoadBlock SpawnBlock(Vector3 position, Vector3 rotation)
 	{
 		RoadBlock newBlock = GameObject.Instantiate(_parameters.RoadBlock, position, Quaternion.Euler(rotation), transform);
-		newBlock.Initialize();
+		newBlock.Initialize(_parameters);
 
 		return newBlock;
 	}
