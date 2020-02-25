@@ -5,18 +5,12 @@ public class Bezier : MonoBehaviour
 	[SerializeField]
 	private Transform[] _controlPoints = null;
 
-	private int _curveCount = 0;
+	private int CurveCount { get { return _controlPoints.Length / 3; } }
 
 	private float SUBCOUNT = 50;
 
-	private void Start()
-	{
-		_curveCount = _controlPoints.Length / 3;
-	}
-
 	private void OnDrawGizmos()
 	{
-		_curveCount = _controlPoints.Length / 3;
 		for (int i = 0; i < _controlPoints.Length; i++)
 		{
 			if (i % 3 == 0)
@@ -28,7 +22,7 @@ public class Bezier : MonoBehaviour
 		}
 
 		Vector3 lastPosition = _controlPoints[0].position;
-		for (int j = 0; j < _curveCount; j++)
+		for (int j = 0; j < CurveCount; j++)
 		{
 			for (int i = 1; i <= SUBCOUNT; i++)
 			{
@@ -61,7 +55,7 @@ public class Bezier : MonoBehaviour
 	public Vector3 GetPointByXAxis(float xPosition)
 	{
 		Vector3 result = Vector3.zero;
-		for (int i = 0; i < _curveCount; i++)
+		for (int i = 0; i < CurveCount; i++)
 		{
 			int nodeIndex = i * 3;
 			if (xPosition >= _controlPoints[nodeIndex].position.x &&

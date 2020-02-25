@@ -17,6 +17,9 @@ public class RoadBlock : MonoBehaviour
 	[SerializeField]
 	private Bezier _bezier = null;
 
+	[SerializeField]
+	private Transform _foregroundElementParent = null;
+
 	private RoadGeneratorParameters _parameters = null;
 	private List<GameObject> _spawnedForegrounds = new List<GameObject>();
 
@@ -31,11 +34,25 @@ public class RoadBlock : MonoBehaviour
 		{
 			GameObject randomElement = _parameters.RandomForegroundElements[Random.Range(0, _parameters.RandomForegroundElements.Length)];
 			float randomXPosition = Random.Range(_startConnector.position.x, _endConnector.position.x);
+			bool isPositionCorrect = true;
+			for (int i = 0; i < _spawnedForegrounds.Count; i++)
+			{
+				isPositionCorrect &= Mathf.Abs(_spawnedForegrounds[i].transform.position.x - randomXPosition) > _parameters.MinimalSpaceBetweenElements;
+			}
 
-			Vector3 spawnPoint = _bezier.GetPointByXAxis(randomXPosition);
+			if (isPositionCorrect)
+			{
+				Vector3 spawnPoint = _bezier.GetPointByXAxis(randomXPosition);
+				_spawnedForegrounds.Add(GameObject.Instantiate(randomElement, spawnPoint, Quaternion.identity, _foregroundElementParent));
 
-			infinitePreventerCounter++;
-			if (infinitePreventerCounter > 999)	{ break; }
+				infinitePreventerCounter = 0;
+				foregroundSpawnedCount++;
+			}
+			else
+			{
+				infinitePreventerCounter++;
+				if (infinitePreventerCounter > 999)	{ break; }
+			}
 		}
 	}
 
