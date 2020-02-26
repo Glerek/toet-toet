@@ -12,7 +12,7 @@ public class RoadBlock : MonoBehaviour
 	public Transform EndConnector { get { return _endConnector; } }
 
 	[SerializeField]
-	private GameObject Graphics = null;
+	private GameObject _graphics = null;
 
 	[SerializeField]
 	private Bezier _bezier = null;
@@ -25,10 +25,16 @@ public class RoadBlock : MonoBehaviour
 
 	private RoadGeneratorParameters _parameters = null;
 	private List<ForegroundElement> _spawnedForegrounds = new List<ForegroundElement>();
+	private bool _graphicsDisplayed = true;
+	public bool GraphicsDisplayed { get { return _graphicsDisplayed; } }
 
-	public void Initialize(RoadGeneratorParameters parameters)
+	public RoadBlock PreviousBlock = null;
+	public RoadBlock NextBlock = null;
+
+	public void Initialize(RoadGeneratorParameters parameters, RoadBlock previousBlock)
 	{
 		_parameters = parameters;
+		PreviousBlock = previousBlock;
 
 		SpawnForegroundElements();
 		RandomizeFog();
@@ -87,5 +93,11 @@ public class RoadBlock : MonoBehaviour
 		{
 			RoadGenerator.Instance.OnEndOfBlockCrossed(this);
 		}
+	}
+
+	public void EnableGraphics(bool enable)
+	{
+		_graphics.SetActive(enable);
+		_graphicsDisplayed = enable;
 	}
 }

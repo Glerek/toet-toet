@@ -16,6 +16,10 @@ public class RoadGeneratorParameters : ScriptableObject
 	public float BlockRandomAngleCap { get { return _blockRandomAngleCap; } }
 
 	[SerializeField]
+	private int _displayedAmountOfBlocks = 5;
+	public int DisplayedAmountOfBlocks { get { return _displayedAmountOfBlocks; } }
+
+	[SerializeField]
 	private int _numberOfRandomForegroundElementsPerBlock = 5;
 	public int NumberOfRandomForegroundElementsPerBlock { get { return _numberOfRandomForegroundElementsPerBlock; } }
 
