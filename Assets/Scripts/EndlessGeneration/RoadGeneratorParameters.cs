@@ -20,10 +20,6 @@ public class RoadGeneratorParameters : ScriptableObject
 	public int NumberOfRandomForegroundElementsPerBlock { get { return _numberOfRandomForegroundElementsPerBlock; } }
 
 	[SerializeField]
-	private float _minimalSpaceBetweenElements = 4f;
-	public float MinimalSpaceBetweenElements { get { return _minimalSpaceBetweenElements; } }
-
-	[SerializeField]
-	private GameObject[] _randomForegroundElements = null;
-	public GameObject[] RandomForegroundElements { get { return _randomForegroundElements; } }
+	private ForegroundElement[] _randomForegroundElements = null;
+	public ForegroundElement[] RandomForegroundElements { get { return _randomForegroundElements; } }
 }

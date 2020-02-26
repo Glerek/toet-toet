@@ -17,10 +17,9 @@ MonoBehaviour:
   _maxRoadAngle: 20
   _blockRandomAngleCap: 10
   _numberOfRandomForegroundElementsPerBlock: 3
-  _minimalSpaceBetweenElements: 3
   _randomForegroundElements:
-  - {fileID: 2888679914227060452, guid: ef3d87e2fc9fb2c44b8195fdd0f4a77f, type: 3}
-  - {fileID: 7339303228753989321, guid: 47c947d8be5ff4a4ea707da22775fdc5, type: 3}
-  - {fileID: 4714794832660006346, guid: d58aca12e70274f868bbfcfe4e77dd2c, type: 3}
-  - {fileID: 4897280270829234394, guid: bea9702fd663f448281abd21662ba634, type: 3}
-  - {fileID: 7329735750642800470, guid: 04b55f4168ae04fa3989e56fc9eb3d91, type: 3}
+  - {fileID: 1475896886558189151, guid: ef3d87e2fc9fb2c44b8195fdd0f4a77f, type: 3}
+  - {fileID: 4840616117193205379, guid: 47c947d8be5ff4a4ea707da22775fdc5, type: 3}
+  - {fileID: 6816109150298535569, guid: d58aca12e70274f868bbfcfe4e77dd2c, type: 3}
+  - {fileID: 2088508228875632744, guid: bea9702fd663f448281abd21662ba634, type: 3}
+  - {fileID: 3118627628017553906, guid: 04b55f4168ae04fa3989e56fc9eb3d91, type: 3}

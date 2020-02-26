@@ -7,13 +7,15 @@ public class RoadGenerator : Singleton<RoadGenerator>
 	[SerializeField]
 	private RoadGeneratorParameters _parameters = null;
 
+	[SerializeField]
+	private RoadBlock _initialBlock = null;
+
 	private List<RoadBlock> _blocks = new List<RoadBlock>();
 	private float _currentGlobalAngle = 0f;
 
 	private void Awake()
 	{
-		// Change initial spawn to prevent going BACKWARDS
-		_blocks.Add(SpawnBlock(Vector3.zero, Vector3.zero));
+		_blocks.Add(_initialBlock);
 	}
 
 	private RoadBlock SpawnBlock(Vector3 position, Vector3 rotation)
@@ -23,6 +25,7 @@ public class RoadGenerator : Singleton<RoadGenerator>
 
 		return newBlock;
 	}
+
 	public void OnEndOfBlockCrossed(RoadBlock block)
 	{
 		_currentGlobalAngle= Random.Range(

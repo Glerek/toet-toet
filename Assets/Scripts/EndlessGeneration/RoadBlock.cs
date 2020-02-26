@@ -20,29 +20,39 @@ public class RoadBlock : MonoBehaviour
 	[SerializeField]
 	private Transform _foregroundElementParent = null;
 
+	[SerializeField]
+	private GameObject _fogGameObject = null;
+
 	private RoadGeneratorParameters _parameters = null;
-	private List<GameObject> _spawnedForegrounds = new List<GameObject>();
+	private List<ForegroundElement> _spawnedForegrounds = new List<ForegroundElement>();
 
 	public void Initialize(RoadGeneratorParameters parameters)
 	{
 		_parameters = parameters;
 
+		SpawnForegroundElements();
+		RandomizeFog();
+	}
+
+	private void SpawnForegroundElements()
+	{
 		int foregroundSpawnedCount = 0;
 		int infinitePreventerCounter = 0;
 
 		while (foregroundSpawnedCount < _parameters.NumberOfRandomForegroundElementsPerBlock)
 		{
-			GameObject randomElement = _parameters.RandomForegroundElements[Random.Range(0, _parameters.RandomForegroundElements.Length)];
+			ForegroundElement randomElement = _parameters.RandomForegroundElements[Random.Range(0, _parameters.RandomForegroundElements.Length)];
 			float randomXPosition = Random.Range(_startConnector.position.x, _endConnector.position.x);
+			Vector3 spawnPoint = _bezier.GetPointByXAxis(randomXPosition);
+
 			bool isPositionCorrect = true;
 			for (int i = 0; i < _spawnedForegrounds.Count; i++)
 			{
-				isPositionCorrect &= Mathf.Abs(_spawnedForegrounds[i].transform.position.x - randomXPosition) > _parameters.MinimalSpaceBetweenElements;
+				isPositionCorrect &= _spawnedForegrounds[i].Renderer.bounds.Intersects(new Bounds(spawnPoint + (randomElement.Renderer.transform.position - randomElement.transform.position), randomElement.Renderer.bounds.size)) == false;
 			}
 
 			if (isPositionCorrect)
 			{
-				Vector3 spawnPoint = _bezier.GetPointByXAxis(randomXPosition);
 				_spawnedForegrounds.Add(GameObject.Instantiate(randomElement, spawnPoint, Quaternion.identity, _foregroundElementParent));
 
 				infinitePreventerCounter = 0;
@@ -53,6 +63,21 @@ public class RoadBlock : MonoBehaviour
 				infinitePreventerCounter++;
 				if (infinitePreventerCounter > 999)	{ break; }
 			}
+		}
+	}
+
+	private void RandomizeFog()
+	{
+		bool enableFog = Random.Range(0,4) == 0;
+
+		_fogGameObject.SetActive(enableFog);
+
+		if (enableFog)
+		{
+			Vector3 fogPosition = _fogGameObject.transform.position;
+			fogPosition.x = Random.Range(0, _endConnector.position.x);
+
+			_fogGameObject.transform.position = fogPosition;
 		}
 	}
 
