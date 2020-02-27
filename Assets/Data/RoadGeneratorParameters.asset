@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f33951737ad86bb4cb678c5fa5d791d1, type: 3}
+  m_Name: RoadGeneratorParameters
+  m_EditorClassIdentifier: 
+  _roadBlock: {fileID: 1484289468504778388, guid: 9b70a67793be84d4495174068509587b,
+    type: 3}
+  _maxRoadAngle: 12
+  _blockRandomAngleCap: 8
+  _displayedAmountOfBlocks: 5
+  _numberOfRandomForegroundElementsPerBlock: 3
+  _randomForegroundElements:
+  - {fileID: 1475896886558189151, guid: ef3d87e2fc9fb2c44b8195fdd0f4a77f, type: 3}
+  - {fileID: 4840616117193205379, guid: 47c947d8be5ff4a4ea707da22775fdc5, type: 3}
+  - {fileID: 6816109150298535569, guid: d58aca12e70274f868bbfcfe4e77dd2c, type: 3}
+  - {fileID: 2088508228875632744, guid: bea9702fd663f448281abd21662ba634, type: 3}
+  - {fileID: 3118627628017553906, guid: 04b55f4168ae04fa3989e56fc9eb3d91, type: 3}
