@@ -421,6 +421,11 @@ PrefabInstance:
       propertyPath: m_ShapeTexture
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 1293550165912320138, guid: 98544d4dcfd65eb4a9f679a9fd3842a5,
+        type: 3}
+      propertyPath: m_ShapeTexture
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 3325047913571937143, guid: 98544d4dcfd65eb4a9f679a9fd3842a5,
         type: 3}
       propertyPath: m_ShapeTexture

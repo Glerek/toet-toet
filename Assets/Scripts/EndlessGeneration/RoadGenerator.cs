@@ -10,7 +10,6 @@ public class RoadGenerator : Singleton<RoadGenerator>
 	[SerializeField]
 	private RoadBlock _initialBlock = null;
 
-	// private List<RoadBlock> _blocks = new List<RoadBlock>();
 	private float _currentGlobalAngle = 0f;
 
 	private int NumberOfBlocksBySide { get { return (int)Mathf.Ceil((_parameters.DisplayedAmountOfBlocks - 1f) / 2f); }}
@@ -18,14 +17,6 @@ public class RoadGenerator : Singleton<RoadGenerator>
 	private void Awake()
 	{
 		OnEndOfBlockCrossed(_initialBlock);
-
-		// _blocks.Add(_initialBlock);
-
-		// for (int i = 0; i < NumberOfBlocksBySide; i++)
-		// {
-		// 	RoadBlock block = _blocks[_blocks.Count - 1];
-		// 	block.NextBlock = OnEndOfBlockCrossed(block);
-		// }
 	}
 
 	private RoadBlock SpawnBlock(RoadBlock lastBlock, Vector3 position, Vector3 rotation)
@@ -71,8 +62,6 @@ public class RoadGenerator : Singleton<RoadGenerator>
 				{
 					nextBlock = SpawnAfterBlock(block);
 					block.NextBlock = nextBlock;
-					block = nextBlock;
-					// spawnedBlocks.Add(nextBlock);
 				}
 			}
 			else
@@ -80,10 +69,9 @@ public class RoadGenerator : Singleton<RoadGenerator>
 				nextBlock.EnableGraphics(false);
 			}
 
+			block = nextBlock;
 			nextBlock = nextBlock.NextBlock;
 			blockCount++;
 		}
-		
-		// return spawnedBlocks.ToArray();
 	}
 }

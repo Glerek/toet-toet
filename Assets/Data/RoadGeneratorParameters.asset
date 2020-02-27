@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _roadBlock: {fileID: 1484289468504778388, guid: 9b70a67793be84d4495174068509587b,
     type: 3}
-  _maxRoadAngle: 20
-  _blockRandomAngleCap: 10
+  _maxRoadAngle: 12
+  _blockRandomAngleCap: 8
+  _displayedAmountOfBlocks: 5
   _numberOfRandomForegroundElementsPerBlock: 3
   _randomForegroundElements:
   - {fileID: 1475896886558189151, guid: ef3d87e2fc9fb2c44b8195fdd0f4a77f, type: 3}
