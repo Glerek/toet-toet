@@ -16,6 +16,9 @@ public class DrivingMode : IGameMode
 	[SerializeField]
 	private GameFinishUI _finishGameUI = null;
 
+	[SerializeField]
+	private RoadGenerator _roadGenerator = null;
+
 	private Car _car;
 	public Car Car { get { return _car; } }
 
@@ -103,6 +106,11 @@ public class DrivingMode : IGameMode
 
 	public override void StartGameMode()
 	{
+		if (_roadGenerator != null)
+		{
+			_roadGenerator.Initialize();
+		}
+
 		_car = Instantiate(_carTemplate, _spawnTarget.transform.position, Quaternion.identity);
 
 		_car.OnCarMovementChanged += OnCarMovementChanged;

@@ -18,7 +18,7 @@ public class GameManager : Singleton<GameManager>
 	{
 		{ GameMode.Boot, 			"Boot" },
 		{ GameMode.TitleScreen, 	"Start" },
-		{ GameMode.DrivingMode, 	"AmosTesting" },
+		{ GameMode.DrivingMode, 	"EndlessDriving" },
 		{ GameMode.GameOver, 		"GameOver" },
 	};
 
