@@ -52,6 +52,7 @@ public class DrivingMode : IGameMode
 
 	public void FinishDrivingMode(bool victory)
 	{
+		DuringRepairMode = false;
 		Car.FreezeCar(true);
 		_finishGameUI.Play(victory, OnGameFinished);
 	}
@@ -119,7 +120,7 @@ public class DrivingMode : IGameMode
 
 	public override void StopGameMode()
 	{
-		SceneManager.UnloadSceneAsync("AmosTesting");
+		SceneManager.UnloadSceneAsync("EndlessDriving");
 	}
 
 	public void ToggleRepairMode()

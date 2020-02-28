@@ -28,6 +28,9 @@ public class Car : MonoBehaviour
 	private float _tortoiseStuckDelay = 3f;
 
 	[SerializeField]
+	private float _immobilizedDelay = 2f;
+
+	[SerializeField]
 	private List<WheelStructure> _wheels = new List<WheelStructure>();
 	public List<WheelStructure> Wheels { get { return _wheels; } }
 
@@ -43,6 +46,7 @@ public class Car : MonoBehaviour
 	private bool _ongoingRepairMode = false;
 	private Rigidbody2D _carRigidbody = null;
 	private bool _rigidbodyWasSleeping = false;
+	private float _immobilizedTimer = 0f;
 	private float _turtleStuckTimer = 0f;
 	private bool _carStucked = false;
 
@@ -186,20 +190,6 @@ public class Car : MonoBehaviour
 		_movement = - rawMovement * _speed;
 	}
 
-	// private void ApplyTorque(float torque)
-	// {
-	// 	if (_ongoingRepairMode == false)
-	// 	{
-	// 		for (int i = 0; i < _wheels.Count; i++)
-	// 		{
-	// 			if (_wheels[i].Wheel != null && !_wheels[i].Wheel.IsBroken)
-	// 			{
-	// 				_wheels[i].Wheel.GetComponent<Rigidbody2D>().AddTorque(torque, ForceMode2D.Force);
-	// 			}
-	// 		}
-	// 	}
-	// }
-
 	public void SetRepairMode(bool enable)
 	{
 		_ongoingRepairMode = enable;
@@ -220,9 +210,10 @@ public class Car : MonoBehaviour
 	{
 		if (_carRigidbody != null)
 		{
-			if (_carRigidbody.IsSleeping() != _rigidbodyWasSleeping)
+			bool vehicleImmobilized = IsVehicleImmobilized();
+			if (vehicleImmobilized != _rigidbodyWasSleeping)
 			{
-				_rigidbodyWasSleeping = _carRigidbody.IsSleeping();
+				_rigidbodyWasSleeping = vehicleImmobilized;
 
 				if (_onCarMovementChanged != null)
 				{
@@ -237,6 +228,17 @@ public class Car : MonoBehaviour
 		}
 	}
 
+	private bool IsVehicleImmobilized()
+	{
+		_immobilizedTimer += Time.deltaTime;
+		if (Vector2.Distance(_carRigidbody.velocity, Vector2.zero) > 0.1)
+		{
+			_immobilizedTimer = 0f;
+		}
+
+		return _immobilizedTimer > _immobilizedDelay;
+	}
+
 	private void CheckForTurtleStuck()
 	{
 		// If all wheels are airborne for more than the corresponding timer we're stuck
@@ -244,11 +246,9 @@ public class Car : MonoBehaviour
 		bool allWheelsAirborne = true;
 		for (int i = 0; i < _wheels.Count; i++)
 		{
-			if (_wheels[i].Wheel != null)
-			{
-				RaycastHit2D hit = Physics2D.Raycast(_wheels[i].Wheel.transform.parent.position, -_wheels[i].Wheel.transform.parent.up, 1.5f, LayerMask.GetMask("Road"));
-				allWheelsAirborne &= hit.collider == null;
-			}
+			Vector3 wheelPosition = transform.position + new Vector3(_wheels[i].Joint.anchor.x, _wheels[i].Joint.anchor.y, 0);
+			RaycastHit2D hit = Physics2D.Raycast(wheelPosition, -transform.up, 1.5f, LayerMask.GetMask("Road"));
+			allWheelsAirborne &= hit.collider == null;
 		}
 
 		_turtleStuckTimer += Time.deltaTime;
