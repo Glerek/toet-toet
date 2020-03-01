@@ -11,6 +11,9 @@ public class DrivingUI : MonoBehaviour
 	[SerializeField]
 	private GameObject _bestScoreStamp = null;
 
+	[SerializeField]
+	private GameObject _pickupTooltip = null;
+
 	private DrivingMode _drivingMode = null;
 	private int _bestScore = 0;
 
@@ -30,6 +33,8 @@ public class DrivingUI : MonoBehaviour
 			_score.text = "SCORE " + ((int)Mathf.Floor(score / 100)).ToString("00") + ":" + (score % 100).ToString("00");
 
 			_bestScoreStamp.SetActive(score > _bestScore);
+
+			_pickupTooltip.SetActive(SpawnManager.Instance.AreNearbyObjects);
 		}
 	}
 }

@@ -22,6 +22,7 @@ public class SpawnManager : Singleton<SpawnManager>
     public List<PickableObject> SpawnedObjects { get { return _spawnedObjects; } }
 
     private List<PickableObject> _nearbyObjects = new List<PickableObject>();
+	public bool AreNearbyObjects { get { return _nearbyObjects.Count > 0; } }
 
     private void Start()
     {
