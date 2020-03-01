@@ -18,7 +18,7 @@ public class GameManager : Singleton<GameManager>
 	{
 		{ GameMode.Boot, 			"Boot" },
 		{ GameMode.TitleScreen, 	"Start" },
-		{ GameMode.DrivingMode, 	"AmosTesting" },
+		{ GameMode.DrivingMode, 	"EndlessDriving" },
 		{ GameMode.GameOver, 		"GameOver" },
 	};
 
@@ -65,14 +65,14 @@ public class GameManager : Singleton<GameManager>
 		gameMode.StopGameMode();
 	}
 
-	public AsyncOperation StartGameMode(GameMode gameMode)
+	public AsyncOperation StartGameMode(GameMode gameMode, object data = null)
 	{
 		if (SceneByGameMode.ContainsKey(gameMode))
 		{
 			AsyncOperation loadOperation = SceneManager.LoadSceneAsync(SceneByGameMode[gameMode], LoadSceneMode.Additive);
 
 			loadOperation.completed += (AsyncOperation operation) => {
-				StartGameMode(_registeredGameModes.Find(item => item.GameMode == gameMode));
+				StartGameMode(_registeredGameModes.Find(item => item.GameMode == gameMode), data);
 			};
 
 			return loadOperation;
@@ -81,14 +81,14 @@ public class GameManager : Singleton<GameManager>
 		throw new System.Exception("Can't find related Scene name for " + gameMode.ToString());
 	}
 
-	private void StartGameMode(IGameMode gameMode)
+	private void StartGameMode(IGameMode gameMode, object data = null)
 	{
 		if (_currentGameMode != null)
 		{
 			_currentGameMode.StopGameMode();
 		}
 
-		gameMode.StartGameMode();
+		gameMode.StartGameMode(data);
 		_currentGameMode = gameMode;
 
 	 	_onGameModeStarted?.Invoke(gameMode);

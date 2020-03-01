@@ -1570,7 +1570,7 @@ GameObject:
   - component: {fileID: 2941538096940084112}
   - component: {fileID: 7579021339577218582}
   - component: {fileID: 2384709871069714718}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: EndConnector
   m_TagString: Untagged
   m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}

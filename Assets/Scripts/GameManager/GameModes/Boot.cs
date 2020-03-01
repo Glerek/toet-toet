@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Boot : IGameMode
 {
-	public override void StartGameMode()
+	public override void StartGameMode(object data)
 	{
         GameManager.Instance.StartGameMode(GameManager.GameMode.TitleScreen);
 	}

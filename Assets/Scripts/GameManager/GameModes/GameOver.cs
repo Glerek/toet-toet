@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
 public class GameOver : IGameMode
 {
@@ -30,15 +31,26 @@ public class GameOver : IGameMode
 	[SerializeField]
 	private RawImage _renderTexture = null;
 
+	[SerializeField]
+	private TextMeshProUGUI _currentScore = null;
+
+	[SerializeField]
+	private TextMeshProUGUI _bestScore = null;
+
 	private bool _duringRewind = false;
 
-	public override void StartGameMode()
+	public override void StartGameMode(object data)
 	{
 		_rewindImage.SetActive(false);
 		_rewindText.SetActive(true);
 
 		_vhsPlayEffect.enabled = true;
 		_vhsRewindEffect.enabled = false;
+
+		string currentScore = ((int)data).ToString();
+
+		_currentScore.text = currentScore;
+		_bestScore.text = PlayerPrefs.GetInt("BEST_SCORE", (int)data).ToString();
 	}
 
 	public override void StopGameMode()

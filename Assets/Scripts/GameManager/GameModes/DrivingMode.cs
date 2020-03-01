@@ -16,6 +16,18 @@ public class DrivingMode : IGameMode
 	[SerializeField]
 	private GameFinishUI _finishGameUI = null;
 
+	[SerializeField]
+	private RoadGenerator _roadGenerator = null;
+
+	private float _maxCarXPosition = float.NegativeInfinity;
+	public int Score
+	{
+		get
+		{
+			return (int)(_maxCarXPosition - _spawnTarget.transform.position.x);
+		}
+	}
+
 	private Car _car;
 	public Car Car { get { return _car; } }
 
@@ -44,11 +56,18 @@ public class DrivingMode : IGameMode
 	private void OnGameFinished()
 	{
 		GameObject.Destroy(_car.gameObject);
-		GameManager.Instance.StartGameMode(GameManager.GameMode.GameOver);
+		GameManager.Instance.StartGameMode(GameManager.GameMode.GameOver, Score as object);
 	}
 
 	public void FinishDrivingMode(bool victory)
 	{
+		int bestScore = PlayerPrefs.GetInt("BEST_SCORE", 0);
+		if (Score > bestScore)
+		{
+			PlayerPrefs.SetInt("BEST_SCORE", Score);
+		}
+
+		DuringRepairMode = false;
 		Car.FreezeCar(true);
 		_finishGameUI.Play(victory, OnGameFinished);
 	}
@@ -101,8 +120,13 @@ public class DrivingMode : IGameMode
 		return result;
 	}
 
-	public override void StartGameMode()
+	public override void StartGameMode(object data)
 	{
+		if (_roadGenerator != null)
+		{
+			_roadGenerator.Initialize();
+		}
+
 		_car = Instantiate(_carTemplate, _spawnTarget.transform.position, Quaternion.identity);
 
 		_car.OnCarMovementChanged += OnCarMovementChanged;
@@ -111,11 +135,19 @@ public class DrivingMode : IGameMode
 
 	public override void StopGameMode()
 	{
-		SceneManager.UnloadSceneAsync("AmosTesting");
+		SceneManager.UnloadSceneAsync("EndlessDriving");
 	}
 
 	public void ToggleRepairMode()
 	{
 		DuringRepairMode = !DuringRepairMode;
+	}
+
+	private void Update()
+	{
+		if (_car != null && _car.transform.position.x > _maxCarXPosition)
+		{
+			_maxCarXPosition = _car.transform.position.x;
+		}
 	}
 }

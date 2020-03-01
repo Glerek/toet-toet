@@ -25,7 +25,7 @@ public class TitleScreen : IGameMode
 
 	private bool _duringLoad = false;
 
-	public override void StartGameMode()
+	public override void StartGameMode(object data)
 	{
 		_playText.SetActive(true);
 		_playImage.SetActive(false);

@@ -14,7 +14,7 @@ public class RoadGenerator : Singleton<RoadGenerator>
 
 	private int NumberOfBlocksBySide { get { return (int)Mathf.Ceil((_parameters.DisplayedAmountOfBlocks - 1f) / 2f); }}
 
-	private void Awake()
+	public void Initialize()
 	{
 		OnEndOfBlockCrossed(_initialBlock);
 	}
