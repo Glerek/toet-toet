@@ -19,6 +19,6 @@ public abstract class IGameMode : MonoBehaviour
 		}
 	}
 
-	public abstract void StartGameMode();
+	public abstract void StartGameMode(object data);
 	public abstract void StopGameMode();
 }
